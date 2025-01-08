@@ -53,6 +53,7 @@ namespace NeoCortexApi
                     (SparseObjectMatrix<Column>)this.connections.Memory;
 
             this.connections.Memory = matrix;
+            
 
             int numColumns = matrix.GetMaxIndex() + 1;
             this.connections.HtmConfig.NumColumns = numColumns;
