@@ -39,6 +39,9 @@ namespace NeoCortexApi
         /// they are not used by the <see cref="SpatialPooler"/>.
         /// </summary>
         /// <param name="conn"><see cref="Connections"/> object</param>
+        
+        
+        ///Single Thread Method
         public void Init(Connections conn)
         {
             this.connections = conn;
