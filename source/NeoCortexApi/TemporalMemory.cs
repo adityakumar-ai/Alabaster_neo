@@ -42,6 +42,7 @@ namespace NeoCortexApi
         
         
         ///Single Thread Method
+        // New project
         public void Init(Connections conn)
         {
             this.connections = conn;
