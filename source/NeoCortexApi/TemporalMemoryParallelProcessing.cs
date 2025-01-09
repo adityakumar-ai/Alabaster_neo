@@ -89,6 +89,15 @@ namespace NeoCortexApi
                     // This is the only initialization place for cells.
                     this.connections.Cells = cells; 
                     
+                    /// <summary>
+  
+                    // Populating the Global Cell Array(Maps cells from cloumn to 1D array cells)
+                    //Loop updateseach cell's state and its configuration 
+                    
+                    /// </summary>
+                    
+                    // Parallelize the inner loop to handle cells
+
                     Parallel.For(0, numColumns, i =>
                     {
                         Column column = colZero == null ?
@@ -96,18 +105,20 @@ namespace NeoCortexApi
 
                         for (int j = 0; j < cellsPerColumn; j++)
                         {
+                            // Assign cells from column to the global cells array
                             cells[i * cellsPerColumn + j] = column.Cells[j];
 
+                            // Additional processing for each cell
                             var cell = column.Cells[j];
                             cell.UpdateState(); // Example method to update state
                             cell.SetThreshold(this.connections.HtmConfig.DefaultThreshold); // Example threshold setting
                         }
-
+                        // If columns have not been previously configured
                         if (colZero == null)
                             matrix.set(i, column);
                     });
-
-                       this.connections.Cells = cells;
+                       // Final initialization for cells
+                        this.connections.Cells = cells;
 
 
             
