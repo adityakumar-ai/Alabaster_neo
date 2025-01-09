@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace NeoCortexApi
 {
@@ -46,42 +47,47 @@ namespace NeoCortexApi
         /// <returns>A <see cref="Task"/> representing the asynchronous operation, ensuring non-blocking execution and improved performance.</returns>
 
 
-        public void InitAsync(Connections conn)
+            public void InitAsync(Connections conn)
             {
-                this.connections = conn;
+                    this.connections = conn;
+            
+                    SparseObjectMatrix<Column> matrix = this.connections.Memory == null ?
+                        new SparseObjectMatrix<Column>(this.connections.HtmConfig.ColumnDimensions) :
+                            (SparseObjectMatrix<Column>)this.connections.Memory;
+            
+                    this.connections.Memory = matrix;
+            
+            
+                    int numColumns = matrix.GetMaxIndex() + 1;
+                    this.connections.HtmConfig.NumColumns = numColumns;
+                    int cellsPerColumn = this.connections.HtmConfig.CellsPerColumn;
+                    Cell[] cells = new Cell[numColumns * cellsPerColumn];
+            
+                    //Used as flag to determine if Column objects have been created.
+                    Column colZero = matrix.GetObject(0);
 
-                SparseObjectMatrix<Column> matrix = this.connections.Memory == null ?
-                    new SparseObjectMatrix<Column>(this.connections.HtmConfig.ColumnDimensions) :
-                        (SparseObjectMatrix<Column>)this.connections.Memory;
-
-                this.connections.Memory = matrix;
-
-
-                int numColumns = matrix.GetMaxIndex() + 1;
-                this.connections.HtmConfig.NumColumns = numColumns;
-                int cellsPerColumn = this.connections.HtmConfig.CellsPerColumn;
-                Cell[] cells = new Cell[numColumns * cellsPerColumn];
-
-                //Used as flag to determine if Column objects have been created.
-                Column colZero = matrix.GetObject(0);
-                for (int i = 0; i < numColumns; i++)
-                {
-                    Column column = colZero == null ?
-                        new Column(cellsPerColumn, i, this.connections.HtmConfig.SynPermConnected, this.connections.HtmConfig.NumInputs) : matrix.GetObject(i);
-
-                    for (int j = 0; j < cellsPerColumn; j++)
+                    /// <summary>
+                    /// Initializes columns and cells in parallel to optimize performance, leveraging multiple CPU cores.
+                    /// If columns are not initialized, they are added to the matrix.
+                    /// </summary>
+                    // Parallelize the outer loop to handle columns
+                    Parallel.For(0, numColumns, i =>
                     {
-                        cells[i * cellsPerColumn + j] = column.Cells[j];
-                    }
-                    //If columns have not been previously configured
-                    if (colZero == null)
-                        matrix.set(i, column);
-
-                }
-
-                //
-                // This is the only initialization place for cells.
-                this.connections.Cells = cells;
+                            Column column = colZero == null ?
+                                new Column(cellsPerColumn, i, this.connections.HtmConfig.SynPermConnected, this.connections.HtmConfig.NumInputs) : matrix.GetObject(i);
+                        
+                            for (int j = 0; j < cellsPerColumn; j++)
+                            {
+                                cells[i * cellsPerColumn + j] = column.Cells[j];
+                            }
+                        
+                            // If columns have not been previously configured
+                            if (colZero == null)
+                                matrix.set(i, column);
+                    });
+            
+                    // This is the only initialization place for cells.
+                    this.connections.Cells = cells;
             }
 
             // Used fro performance testing.
