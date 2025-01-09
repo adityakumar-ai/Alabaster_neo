@@ -87,7 +87,30 @@ namespace NeoCortexApi
                     });
             
                     // This is the only initialization place for cells.
-                    this.connections.Cells = cells;
+                    this.connections.Cells = cells; 
+                    
+                    Parallel.For(0, numColumns, i =>
+                    {
+                        Column column = colZero == null ?
+                            new Column(cellsPerColumn, i, this.connections.HtmConfig.SynPermConnected, this.connections.HtmConfig.NumInputs) : matrix.GetObject(i);
+
+                        for (int j = 0; j < cellsPerColumn; j++)
+                        {
+                            cells[i * cellsPerColumn + j] = column.Cells[j];
+
+                            var cell = column.Cells[j];
+                            cell.UpdateState(); // Example method to update state
+                            cell.SetThreshold(this.connections.HtmConfig.DefaultThreshold); // Example threshold setting
+                        }
+
+                        if (colZero == null)
+                            matrix.set(i, column);
+                    });
+
+                       this.connections.Cells = cells;
+
+
+            
             }
 
             // Used fro performance testing.
