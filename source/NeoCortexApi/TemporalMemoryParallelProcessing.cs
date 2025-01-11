@@ -68,26 +68,37 @@ namespace NeoCortexApi
 
                     /// <summary>
                     /// Initializes columns and cells in parallel to optimize performance, leveraging multiple CPU cores.
+                    /// // Parallelize the outer loop to handle columns
                     /// If columns are not initialized, they are added to the matrix.
                     /// </summary>
-                    // Parallelize the outer loop to handle columns
+
                     Parallel.For(0, numColumns, i =>
                     {
-                            Column column = colZero == null ?
-                                new Column(cellsPerColumn, i, this.connections.HtmConfig.SynPermConnected, this.connections.HtmConfig.NumInputs) : matrix.GetObject(i);
-                        
-                            for (int j = 0; j < cellsPerColumn; j++)
-                            {
-                                cells[i * cellsPerColumn + j] = column.Cells[j];
-                            }
-                        
-                            // If columns have not been previously configured
-                            if (colZero == null)
-                                matrix.set(i, column);
+                        Column column = colZero == null ?
+                            new Column(cellsPerColumn, i, this.connections.HtmConfig.SynPermConnected, this.connections.HtmConfig.NumInputs) : matrix.GetObject(i);
+                        /// <summary>
+                        /// Uses a parallel loop to efficiently initialize the cells for the current column.
+                        /// Each cell within the column is assigned its corresponding value from the column's cell collection.
+                        /// The parallelization improves performance by distributing the workload across multiple threads.
+                        /// </summary>
+
+                        Parallel.For(0, cellsPerColumn, j =>
+                        {
+                            cells[i * cellsPerColumn + j] = column.Cells[j];
+                        });
+                     
+                      
+                        // If columns have not been previously configured
+                        if (colZero == null)
+                            matrix.set(i, column);
                     });
             
                     // This is the only initialization place for cells.
                     this.connections.Cells = cells; 
+
+
+
+                    /// Aditya C
                     
                     /// <summary>
   
@@ -98,27 +109,27 @@ namespace NeoCortexApi
                     
                     // Parallelize the inner loop to handle cells
 
-                    Parallel.For(0, numColumns, i =>
-                    {
-                        Column column = colZero == null ?
-                            new Column(cellsPerColumn, i, this.connections.HtmConfig.SynPermConnected, this.connections.HtmConfig.NumInputs) : matrix.GetObject(i);
+                    //Parallel.For(0, numColumns, i =>
+                    //{
+                    //    Column column = colZero == null ?
+                    //        new Column(cellsPerColumn, i, this.connections.HtmConfig.SynPermConnected, this.connections.HtmConfig.NumInputs) : matrix.GetObject(i);
 
-                        for (int j = 0; j < cellsPerColumn; j++)
-                        {
-                            // Assign cells from column to the global cells array
-                            cells[i * cellsPerColumn + j] = column.Cells[j];
+                    //    for (int j = 0; j < cellsPerColumn; j++)
+                    //    {
+                    //        // Assign cells from column to the global cells array
+                    //        cells[i * cellsPerColumn + j] = column.Cells[j];
 
-                            // Additional processing for each cell
-                            var cell = column.Cells[j];
-                            cell.UpdateState(); // Example method to update state
-                            cell.SetThreshold(this.connections.HtmConfig.DefaultThreshold); // Example threshold setting
-                        }
-                        // If columns have not been previously configured
-                        if (colZero == null)
-                            matrix.set(i, column);
-                    });
-                       // Final initialization for cells
-                        this.connections.Cells = cells;
+                    //        // Additional processing for each cell
+                    //        var cell = column.Cells[j];
+                    //        cell.UpdateState(); // Example method to update state
+                    //        cell.SetThreshold(this.connections.HtmConfig.DefaultThreshold); // Example threshold setting
+                    //    }
+                    //    // If columns have not been previously configured
+                    //    if (colZero == null)
+                    //        matrix.set(i, column);
+                    //});
+                    //   // Final initialization for cells
+                    //    this.connections.Cells = cells;
 
 
             
