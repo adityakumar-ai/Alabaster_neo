@@ -27,4 +27,15 @@ Additionally, the project involves comparing and analyzing the performance of bo
 
 
 
+## Technical Details
+
+### Key Changes
+1. **Replacing Sequential Loops**: Traditional `for` loops were replaced with `Parallel.For` to enable multithreaded execution.
+2. **Async Methods**: Time-intensive operations were refactored to use asynchronous methods for better task concurrency.
+3. **Concurrency Management**: Added locking mechanisms where necessary to ensure thread safety and avoid race conditions.
+
+
+
+
+
 
