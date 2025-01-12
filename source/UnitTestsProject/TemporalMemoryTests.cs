@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
+using System.Threading.Tasks;
 namespace UnitTestsProject
 {
     [TestClass]
@@ -122,9 +123,10 @@ namespace UnitTestsProject
         {
             // Initialization
             TemporalMemory tm = new TemporalMemory();
+            TemporalMemoryParallelProcessing tmParallel = new TemporalMemoryParallelProcessing();
             Connections cn = new Connections();
             Parameters p = Parameters.getAllDefaultParameters();
-            TemporalMemoryParallelProcessing tmParallel = new TemporalMemoryParallelProcessing();
+            
             p.apply(cn);
             tm.Init(cn);
             //Initializes the parallel version of the Temporal Memory
@@ -165,10 +167,13 @@ namespace UnitTestsProject
         {
             // Create instances of TemporalMemory, Connections, and Parameters objects.
             TemporalMemory tm = new TemporalMemory();
+            TemporalMemoryParallelProcessing tmParallel = new TemporalMemoryParallelProcessing();
             Connections cn = new Connections();
             Parameters p = GetDefaultParameters(null, KEY.PERMANENCE_DECREMENT, 0.08); // Uses Permanence decrement parameter 
             p.apply(cn);
             tm.Init(cn);
+            //Calling Async method from TemporalMemoryParallelProcessing class
+            tmParallel.InitAsync(cn);
 
             // Define previous and current active columns and cells.
             int[] previousActiveColumns = { 0 };
@@ -205,12 +210,15 @@ namespace UnitTestsProject
         {
             // Arrange
             TemporalMemory tm = new TemporalMemory();
+            TemporalMemoryParallelProcessing tmParallel = new TemporalMemoryParallelProcessing();
             Connections cn = new Connections();
             Parameters p = Parameters.getAllDefaultParameters();
             p.Set(KEY.COLUMN_DIMENSIONS, new int[] { 64, 64 });
             p.Set(KEY.CELLS_PER_COLUMN, 16); // Set a custom number of cells per column
             p.apply(cn);
             tm.Init(cn);
+            //Calling Async method from TemporalMemoryParallelProcessing class
+            tmParallel.InitAsync(cn);
 
             // Act
             int totalCellCount = 0;
