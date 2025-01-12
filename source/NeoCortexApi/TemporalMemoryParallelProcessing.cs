@@ -1,4 +1,4 @@
-﻿using NeoCortexApi.DataMappers;
+﻿//using NeoCortexApi.DataMappers;
 using NeoCortexApi.Entities;
 using NeoCortexApi.Utility;
 using System;
@@ -48,108 +48,54 @@ namespace NeoCortexApi
         /// <returns>A <see cref="Task"/> representing the asynchronous operation, ensuring non-blocking execution and improved performance.</returns>
 
 
-            public void InitAsync(Connections conn)
-            {
-                    this.connections = conn;
-            
-                    SparseObjectMatrix<Column> matrix = this.connections.Memory == null ?
-                        new SparseObjectMatrix<Column>(this.connections.HtmConfig.ColumnDimensions) :
-                            (SparseObjectMatrix<Column>)this.connections.Memory;
-            
-                    this.connections.Memory = matrix;
-            
-            
-                    int numColumns = matrix.GetMaxIndex() + 1;
-                    this.connections.HtmConfig.NumColumns = numColumns;
-                    int cellsPerColumn = this.connections.HtmConfig.CellsPerColumn;
-                    Cell[] cells = new Cell[numColumns * cellsPerColumn];
-            
-                    //Used as flag to determine if Column objects have been created.
-                    Column colZero = matrix.GetObject(0);
+        public void InitAsync(Connections conn)
+        {
+                 this.connections = conn;
+         
+                 SparseObjectMatrix<Column> matrix = this.connections.Memory == null ?
+                     new SparseObjectMatrix<Column>(this.connections.HtmConfig.ColumnDimensions) :
+                         (SparseObjectMatrix<Column>)this.connections.Memory;
+         
+                 this.connections.Memory = matrix;
+         
+          
+                  int numColumns = matrix.GetMaxIndex() + 1;
+                  this.connections.HtmConfig.NumColumns = numColumns;
+                  int cellsPerColumn = this.connections.HtmConfig.CellsPerColumn;
+                  Cell[] cells = new Cell[numColumns * cellsPerColumn];
+          
+                  //Used as flag to determine if Column objects have been created.
+                  Column colZero = matrix.GetObject(0);
 
-                    /// <summary>
-                    /// Initializes columns and cells in parallel to optimize performance, leveraging multiple CPU cores.
-                    /// // Parallelize the outer loop to handle columns
-                    /// If columns are not initialized, they are added to the matrix.
-                    /// </summary>
+                  /// <summary>
+                  /// Initializes columns and cells in parallel to optimize performance, leveraging multiple CPU cores.
+                  /// // Parallelize the outer loop to handle columns
+                  /// If columns are not initialized, they are added to the matrix.
+                  /// </summary>
 
-                    Parallel.For(0, numColumns, i =>
-                    {
-                        Column column = colZero == null ?
-                            new Column(cellsPerColumn, i, this.connections.HtmConfig.SynPermConnected, this.connections.HtmConfig.NumInputs) : matrix.GetObject(i);
-                        /// <summary>
-                        /// Uses a parallel loop to efficiently initialize the cells for the current column.
-                        /// Each cell within the column is assigned its corresponding value from the column's cell collection.
-                        /// The parallelization improves performance by distributing the workload across multiple threads.
-                        /// </summary>
+                  Parallel.For(0, numColumns, i =>
+                  {
+                      Column column = colZero == null ?
+                          new Column(cellsPerColumn, i, this.connections.HtmConfig.SynPermConnected, this.connections.HtmConfig.NumInputs) : matrix.GetObject(i);
+                      /// <summary>
+                      /// Uses a parallel loop to efficiently initialize the cells for the current column.
+                      /// Each cell within the column is assigned its corresponding value from the column's cell collection.
+                      /// The parallelization improves performance by distributing the workload across multiple threads.
+                      /// </summary>
 
-                        Parallel.For(0, cellsPerColumn, j =>
-                        {
-                            cells[i * cellsPerColumn + j] = column.Cells[j];
-                        });
-                     
-                      
-                        // If columns have not been previously configured
-                        if (colZero == null)
-                            matrix.set(i, column);
-                    });
-            
-                    // This is the only initialization place for cells.
-                    this.connections.Cells = cells;
-
-
-
-            /// Aditya C
-
-            /// <summary>
-
-            // Populating the Global Cell Array(Maps cells from cloumn to 1D array cells)
-            //Loop updateseach cell's state and its configuration 
-
-            /// </summary>
-
-            // Parallelize the inner loop to handle cells
-
-            //Parallel.For(0, numColumns, i =>
-            //{
-            //    Column column = colZero == null ?
-            //        new Column(cellsPerColumn, i, this.connections.HtmConfig.SynPermConnected, this.connections.HtmConfig.NumInputs) : matrix.GetObject(i);
-
-            //    for (int j = 0; j < cellsPerColumn; j++)
-            //    {
-            //        // Assign cells from column to the global cells array
-            //        cells[i * cellsPerColumn + j] = column.Cells[j];
-
-            //        // Additional processing for each cell
-            //        var cell = column.Cells[j];
-            //        cell.UpdateState(); // Example method to update state
-            //        cell.SetThreshold(this.connections.HtmConfig.DefaultThreshold); // Example threshold setting
-            //    }
-            //    // If columns have not been previously configured
-            //    if (colZero == null)
-            //        matrix.set(i, column);
-            //});
-            //   // Final initialization for cells
-            //    this.connections.Cells = cells;
-            
-                        
-            
-            
-            
-           /// <summary>
-            /// Uses a parallel loop to efficiently initialize the cells for the current column.
-            /// Each cell within the column is assigned its corresponding value from the column's cell collection.
-            /// The parallelization improves performance by distributing the workload across multiple threads.
-            /// </summary>
-            Parallel.For(0, cellsPerColumn, j =>
-            {
-                // Compute the global index of the cell in the 1D array
-                int globalIndex = i * cellsPerColumn + j;
-
-                // Assign the cell from the column's cell collection to the global array
-                cells[globalIndex] = column.Cells[j];
-            });
-
+                      Parallel.For(0, cellsPerColumn, j =>
+                      {
+                          cells[i * cellsPerColumn + j] = column.Cells[j];
+                      });
+                   
+                    
+                      // If columns have not been previously configured
+                      if (colZero == null)
+                          matrix.set(i, column);
+                  });
+          
+                  // This is the only initialization place for cells.
+                  this.connections.Cells = cells;
 
 
 
