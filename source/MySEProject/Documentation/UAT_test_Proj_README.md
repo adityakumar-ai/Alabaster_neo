@@ -27,6 +27,9 @@ Additionally, the project involves comparing and analyzing the performance of bo
 
 
 
+Temporal Memory (TM) is an essential component of Hierarchical Temporal Memory (HTM), a theoretical framework inspired by the structure and functionality of the human neocortex. Parallel processing in TM aims to enhance its computational efficiency and scalability, particularly for large-scale implementations.
+
+
 ## Technical Details
 
 ### Key Changes
@@ -36,6 +39,13 @@ Additionally, the project involves comparing and analyzing the performance of bo
 
 
 
+
+## References
+
+https://www.researchgate.net/publication/384490210_Parallel_Processing_of_Temporal_Anti-Joins_in_Memory
+
+Introduction to Parallel Computing
+https://hpc.llnl.gov/documentation/tutorials/introduction-parallel-computing-tutorial
 
 
 
