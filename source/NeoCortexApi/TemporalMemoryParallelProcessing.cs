@@ -1,4 +1,5 @@
-﻿using NeoCortexApi.Entities;
+﻿using NeoCortexApi.DataMappers;
+using NeoCortexApi.Entities;
 using NeoCortexApi.Utility;
 using System;
 using System.Collections.Generic;
@@ -94,63 +95,82 @@ namespace NeoCortexApi
                     });
             
                     // This is the only initialization place for cells.
-                    this.connections.Cells = cells; 
+                    this.connections.Cells = cells;
 
 
 
-                    /// Aditya C
-                    
-                    /// <summary>
-  
-                    // Populating the Global Cell Array(Maps cells from cloumn to 1D array cells)
-                    //Loop updateseach cell's state and its configuration 
-                    
-                    /// </summary>
-                    
-                    // Parallelize the inner loop to handle cells
-
-                    //Parallel.For(0, numColumns, i =>
-                    //{
-                    //    Column column = colZero == null ?
-                    //        new Column(cellsPerColumn, i, this.connections.HtmConfig.SynPermConnected, this.connections.HtmConfig.NumInputs) : matrix.GetObject(i);
-
-                    //    for (int j = 0; j < cellsPerColumn; j++)
-                    //    {
-                    //        // Assign cells from column to the global cells array
-                    //        cells[i * cellsPerColumn + j] = column.Cells[j];
-
-                    //        // Additional processing for each cell
-                    //        var cell = column.Cells[j];
-                    //        cell.UpdateState(); // Example method to update state
-                    //        cell.SetThreshold(this.connections.HtmConfig.DefaultThreshold); // Example threshold setting
-                    //    }
-                    //    // If columns have not been previously configured
-                    //    if (colZero == null)
-                    //        matrix.set(i, column);
-                    //});
-                    //   // Final initialization for cells
-                    //    this.connections.Cells = cells;
-
-
-            
-            }
-
-            // Used fro performance testing.
-            //StreamWriter tmperf1 = new StreamWriter("tm-perf-300000-25cells.p.csv");
+            /// Aditya C
 
             /// <summary>
-            /// Performs the whole calculation of Temporal memory algorithm.
-            /// Calculation takes two parts:
-            /// <list type="number">
-            /// <item>Calculation of the cells, which become active in the current cycle.</item>
-            /// <item>Calculation of dendrite segments which becom active in the current cycle.</item>
-            /// </list>
+
+            // Populating the Global Cell Array(Maps cells from cloumn to 1D array cells)
+            //Loop updateseach cell's state and its configuration 
+
             /// </summary>
-            /// <param name="activeColumns"></param>
-            /// <param name="learn"></param>
-            /// <returns></returns>
-            /// <remarks>Note: PredictiveCells are not calculated here. They are calculated on demand from active segments.</remarks>
-            public ComputeCycle Compute(int[] activeColumns, bool learn)
+
+            // Parallelize the inner loop to handle cells
+
+            //Parallel.For(0, numColumns, i =>
+            //{
+            //    Column column = colZero == null ?
+            //        new Column(cellsPerColumn, i, this.connections.HtmConfig.SynPermConnected, this.connections.HtmConfig.NumInputs) : matrix.GetObject(i);
+
+            //    for (int j = 0; j < cellsPerColumn; j++)
+            //    {
+            //        // Assign cells from column to the global cells array
+            //        cells[i * cellsPerColumn + j] = column.Cells[j];
+
+            //        // Additional processing for each cell
+            //        var cell = column.Cells[j];
+            //        cell.UpdateState(); // Example method to update state
+            //        cell.SetThreshold(this.connections.HtmConfig.DefaultThreshold); // Example threshold setting
+            //    }
+            //    // If columns have not been previously configured
+            //    if (colZero == null)
+            //        matrix.set(i, column);
+            //});
+            //   // Final initialization for cells
+            //    this.connections.Cells = cells;
+            
+                        
+            
+            
+            
+           /// <summary>
+            /// Uses a parallel loop to efficiently initialize the cells for the current column.
+            /// Each cell within the column is assigned its corresponding value from the column's cell collection.
+            /// The parallelization improves performance by distributing the workload across multiple threads.
+            /// </summary>
+            Parallel.For(0, cellsPerColumn, j =>
+            {
+                // Compute the global index of the cell in the 1D array
+                int globalIndex = i * cellsPerColumn + j;
+
+                // Assign the cell from the column's cell collection to the global array
+                cells[globalIndex] = column.Cells[j];
+            });
+
+
+
+
+        }
+
+        // Used fro performance testing.
+        //StreamWriter tmperf1 = new StreamWriter("tm-perf-300000-25cells.p.csv");
+
+        /// <summary>
+        /// Performs the whole calculation of Temporal memory algorithm.
+        /// Calculation takes two parts:
+        /// <list type="number">
+        /// <item>Calculation of the cells, which become active in the current cycle.</item>
+        /// <item>Calculation of dendrite segments which becom active in the current cycle.</item>
+        /// </list>
+        /// </summary>
+        /// <param name="activeColumns"></param>
+        /// <param name="learn"></param>
+        /// <returns></returns>
+        /// <remarks>Note: PredictiveCells are not calculated here. They are calculated on demand from active segments.</remarks>
+        public ComputeCycle Compute(int[] activeColumns, bool learn)
             {
                 return Compute(activeColumns, learn, null, null);
             }
