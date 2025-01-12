@@ -127,7 +127,8 @@ namespace UnitTestsProject
             TemporalMemoryParallelProcessing tm2 = new TemporalMemoryParallelProcessing();
             p.apply(cn);
             tm.Init(cn);
-            
+            //Initializes the parallel version of the Temporal Memory
+            tm2.InitAsync(cn);
 
 
             // Define active columns and corresponding active cells
