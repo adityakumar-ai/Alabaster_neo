@@ -124,11 +124,11 @@ namespace UnitTestsProject
             TemporalMemory tm = new TemporalMemory();
             Connections cn = new Connections();
             Parameters p = Parameters.getAllDefaultParameters();
-            TemporalMemoryParallelProcessing tm2 = new TemporalMemoryParallelProcessing();
+            TemporalMemoryParallelProcessing tmParallel = new TemporalMemoryParallelProcessing();
             p.apply(cn);
             tm.Init(cn);
             //Initializes the parallel version of the Temporal Memory
-            tm2.InitAsync(cn);
+            tmParallel.InitAsync(cn);
 
 
             // Define active columns and corresponding active cells
