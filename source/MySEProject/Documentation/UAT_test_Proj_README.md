@@ -39,6 +39,22 @@ Temporal Memory (TM) is an essential component of Hierarchical Temporal Memory (
 
 
 
+## Performance Comparison
+
+We are comparing the performance of the newly modified method with the old method based on execution time.
+
+### Approach:
+- **Old Method**: The execution time of the `Init` method was measured to evaluate its performance.
+- **New Method**: The execution time of the `InitAsync` method in the `TemporalMemoryParallelProcessing` class was measured to compare with the old method.
+
+### Observations:
+- The comparison focuses on the time taken by both methods to complete the same operation.
+- The results provide insights into the performance improvements achieved with the new asynchronous implementation.
+
+### Conclusion:
+This comparison helps determine whether the newly introduced asynchronous method (`InitAsync`) offers better performance and efficiency compared to the old synchronous method (`Init`).
+
+
 
 ## References
 
