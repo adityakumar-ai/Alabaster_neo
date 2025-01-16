@@ -446,6 +446,7 @@ namespace UnitTestsProject
             // Arrange
             TemporalMemory tm = new TemporalMemory();
             Connections cn = new Connections();
+            Stopwatch stopwatch = new Stopwatch();
             Parameters p = GetDefaultParameters(null, KEY.MAX_NEW_SYNAPSE_COUNT, 4);
             p.apply(cn);
             tm.Init(cn);
