@@ -579,12 +579,25 @@ namespace UnitTestsProject
             {
                 // Initialize TemporalMemory and Connections objects
                 TemporalMemory tm = new TemporalMemory();
+                TemporalMemoryParallelProcessing tmParallel = new TemporalMemoryParallelProcessing();
                 Connections cn = new Connections();
+                Stopwatch stopwatch = new Stopwatch();
                 Parameters p = GetDefaultParameters(null, KEY.MAX_NEW_SYNAPSE_COUNT, 4);
                 p = GetDefaultParameters(p, KEY.PREDICTED_SEGMENT_DECREMENT, 0.02);
                 p = GetDefaultParameters(p, KEY.SEED, seed);
                 p.apply(cn);
+
+                stopwatch.Start();
                 tm.Init(cn);
+                stopwatch.Stop();
+                TimeSpan elapsed = stopwatch.Elapsed;
+                Console.WriteLine($"Time taken: {elapsed.TotalMilliseconds} milliseconds");
+
+                stopwatch.Start();
+                tmParallel.InitAsync(cn);
+                stopwatch.Stop();
+                TimeSpan elapsedParallel = stopwatch.Elapsed;
+                Console.WriteLine($"Time taken: {elapsedParallel.TotalMilliseconds} milliseconds for Parallel Processing");
 
                 // Set up previous and current active columns and cells
                 int[] prevActiveColumns = { 1, 2, 3, 4 };
