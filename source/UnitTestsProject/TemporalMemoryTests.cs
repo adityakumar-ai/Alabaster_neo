@@ -657,10 +657,24 @@ namespace UnitTestsProject
         {
             // Arrange
             TemporalMemory tm = new TemporalMemory();
+            TemporalMemoryParallelProcessing tmParallel = new TemporalMemoryParallelProcessing();
             Connections cn = new Connections();
+            Stopwatch stopwatch = new Stopwatch();
             Parameters p = Parameters.getAllDefaultParameters();
             p.apply(cn);
             tm.Init(cn);
+
+            stopwatch.Start();
+            tm.Init(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed.TotalMilliseconds} milliseconds");
+
+            stopwatch.Start();
+            tmParallel.InitAsync(cn);
+            stopwatch.Stop();
+            TimeSpan elapsedParallel = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsedParallel.TotalMilliseconds} milliseconds for Parallel Processing");
 
             // Create a distal dendrite and synapse with the specified initial permanence
             DistalDendrite dd = cn.CreateDistalSegment(cn.GetCell(0));
@@ -696,7 +710,7 @@ namespace UnitTestsProject
         {
             // Arrange
             TemporalMemory tm = new TemporalMemory();
-            Connections cn = new Connections();
+            Connections cn = new Connections();         
             Parameters p = GetDefaultParameters(null, KEY.INITIAL_PERMANENCE, .2);
             p = GetDefaultParameters(p, KEY.MAX_NEW_SYNAPSE_COUNT, 4);
             p = GetDefaultParameters(p, KEY.PREDICTED_SEGMENT_DECREMENT, 0.02);
