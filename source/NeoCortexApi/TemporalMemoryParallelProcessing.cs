@@ -101,6 +101,53 @@ namespace NeoCortexApi
 
         }
 
+
+
+        public async Task InitAsync2(Connections conn)
+        {
+            this.connections = conn;
+
+            SparseObjectMatrix<Column> matrix = this.connections.Memory == null
+                ? new SparseObjectMatrix<Column>(this.connections.HtmConfig.ColumnDimensions)
+                : (SparseObjectMatrix<Column>)this.connections.Memory;
+
+            this.connections.Memory = matrix;
+
+            int numColumns = matrix.GetMaxIndex() + 1;
+            this.connections.HtmConfig.NumColumns = numColumns;
+            int cellsPerColumn = this.connections.HtmConfig.CellsPerColumn;
+            Cell[] cells = new Cell[numColumns * cellsPerColumn];
+
+            Column colZero = matrix.GetObject(0);
+
+            await Task.Run(() =>
+            {
+                Parallel.For(0, numColumns, i =>
+                {
+                    Column column = colZero == null
+                        ? new Column(cellsPerColumn, i, this.connections.HtmConfig.SynPermConnected, this.connections.HtmConfig.NumInputs)
+                        : matrix.GetObject(i);
+
+                    for (int j = 0; j < cellsPerColumn; j++)
+                    {
+                        cells[i * cellsPerColumn + j] = column.Cells[j];
+                    }
+
+                    lock (matrix)
+                    {
+                        if (colZero == null)
+                            matrix.set(i, column);
+                    }
+                });
+            });
+
+            this.connections.Cells = cells;
+        }
+
+
+
+
+
         // Used fro performance testing.
         //StreamWriter tmperf1 = new StreamWriter("tm-perf-300000-25cells.p.csv");
 
