@@ -265,11 +265,18 @@ namespace NeoCortexApi
             // The list of active columns.
             //List<Column> activeColumns = new List<Column>();
 
-            //
+
+            
             ConcurrentBag<Column> activeColumns = new ConcurrentBag<Column>();
+            
+            Parallel.ForEach(activeColumnIndices.OrderBy(i => i), (indx) =>
+            {
+                var column = conn.GetColumn(indx);
+                activeColumns.Add(column);
+            });
 
             // Gets the mini-columns that owns the segment.
-            Func<Object, Column> segToCol = (segment) =>
+            Func <Object, Column> segToCol = (segment) =>
                 {
                     var colIndx = ((DistalDendrite)segment).ParentCell.ParentColumnIndex;
                     var parentCol = this.connections.Memory.GetColumn(colIndx);
