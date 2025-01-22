@@ -266,9 +266,10 @@ namespace NeoCortexApi
             //List<Column> activeColumns = new List<Column>();
 
 
-            
+            // Replaced List<Column> with ConcurrentBag<Column> to ensure thread-safe collection access in parallel processing scenarios.
             ConcurrentBag<Column> activeColumns = new ConcurrentBag<Column>();
-            
+
+            // Parallel processing of indices
             Parallel.ForEach(activeColumnIndices.OrderBy(i => i), (indx) =>
             {
                 var column = conn.GetColumn(indx);
