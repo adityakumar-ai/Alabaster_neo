@@ -2,6 +2,7 @@
 using NeoCortexApi.Entities;
 using NeoCortexApi.Utility;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -261,17 +262,14 @@ namespace NeoCortexApi
                 ISet<Cell> prevActiveCells = conn.ActiveCells;
                 ISet<Cell> prevWinnerCells = conn.WinnerCells;
 
-                // The list of active columns.
-                List<Column> activeColumns = new List<Column>();
+            // The list of active columns.
+            //List<Column> activeColumns = new List<Column>();
 
-                foreach (var indx in activeColumnIndices.OrderBy(i => i))
-                {
-                    activeColumns.Add(conn.GetColumn(indx));
-                }
+            //
+            ConcurrentBag<Column> activeColumns = new ConcurrentBag<Column>();
 
-                //
-                // Gets the mini-columns that owns the segment.
-                Func<Object, Column> segToCol = (segment) =>
+            // Gets the mini-columns that owns the segment.
+            Func<Object, Column> segToCol = (segment) =>
                 {
                     var colIndx = ((DistalDendrite)segment).ParentCell.ParentColumnIndex;
                     var parentCol = this.connections.Memory.GetColumn(colIndx);
