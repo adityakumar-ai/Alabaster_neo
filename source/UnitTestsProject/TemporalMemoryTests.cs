@@ -120,7 +120,7 @@ namespace UnitTestsProject
         /// This unit test verifies the growth of a new segment when multiple matching segments are found during computation in a Temporal Memory.
         /// </summary>
         [TestMethod]
-        public void TestNewSegmentGrowthWhenMultipleMatchingSegmentsFound()
+        public async Task TestNewSegmentGrowthWhenMultipleMatchingSegmentsFound()
         {
             // Initialization
             TemporalMemory tm = new TemporalMemory();
@@ -143,6 +143,12 @@ namespace UnitTestsProject
             TimeSpan elapsedParallel = stopwatch.Elapsed;
             Console.WriteLine($"Time taken: {elapsedParallel.TotalMilliseconds} milliseconds for Parallel Processing");
 
+
+            stopwatch.Start();
+            await tmParallel.InitAsync2(cn);
+            stopwatch.Stop();
+            TimeSpan elapsedParallel2 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsedParallel2.TotalMilliseconds} milliseconds for Parallel new Async Processing");
 
             // Define active columns and corresponding active cells
             int[] activeColumns = { 0 };
