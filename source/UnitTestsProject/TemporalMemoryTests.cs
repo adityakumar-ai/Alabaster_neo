@@ -1056,8 +1056,12 @@ namespace UnitTestsProject
             TemporalMemory tm = new TemporalMemory();
             Parameters p = GetDefaultParameters();
             Connections conn = new Connections();
+            //Stopwatch stopwatch = new Stopwatch();
+
             p.apply(conn);
             tm.Init(conn);
+            
+
 
             Cell c1 = conn.GetCell(1);
             Cell c2 = conn.GetCell(2);
@@ -1512,10 +1516,12 @@ namespace UnitTestsProject
         {
             // Arrange
             TemporalMemory tm = new TemporalMemory();
+            TemporalMemoryParallelProcessing tmParallel = new TemporalMemoryParallelProcessing();
             Connections cn = new Connections();
             Parameters p = Parameters.getAllDefaultParameters();
             p.apply(cn);
             tm.Init(cn);
+            
 
             DistalDendrite dd = cn.CreateDistalSegment(cn.GetCell(0));
             Synapse s1 = cn.CreateSynapse(dd, cn.GetCell(23), initialPermanence);
