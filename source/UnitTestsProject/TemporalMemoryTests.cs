@@ -1515,12 +1515,13 @@ namespace UnitTestsProject
              double expectedPermanence)
         {
             // Arrange
-            TemporalMemory tm = new TemporalMemory();
+            //TemporalMemory tm = new TemporalMemory();
             TemporalMemoryParallelProcessing tmParallel = new TemporalMemoryParallelProcessing();
             Connections cn = new Connections();
             Parameters p = Parameters.getAllDefaultParameters();
             p.apply(cn);
-            tm.Init(cn);
+            //tm.Init(cn);
+            tmParallel.InitAsync(cn);
             
 
             DistalDendrite dd = cn.CreateDistalSegment(cn.GetCell(0));
