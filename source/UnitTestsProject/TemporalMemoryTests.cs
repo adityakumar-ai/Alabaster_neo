@@ -180,7 +180,7 @@ namespace UnitTestsProject
         /// Tests the update of synapse permanence when matching segments are found.
         /// </summary>
         [TestMethod]
-        public void TestSynapsePermanenceUpdateWhenMatchingSegmentsFound()
+        public async Task TestSynapsePermanenceUpdateWhenMatchingSegmentsFound()
         {
             // Create instances of TemporalMemory, Connections, and Parameters objects.
             TemporalMemory tm = new TemporalMemory();
@@ -204,6 +204,13 @@ namespace UnitTestsProject
             stopwatch.Stop();
             TimeSpan elapsedParallel = stopwatch.Elapsed;
             Console.WriteLine($"Time taken: {elapsedParallel.TotalMilliseconds} milliseconds for Parallel Processing");
+
+            stopwatch.Start();
+            await tmParallel.InitAsync2(cn);
+            stopwatch.Stop();
+            TimeSpan elapsedParallel2 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsedParallel2.TotalMilliseconds} milliseconds for Parallel new Async Processing");
+
 
             // Define previous and current active columns and cells.
             int[] previousActiveColumns = { 0 };
@@ -236,7 +243,7 @@ namespace UnitTestsProject
         /// Unit test to verify the correct initialization of the TemporalMemory class with a custom number of cells per column.
         /// </summary>
         [TestMethod]
-        public void TestCellsPerColumn()
+        public async Task TestCellsPerColumn()
         {
             // Arrange
             TemporalMemory tm = new TemporalMemory();
@@ -261,6 +268,14 @@ namespace UnitTestsProject
             TimeSpan elapsedParallel = stopwatch.Elapsed;
             Console.WriteLine($"Time taken: {elapsedParallel.TotalMilliseconds} milliseconds for Parallel Processing");
 
+
+            stopwatch.Start();
+            await tmParallel.InitAsync2(cn);
+            stopwatch.Stop();
+            TimeSpan elapsedParallel2 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsedParallel2.TotalMilliseconds} milliseconds for Parallel new Async Processing");
+
+
             // Act
             int totalCellCount = 0;
             foreach (var column in cn.GetColumns())
@@ -278,7 +293,7 @@ namespace UnitTestsProject
         /// with custom column dimensions and cells per column configuration.
         /// </summary>
         [TestMethod]
-        public void TestCustomDimensionsAndCells()
+        public async Task TestCustomDimensionsAndCells()
         {
             // Arrange
             TemporalMemory tm = new TemporalMemory();
@@ -302,6 +317,14 @@ namespace UnitTestsProject
             stopwatch.Stop();
             TimeSpan elapsedParallel = stopwatch.Elapsed;
             Console.WriteLine($"Time taken: {elapsedParallel.TotalMilliseconds} milliseconds for Parallel Processing");
+
+
+            stopwatch.Start();
+            await tmParallel.InitAsync2(cn);
+            stopwatch.Stop();
+            TimeSpan elapsedParallel2 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsedParallel2.TotalMilliseconds} milliseconds for Parallel new Async Processing");
+
 
             // Calculate the expected total number of cells based on custom dimensions
             int expectedTotalCells = 16 * 32 * 8;
