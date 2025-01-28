@@ -1828,7 +1828,7 @@ namespace UnitTestsProject
             p.apply(cn);
 
             // Initialize the TemporalMemory object with the Connections object
-            tm.Init(cn);
+            tmParallel.InitAsync(cn);
 
             // Define the zero columns and active columns
             int[] zeroColumns = { 0, 1, 2, 3 };
