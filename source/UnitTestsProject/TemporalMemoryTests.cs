@@ -341,7 +341,7 @@ namespace UnitTestsProject
         /// Unit test to verify the correct initialization of the TemporalMemory class with custom column dimensions.
         /// </summary>
         [TestMethod]
-        public void TestColumnDimensions()
+        public async Task TestColumnDimensions()
         {
             // Arrange
             // Initialize a TemporalMemory object, Connections object, and set custom column dimensions in the parameters.
@@ -368,6 +368,15 @@ namespace UnitTestsProject
             TimeSpan elapsedParallel = stopwatch.Elapsed;
             Console.WriteLine($"Time taken: {elapsedParallel.TotalMilliseconds} milliseconds for Parallel Processing");
 
+
+            stopwatch.Start();
+            await tmParallel.InitAsync2(cn);
+            stopwatch.Stop();
+            TimeSpan elapsedParallel2 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsedParallel2.TotalMilliseconds} milliseconds for Parallel new Async Processing");
+
+
+
             // Act
             // Count the total number of cells in all columns and verify it against the expected count.
             int totalCellCount = 0;
@@ -388,7 +397,7 @@ namespace UnitTestsProject
         [TestMethod]
         [DataRow(new int[] { 0, 1, 2 }, new int[] { 3, 4, 5 }, new int[] { 6, 7, 8 }, new int[] { 9 })]
         [DataRow(new int[] { 0, 1, 2, 3 }, new int[] { 4, 5, 6, 7 }, new int[] { 8, 9, 10, 11 }, new int[] { 12 })]
-        public void TestRecycleLeastRecentlyActiveSegmentToMakeRoomForNewSegment(int[] prevActiveColumns1, int[] prevActiveColumns2, int[] prevActiveColumns3, int[] activeColumns)
+        public async Task TestRecycleLeastRecentlyActiveSegmentToMakeRoomForNewSegment(int[] prevActiveColumns1, int[] prevActiveColumns2, int[] prevActiveColumns3, int[] activeColumns)
         {
             // Initialize TemporalMemory and Connections objects with default parameters
             TemporalMemory tm = new TemporalMemory();
@@ -415,6 +424,14 @@ namespace UnitTestsProject
             stopwatch.Stop();
             TimeSpan elapsedParallel = stopwatch.Elapsed;
             Console.WriteLine($"Time taken: {elapsedParallel.TotalMilliseconds} milliseconds for Parallel Processing");
+
+
+            stopwatch.Start();
+            await tmParallel.InitAsync2(cn);
+            stopwatch.Stop();
+            TimeSpan elapsedParallel2 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsedParallel2.TotalMilliseconds} milliseconds for Parallel new Async Processing");
+
 
             // Get a reference to a specific cell (cell9)
             Cell cell9 = cn.GetCell(9);
