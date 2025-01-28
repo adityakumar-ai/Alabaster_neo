@@ -51,6 +51,28 @@ We are comparing the performance of the newly modified method with the old metho
 - The comparison focuses on the time taken by both methods to complete the same operation.
 - The results provide insights into the performance improvements achieved with the new asynchronous implementation.
 
+
+
+### Difference Between async/await and Synchronous Execution:
+
+Synchronous Execution: Tasks are performed one after another, with each task blocking the execution of subsequent tasks until it is completed. This approach can lead to inefficiency in cases where tasks involve significant wait times.
+
+Asynchronous Execution: The async/await pattern allows tasks to run concurrently without blocking the current thread. While waiting for a task to complete, the system can continue executing other tasks or handle other operations, leading to improved responsiveness and potentially faster execution in parallel scenarios.
+
+
+
+
+### Time Comparision 
+
+eg:- Method Name :- TestNewSegmentGrowthWhenMultipleMatchingSegmentsFound()
+
+
+| Method                                  | Difference (ms) | Percentage Time Increase (Compared to `Init`) |
+|-----------------------------------------|-----------------|-----------------------------------------------|
+| Init                                    | -               | -                                             |
+| InitAsync (Using Parallel.for)          | 3.9923          | 19.24%                                        |
+| async await method (Using Parallel.for) | 4.196           | 20.22%                                        |
+
 ### Conclusion:
 This comparison helps determine whether the newly introduced asynchronous method (`InitAsync`) offers better performance and efficiency compared to the old synchronous method (`Init`).
 

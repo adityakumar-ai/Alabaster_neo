@@ -180,7 +180,7 @@ namespace UnitTestsProject
         /// Tests the update of synapse permanence when matching segments are found.
         /// </summary>
         [TestMethod]
-        public void TestSynapsePermanenceUpdateWhenMatchingSegmentsFound()
+        public async Task TestSynapsePermanenceUpdateWhenMatchingSegmentsFound()
         {
             // Create instances of TemporalMemory, Connections, and Parameters objects.
             TemporalMemory tm = new TemporalMemory();
@@ -204,6 +204,13 @@ namespace UnitTestsProject
             stopwatch.Stop();
             TimeSpan elapsedParallel = stopwatch.Elapsed;
             Console.WriteLine($"Time taken: {elapsedParallel.TotalMilliseconds} milliseconds for Parallel Processing");
+
+            stopwatch.Start();
+            await tmParallel.InitAsync2(cn);
+            stopwatch.Stop();
+            TimeSpan elapsedParallel2 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsedParallel2.TotalMilliseconds} milliseconds for Parallel new Async Processing");
+
 
             // Define previous and current active columns and cells.
             int[] previousActiveColumns = { 0 };
@@ -236,7 +243,7 @@ namespace UnitTestsProject
         /// Unit test to verify the correct initialization of the TemporalMemory class with a custom number of cells per column.
         /// </summary>
         [TestMethod]
-        public void TestCellsPerColumn()
+        public async Task TestCellsPerColumn()
         {
             // Arrange
             TemporalMemory tm = new TemporalMemory();
@@ -261,6 +268,14 @@ namespace UnitTestsProject
             TimeSpan elapsedParallel = stopwatch.Elapsed;
             Console.WriteLine($"Time taken: {elapsedParallel.TotalMilliseconds} milliseconds for Parallel Processing");
 
+
+            stopwatch.Start();
+            await tmParallel.InitAsync2(cn);
+            stopwatch.Stop();
+            TimeSpan elapsedParallel2 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsedParallel2.TotalMilliseconds} milliseconds for Parallel new Async Processing");
+
+
             // Act
             int totalCellCount = 0;
             foreach (var column in cn.GetColumns())
@@ -278,7 +293,7 @@ namespace UnitTestsProject
         /// with custom column dimensions and cells per column configuration.
         /// </summary>
         [TestMethod]
-        public void TestCustomDimensionsAndCells()
+        public async Task TestCustomDimensionsAndCells()
         {
             // Arrange
             TemporalMemory tm = new TemporalMemory();
@@ -303,6 +318,14 @@ namespace UnitTestsProject
             TimeSpan elapsedParallel = stopwatch.Elapsed;
             Console.WriteLine($"Time taken: {elapsedParallel.TotalMilliseconds} milliseconds for Parallel Processing");
 
+
+            stopwatch.Start();
+            await tmParallel.InitAsync2(cn);
+            stopwatch.Stop();
+            TimeSpan elapsedParallel2 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsedParallel2.TotalMilliseconds} milliseconds for Parallel new Async Processing");
+
+
             // Calculate the expected total number of cells based on custom dimensions
             int expectedTotalCells = 16 * 32 * 8;
 
@@ -318,7 +341,7 @@ namespace UnitTestsProject
         /// Unit test to verify the correct initialization of the TemporalMemory class with custom column dimensions.
         /// </summary>
         [TestMethod]
-        public void TestColumnDimensions()
+        public async Task TestColumnDimensions()
         {
             // Arrange
             // Initialize a TemporalMemory object, Connections object, and set custom column dimensions in the parameters.
@@ -345,6 +368,15 @@ namespace UnitTestsProject
             TimeSpan elapsedParallel = stopwatch.Elapsed;
             Console.WriteLine($"Time taken: {elapsedParallel.TotalMilliseconds} milliseconds for Parallel Processing");
 
+
+            stopwatch.Start();
+            await tmParallel.InitAsync2(cn);
+            stopwatch.Stop();
+            TimeSpan elapsedParallel2 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsedParallel2.TotalMilliseconds} milliseconds for Parallel new Async Processing");
+
+
+
             // Act
             // Count the total number of cells in all columns and verify it against the expected count.
             int totalCellCount = 0;
@@ -365,7 +397,7 @@ namespace UnitTestsProject
         [TestMethod]
         [DataRow(new int[] { 0, 1, 2 }, new int[] { 3, 4, 5 }, new int[] { 6, 7, 8 }, new int[] { 9 })]
         [DataRow(new int[] { 0, 1, 2, 3 }, new int[] { 4, 5, 6, 7 }, new int[] { 8, 9, 10, 11 }, new int[] { 12 })]
-        public void TestRecycleLeastRecentlyActiveSegmentToMakeRoomForNewSegment(int[] prevActiveColumns1, int[] prevActiveColumns2, int[] prevActiveColumns3, int[] activeColumns)
+        public async Task TestRecycleLeastRecentlyActiveSegmentToMakeRoomForNewSegment(int[] prevActiveColumns1, int[] prevActiveColumns2, int[] prevActiveColumns3, int[] activeColumns)
         {
             // Initialize TemporalMemory and Connections objects with default parameters
             TemporalMemory tm = new TemporalMemory();
@@ -392,6 +424,14 @@ namespace UnitTestsProject
             stopwatch.Stop();
             TimeSpan elapsedParallel = stopwatch.Elapsed;
             Console.WriteLine($"Time taken: {elapsedParallel.TotalMilliseconds} milliseconds for Parallel Processing");
+
+
+            stopwatch.Start();
+            await tmParallel.InitAsync2(cn);
+            stopwatch.Stop();
+            TimeSpan elapsedParallel2 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsedParallel2.TotalMilliseconds} milliseconds for Parallel new Async Processing");
+
 
             // Get a reference to a specific cell (cell9)
             Cell cell9 = cn.GetCell(9);
@@ -668,7 +708,6 @@ namespace UnitTestsProject
             Stopwatch stopwatch = new Stopwatch();
             Parameters p = Parameters.getAllDefaultParameters();
             p.apply(cn);
-            tm.Init(cn);
 
             stopwatch.Start();
             tm.Init(cn);
@@ -716,12 +755,26 @@ namespace UnitTestsProject
         {
             // Arrange
             TemporalMemory tm = new TemporalMemory();
-            Connections cn = new Connections();         
+            TemporalMemoryParallelProcessing tmParallel = new TemporalMemoryParallelProcessing();
+            Connections cn = new Connections();
+            Stopwatch stopwatch = new Stopwatch();
             Parameters p = GetDefaultParameters(null, KEY.INITIAL_PERMANENCE, .2);
             p = GetDefaultParameters(p, KEY.MAX_NEW_SYNAPSE_COUNT, 4);
             p = GetDefaultParameters(p, KEY.PREDICTED_SEGMENT_DECREMENT, 0.02);
             p.apply(cn);
+
+            stopwatch.Start();
             tm.Init(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed.TotalMilliseconds} milliseconds");
+
+            stopwatch.Start();
+            tmParallel.InitAsync(cn);
+            stopwatch.Stop();
+            TimeSpan elapsedParallel = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsedParallel.TotalMilliseconds} milliseconds for Parallel Processing");
+
 
             // Set up previous and current active columns
             int[] prevActiveColumns = { c1, c2, c3 };
@@ -773,12 +826,25 @@ namespace UnitTestsProject
         {
             // Arrange
             TemporalMemory tm = new TemporalMemory();
+            TemporalMemoryParallelProcessing tmParallel = new TemporalMemoryParallelProcessing();
             Connections cn = new Connections();
+            Stopwatch stopwatch = new Stopwatch();
             Parameters p = GetDefaultParameters(null, KEY.MAX_NEW_SYNAPSE_COUNT, 4);
             p = GetDefaultParameters(p, KEY.INITIAL_PERMANENCE, 0.2);
             p = GetDefaultParameters(p, KEY.PREDICTED_SEGMENT_DECREMENT, 0.02);
             p.apply(cn);
+
+            stopwatch.Start();
             tm.Init(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed.TotalMilliseconds} milliseconds");
+
+            stopwatch.Start();
+            tmParallel.InitAsync(cn);
+            stopwatch.Stop();
+            TimeSpan elapsedParallel = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsedParallel.TotalMilliseconds} milliseconds for Parallel Processing");
 
             int[] prevActiveColumns = { 0 };
             Cell[] prevActiveCells = { cn.GetCell(0), cn.GetCell(1), cn.GetCell(2), cn.GetCell(3) };
@@ -821,14 +887,27 @@ namespace UnitTestsProject
         {
             // Create a new instance of TemporalMemory and Connections
             TemporalMemory tm = new TemporalMemory();
+            TemporalMemoryParallelProcessing tmParallel = new TemporalMemoryParallelProcessing();
             Connections cn = new Connections();
+            Stopwatch stopwatch = new Stopwatch();
 
             // Set default parameters, specifying a column dimension of 64
             Parameters p = GetDefaultParameters(null, KEY.COLUMN_DIMENSIONS, new int[] { 64 });
             p.apply(cn);
 
             // Initialize TemporalMemory with the Connections object
+            stopwatch.Start();
             tm.Init(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed.TotalMilliseconds} milliseconds");
+
+            stopwatch.Start();
+            tmParallel.InitAsync(cn);
+            stopwatch.Stop();
+            TimeSpan elapsedParallel = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsedParallel.TotalMilliseconds} milliseconds for Parallel Processing");
+
 
             // Define two sequences of active columns with high sparsity rates
             var seq1ActiveColumns = new int[] { 0, 10, 20, 30, 40, 50, 60 };
