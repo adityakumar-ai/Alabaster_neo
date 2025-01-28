@@ -1835,7 +1835,7 @@ namespace UnitTestsProject
             int[] activeColumns = { 3, 4 };
 
             // Compute the result with the zero columns and set the learn flag to true
-            tm.Compute(zeroColumns, true);
+            tmParallel.Compute(zeroColumns, true);
 
             // Compute the result with the active columns and set the learn flag to true
             tm.Compute(activeColumns, true);
