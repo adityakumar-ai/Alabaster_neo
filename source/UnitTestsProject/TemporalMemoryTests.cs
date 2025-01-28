@@ -1813,7 +1813,7 @@ namespace UnitTestsProject
         public void TestSegmentCreationIfNotEnoughWinnerCells2()
         {
             // Create a new TemporalMemory object
-            TemporalMemory tm = new TemporalMemory();
+            //TemporalMemory tm = new TemporalMemory();
 
             // Create a new TemporalMemory(Parallel) object
             TemporalMemoryParallelProcessing tmParallel = new TemporalMemoryParallelProcessing();
@@ -1838,7 +1838,7 @@ namespace UnitTestsProject
             tmParallel.Compute(zeroColumns, true);
 
             // Compute the result with the active columns and set the learn flag to true
-            tm.Compute(activeColumns, true);
+            tmParallel.Compute(activeColumns, true);
 
             // Assert
             // Check that the number of segments in the Connections object is equal to 2
