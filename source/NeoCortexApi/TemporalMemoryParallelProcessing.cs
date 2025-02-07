@@ -30,8 +30,60 @@ namespace NeoCortexApi
 
             public string Name { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
-     
 
+        public void Init2(Connections conn)
+        {
+            this.connections = conn;
+
+            SparseObjectMatrix<Column> matrix = this.connections.Memory == null
+                ? new SparseObjectMatrix<Column>(this.connections.HtmConfig.ColumnDimensions)
+                : (SparseObjectMatrix<Column>)this.connections.Memory;
+
+            this.connections.Memory = matrix;
+
+            int numColumns = matrix.GetMaxIndex() + 1;
+            this.connections.HtmConfig.NumColumns = numColumns;
+            int cellsPerColumn = this.connections.HtmConfig.CellsPerColumn;
+
+            Cell[] cells = new Cell[numColumns * cellsPerColumn];
+
+            // Used as flag to determine if Column objects have been created.
+            Column colZero = matrix.GetObject(0);
+
+            // Use ConcurrentDictionary for thread safety
+            ConcurrentDictionary<int, Column> columnDict = new ConcurrentDictionary<int, Column>();
+
+            // Parallelize the loop
+            Parallel.For(0, numColumns, i =>
+            {
+                Column column = colZero == null
+                    ? new Column(cellsPerColumn, i, this.connections.HtmConfig.SynPermConnected, this.connections.HtmConfig.NumInputs)
+                    : matrix.GetObject(i);
+
+                for (int j = 0; j < cellsPerColumn; j++)
+                {
+                    cells[i * cellsPerColumn + j] = column.Cells[j];
+                }
+
+                // Store column in the dictionary if not initialized before
+                if (colZero == null)
+                {
+                    columnDict[i] = column;
+                }
+            });
+
+            // Update the matrix with the initialized columns (done outside parallel block for thread safety)
+            if (colZero == null)
+            {
+                foreach (var kvp in columnDict)
+                {
+                    matrix.set(kvp.Key, kvp.Value);
+                }
+            }
+
+            // Assign initialized cells
+            this.connections.Cells = cells;
+        }
 
         /// <summary>
         /// Asynchronously initializes the temporal memory by creating and configuring the <see cref="Column"/> and <see cref="Cell"/> infrastructure 
@@ -51,57 +103,65 @@ namespace NeoCortexApi
 
         public void InitAsync(Connections conn)
         {
-                 this.connections = conn;
-         
-                 SparseObjectMatrix<Column> matrix = this.connections.Memory == null ?
-                     new SparseObjectMatrix<Column>(this.connections.HtmConfig.ColumnDimensions) :
-                         (SparseObjectMatrix<Column>)this.connections.Memory;
-         
-                 this.connections.Memory = matrix;
-         
-          
-                  int numColumns = matrix.GetMaxIndex() + 1;
-                  this.connections.HtmConfig.NumColumns = numColumns;
-                  int cellsPerColumn = this.connections.HtmConfig.CellsPerColumn;
-                  Cell[] cells = new Cell[numColumns * cellsPerColumn];
-          
-                  //Used as flag to determine if Column objects have been created.
-                  Column colZero = matrix.GetObject(0);
+            this.connections = conn;
 
-                  /// <summary>
-                  /// Initializes columns and cells in parallel to optimize performance, leveraging multiple CPU cores.
-                  /// // Parallelize the outer loop to handle columns
-                  /// If columns are not initialized, they are added to the matrix.
-                  /// </summary>
+            SparseObjectMatrix<Column> matrix = this.connections.Memory == null
+                ? new SparseObjectMatrix<Column>(this.connections.HtmConfig.ColumnDimensions)
+                : (SparseObjectMatrix<Column>)this.connections.Memory;
 
-                  Parallel.For(0, numColumns, i =>
-                  {
-                      Column column = colZero == null ?
-                          new Column(cellsPerColumn, i, this.connections.HtmConfig.SynPermConnected, this.connections.HtmConfig.NumInputs) : matrix.GetObject(i);
-                      /// <summary>
-                      /// Uses a parallel loop to efficiently initialize the cells for the current column.
-                      /// Each cell within the column is assigned its corresponding value from the column's cell collection.
-                      /// The parallelization improves performance by distributing the workload across multiple threads.
-                      /// </summary>
+            this.connections.Memory = matrix;
 
-                      Parallel.For(0, cellsPerColumn, j =>
-                      {
-                          cells[i * cellsPerColumn + j] = column.Cells[j];
-                      });
-                   
-                    
-                      // If columns have not been previously configured
-                      if (colZero == null)
-                          matrix.set(i, column);
-                  });
-          
-                  // This is the only initialization place for cells.
-                  this.connections.Cells = cells;
+            int numColumns = matrix.GetMaxIndex() + 1;
+            this.connections.HtmConfig.NumColumns = numColumns;
+            int cellsPerColumn = this.connections.HtmConfig.CellsPerColumn;
 
+            Cell[] cells = new Cell[numColumns * cellsPerColumn];
 
+            // Used as flag to determine if Column objects have been created.
+            bool createNewColumns = matrix.GetObject(0) == null;
 
+            // Concurrent dictionary to safely store columns before assigning
+            ConcurrentDictionary<int, Column> columnDict = new ConcurrentDictionary<int, Column>();
+
+            // Step 1: Ensure all columns are initialized before proceeding
+            if (createNewColumns)
+            {
+                Parallel.For(0, numColumns, i =>
+                {
+                    columnDict[i] = new Column(cellsPerColumn, i, this.connections.HtmConfig.SynPermConnected, this.connections.HtmConfig.NumInputs);
+                });
+
+                // Assign initialized columns to matrix in a thread-safe manner
+                foreach (var kvp in columnDict)
+                {
+                    matrix.set(kvp.Key, kvp.Value);
+                }
+            }
+
+            // Step 2: Assign columns and cells in a parallel-safe manner
+            Parallel.For(0, numColumns, i =>
+            {
+                Column column = matrix.GetObject(i); // Ensure column retrieval is after initialization
+
+                if (column == null)
+                {
+                    throw new NullReferenceException($"Column at index {i} is null after initialization.");
+                }
+
+                for (int j = 0; j < cellsPerColumn; j++)
+                {
+                    if (column.Cells == null)
+                    {
+                        throw new NullReferenceException($"Cells array in column {i} is null.");
+                    }
+
+                    cells[i * cellsPerColumn + j] = column.Cells[j];
+                }
+            });
+
+            // Step 3: Assign initialized cells to connection
+            this.connections.Cells = cells;
         }
-
 
 
         public async Task InitAsync2(Connections conn)
@@ -197,15 +257,17 @@ namespace NeoCortexApi
 
                 //sw.Restart();
 
-                ActivateDendrites(this.connections, cycle, learn, externalPredictiveInputsActive, externalPredictiveInputsWinners);
+               //ActivateDendrites(this.connections, cycle, learn, externalPredictiveInputsActive, externalPredictiveInputsWinners);
+               ActivateDendrites2(this.connections, cycle, learn, externalPredictiveInputsActive, externalPredictiveInputsWinners);
 
-                //sw.Stop();
 
-                //tmperf1.WriteLine($"{sec1}, {sw.ElapsedMilliseconds}, {sec1 + sw.ElapsedMilliseconds}");
+            //sw.Stop();
 
-                //tmperf1.Flush();
+            //tmperf1.WriteLine($"{sec1}, {sw.ElapsedMilliseconds}, {sec1 + sw.ElapsedMilliseconds}");
 
-                return cycle;
+            //tmperf1.Flush();
+
+            return cycle;
             }
 
             /// <summary>
@@ -360,22 +422,156 @@ namespace NeoCortexApi
                 return cycle;
             }
 
-            /// <summary>
-            /// Calculate dendrite segment activity, using the current active cells.
-            /// 
-            /// <para>
-            /// Pseudocode:<br/>
-            ///   for each distal dendrite segment with number of active synapses >= activationThreshold<br/>
-            ///     mark the segment as active<br/>
-            ///   for each distal dendrite segment with unconnected activity >= minThreshold<br/>
-            ///     mark the segment as matching<br/>
-            /// </para>
-            /// </summary>
-            /// <param name="conn">the Connectivity</param>
-            /// <param name="cycle">Stores current compute cycle results</param>
-            /// <param name="learn">If true, segment activations will be recorded. This information is used during segment cleanup.</param>
-            /// <seealso cref="">https://github.com/htm-community/htm.core/blob/master/src/htm/algorithms/TemporalMemory.cpp</seealso>
-            protected void ActivateDendrites(Connections conn, ComputeCycle cycle, bool learn, int[] externalPredictiveInputsActive = null, int[] externalPredictiveInputsWinners = null)
+        protected void ActivateDendrites2(Connections conn, ComputeCycle cycle, bool learn, int[] externalPredictiveInputsActive = null, int[] externalPredictiveInputsWinners = null)
+        {
+            // Step 1: Compute segment activity
+            SegmentActivity activity = Connections.ComputeActivity(cycle.ActiveCells, conn.HtmConfig.ConnectedPermanence);
+
+            // Step 2: Use thread-safe collections for parallel processing
+            var activeSegments = new ConcurrentBag<DistalDendrite>();
+            var matchingSegments = new ConcurrentBag<DistalDendrite>();
+
+            // Step 3: Parallel processing for active synapses
+            Parallel.ForEach(activity.ActiveSynapses, item =>
+            {
+                if (item.Value >= conn.HtmConfig.ActivationThreshold)
+                {
+                    var seg = conn.GetSegmentForFlatIdx(item.Key);
+                    if (seg != null)
+                    {
+                        activeSegments.Add(seg);
+                    }
+                }
+            });
+
+            // Step 4: Parallel processing for matching segments
+            Parallel.ForEach(activity.PotentialSynapses, item =>
+            {
+                var seg = conn.GetSegmentForFlatIdx(item.Key);
+                if (seg != null && item.Value >= conn.HtmConfig.MinThreshold)
+                {
+                    matchingSegments.Add(seg);
+                }
+            });
+
+            // Step 5: Convert concurrent collections to sorted lists for final processing
+            var sortedActiveSegments = activeSegments.ToList();
+            var sortedMatchingSegments = matchingSegments.ToList();
+
+            sortedActiveSegments.Sort(GetComparer(conn.NextSegmentOrdinal));
+            sortedMatchingSegments.Sort(GetComparer(conn.NextSegmentOrdinal));
+
+            // Step 6: Store results in cycle object
+            cycle.ActiveSegments = sortedActiveSegments;
+            cycle.MatchingSegments = sortedMatchingSegments;
+
+            // Step 7: Store results in connection object
+            conn.ActiveCells = new HashSet<Cell>(cycle.ActiveCells);
+            conn.WinnerCells = new HashSet<Cell>(cycle.WinnerCells);
+            conn.ActiveSegments = sortedActiveSegments;
+            conn.MatchingSegments = sortedMatchingSegments;
+
+            // Step 8: Clear predictive cells and start new iteration
+            conn.ClearPredictiveCells();
+
+            if (learn)
+            {
+                Parallel.ForEach(sortedActiveSegments, segment =>
+                {
+                    conn.RecordSegmentActivity(segment);
+                });
+
+                conn.StartNewIteration();
+            }
+
+            Debug.WriteLine($"\nActive segments: {sortedActiveSegments.Count}, Matching segments: {sortedMatchingSegments.Count}");
+        }
+
+        protected void ActivateDendrites3(Connections conn, ComputeCycle cycle, bool learn, int[] externalPredictiveInputsActive = null, int[] externalPredictiveInputsWinners = null)
+        {
+            // Step 1: Compute segment activity
+            SegmentActivity activity = Connections.ComputeActivity(cycle.ActiveCells, conn.HtmConfig.ConnectedPermanence);
+
+            // Step 2: Initialize lists (using List<T> instead of ConcurrentBag<T> to reduce overhead)
+            var activeSegments = new List<DistalDendrite>();
+            var matchingSegments = new List<DistalDendrite>();
+            object lockObject = new object(); // Used for thread safety when modifying shared lists
+
+            // Step 3: Parallel processing for active synapses using PLINQ
+            activity.ActiveSynapses.AsParallel()
+                .Where(item => item.Value >= conn.HtmConfig.ActivationThreshold)
+                .Select(item => conn.GetSegmentForFlatIdx(item.Key))
+                .Where(seg => seg != null)
+                .ForAll(seg =>
+                {
+                    lock (lockObject)
+                    {
+                        activeSegments.Add(seg);
+                    }
+                });
+
+            // Step 4: Parallel processing for matching segments using PLINQ
+            activity.PotentialSynapses.AsParallel()
+                .Where(item => item.Value >= conn.HtmConfig.MinThreshold)
+                .Select(item => conn.GetSegmentForFlatIdx(item.Key))
+                .Where(seg => seg != null)
+                .ForAll(seg =>
+                {
+                    lock (lockObject)
+                    {
+                        matchingSegments.Add(seg);
+                    }
+                });
+
+            // Step 5: Sort lists in parallel (Batch Sorting for large datasets)
+            Parallel.Invoke(
+                () => activeSegments.Sort(GetComparer(conn.NextSegmentOrdinal)),
+                () => matchingSegments.Sort(GetComparer(conn.NextSegmentOrdinal))
+            );
+
+            // Step 6: Store results in cycle object
+            cycle.ActiveSegments = activeSegments;
+            cycle.MatchingSegments = matchingSegments;
+
+            // Step 7: Store results in connection object
+            conn.ActiveCells = new HashSet<Cell>(cycle.ActiveCells);
+            conn.WinnerCells = new HashSet<Cell>(cycle.WinnerCells);
+            conn.ActiveSegments = activeSegments;
+            conn.MatchingSegments = matchingSegments;
+
+            // Step 8: Clear predictive cells and start new iteration
+            conn.ClearPredictiveCells();
+
+            if (learn)
+            {
+                // Process learning in parallel
+                Parallel.ForEach(activeSegments, segment =>
+                {
+                    conn.RecordSegmentActivity(segment);
+                });
+
+                conn.StartNewIteration();
+            }
+
+            Debug.WriteLine($"\nActive segments: {activeSegments.Count}, Matching segments: {matchingSegments.Count}");
+        }
+
+        /// <summary>
+        /// Calculate dendrite segment activity, using the current active cells.
+        /// 
+        /// <para>
+        /// Pseudocode:<br/>
+        ///   for each distal dendrite segment with number of active synapses >= activationThreshold<br/>
+        ///     mark the segment as active<br/>
+        ///   for each distal dendrite segment with unconnected activity >= minThreshold<br/>
+        ///     mark the segment as matching<br/>
+        /// </para>
+        /// </summary>
+        /// <param name="conn">the Connectivity</param>
+        /// <param name="cycle">Stores current compute cycle results</param>
+        /// <param name="learn">If true, segment activations will be recorded. This information is used during segment cleanup.</param>
+        /// <seealso cref="">https://github.com/htm-community/htm.core/blob/master/src/htm/algorithms/TemporalMemory.cpp</seealso>
+        protected void ActivateDendrites(Connections conn, ComputeCycle cycle, bool learn, int[] externalPredictiveInputsActive = null, int[] externalPredictiveInputsWinners = null)
             {
                 //if (externalPredictiveInputsActive != null)
                 //    cycle.ActiveCells.AddRange(externalPredictiveInputsActive);
