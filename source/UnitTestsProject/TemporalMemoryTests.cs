@@ -910,11 +910,9 @@ namespace UnitTestsProject
         {
             // Create a new instance of TemporalMemory and Connections
             TemporalMemory tm = new TemporalMemory();
-            TemporalMemoryParallelProcessing tmPar = new();
-
             Connections cn = new Connections();
             Stopwatch stopwatch = new Stopwatch();
-
+            
             // Set default parameters, specifying a column dimension of 64
             Parameters p = GetDefaultParameters(null, KEY.COLUMN_DIMENSIONS, new int[] { 100 });
             p.apply(cn);
@@ -926,33 +924,17 @@ namespace UnitTestsProject
             TimeSpan elapsed = stopwatch.Elapsed;
             Console.WriteLine($"Time taken: {elapsed.TotalMilliseconds} milliseconds");
 
-            tmPar.InitAsync(cn);
-
             // Define two sequences of active columns with high sparsity rates
-            var seq1ActiveColumns = new int[] { 0, 10, 20, 30, 40, 50, 60, 61, 62, 63,73,74,75,76,86,87,88,89,90,91,92,93,94,95, 0, 10, 20, 30, 40, 50, 60, 61, 62, 63, 73, 74, 75, 76, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 0, 10, 20, 30, 40, 50, 60, 61, 62, 63, 73, 74, 75, 76, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95 };
-            var seq2ActiveColumns = new int[] { 40, 50, 60 };
+            var seq1ActiveColumns = new int[] { 0, 10, 20, 30, 41, 52, 63, 70, 80, 90 };
+            var seq2ActiveColumns = new int[] { 41, 52, 63 };
 
             // Perform computation cycles to enable learning of the sequences
-
-            
             stopwatch.Start();
             tm.Compute(seq1ActiveColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed1_ = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken: {elapsed1_.TotalMilliseconds} milliseconds for compute )");
-
-            stopwatch.Start();
-            tmPar.Compute(seq1ActiveColumns, true);
-            stopwatch.Stop();
-            TimeSpan elapsed3_ = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken: {elapsed3_.TotalMilliseconds} milliseconds for compute par");
-
-            //tm.Compute(seq1ActiveColumns, true);
-            //tm.Compute(seq2ActiveColumns, true);
-
-            // tmParallel.Compute(seq1ActiveColumns, true);
-            //tmParallel.Compute(seq2ActiveColumns, true);
-
+            Console.WriteLine($"Time taken: {elapsed1_.TotalMilliseconds} milliseconds for compute");
+   
             // Recall the first sequence
             var recall1 = tm.Compute(seq1ActiveColumns, false);
 
