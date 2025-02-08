@@ -1088,11 +1088,16 @@ namespace UnitTestsProject
 
             // Recall the first sequence
             var recall1 = tm.Compute(seq1ActiveColumns, false);
+
+            var recall01 = tmParallel.Compute(seq1ActiveColumns, false);
+
             // Assert that the recalled active cells match the desired result
             Assert.IsTrue(desiredResult.All(des => recall1.ActiveCells.Select(c => c.Index).Contains(des)));
 
             // Recall the second sequence
             var recall2 = tm.Compute(seq2ActiveColumns, false);
+            var recall02 = tmParallel.Compute(seq2ActiveColumns, false);
+
             // Assert that the recalled active cells match the desired result
             Assert.IsTrue(desiredResult.All(des => recall2.ActiveCells.Select(c => c.Index).Contains(des)));
         }
