@@ -1067,7 +1067,7 @@ namespace UnitTestsProject
             tmParallel.Compute(seq1ActiveColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed11_ = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken: {elapsed11_.TotalMilliseconds} milliseconds for compute par)");
+            Console.WriteLine($"Time taken: {elapsed11_.TotalMilliseconds} milliseconds to compute seq1Activecolums in parallel");
 
 
             // Learn the second sequence
@@ -1083,7 +1083,7 @@ namespace UnitTestsProject
             tmParallel.Compute(seq2ActiveColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed02_ = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken: {elapsed02_.TotalMilliseconds} milliseconds for compute par)");
+            Console.WriteLine($"Time taken: {elapsed02_.TotalMilliseconds} milliseconds to compute seq2Activecolums in parallel)");
 
 
             // Recall the first sequence
