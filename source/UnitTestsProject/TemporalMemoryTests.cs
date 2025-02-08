@@ -948,12 +948,13 @@ namespace UnitTestsProject
         /// This unit test assesses the ability of the Temporal Memory to learn and recall patterns
         /// of sequences characterized by a high sparsity rate.
         /// </summary>
+        /// 
+
         [TestMethod]
-        public void TestHighSparsitySequenceLearningAndRecallPar()
+        public void TestHighSparsitySequenceLearningAndRecallParallel()
         {
             // Create a new instance of TemporalMemory and Connections
-            TemporalMemoryParallelProcessing tm = new();
-
+            TemporalMemoryParallelProcessing tmParallel = new();
             Connections cn = new Connections();
             Stopwatch stopwatch = new Stopwatch();
 
@@ -963,38 +964,27 @@ namespace UnitTestsProject
 
             // Initialize TemporalMemory with the Connections object
             stopwatch.Start();
-            tm.InitAsync(cn);
+            tmParallel.InitAsync(cn);
             stopwatch.Stop();
             TimeSpan elapsed = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken: {elapsed.TotalMilliseconds} milliseconds");
-
-
+            Console.WriteLine($"Time taken: {elapsed.TotalMilliseconds} milliseconds for parallel initialization");
 
             // Define two sequences of active columns with high sparsity rates
-            var seq1ActiveColumns = new int[] { 0, 10, 20, 30, 40, 50, 60, 61, 62, 63, 73, 74, 75, 76, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 0, 10, 20, 30, 40, 50, 60, 61, 62, 63, 73, 74, 75, 76, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 0, 10, 20, 30, 40, 50, 60, 61, 62, 63, 73, 74, 75, 76, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95 };
-            var seq2ActiveColumns = new int[] { 40, 50, 60 };
+            var seq1ActiveColumns = new int[] { 0, 10, 20, 30, 41, 52, 63, 70, 80, 90 };
+            var seq2ActiveColumns = new int[] { 41, 52, 63 };
 
             // Perform computation cycles to enable learning of the sequences
-
-
             stopwatch.Start();
-            tm.Compute(seq1ActiveColumns, true);
+            tmParallel.Compute(seq1ActiveColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed1_ = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken: {elapsed1_.TotalMilliseconds} milliseconds for compute par)");
-
-
-            //tm.Compute(seq1ActiveColumns, true);
-            //tm.Compute(seq2ActiveColumns, true);
-
-            // tmParallel.Compute(seq1ActiveColumns, true);
-            //tmParallel.Compute(seq2ActiveColumns, true);
+            Console.WriteLine($"Time taken: {elapsed1_.TotalMilliseconds} milliseconds to learn sequence parallelly");
 
             // Recall the first sequence
-            var recall1 = tm.Compute(seq1ActiveColumns, false);
+            var recall1 = tmParallel.Compute(seq1ActiveColumns, false);
 
             // Recall the second sequence
-            var recall2 = tm.Compute(seq2ActiveColumns, false);
+            var recall2 = tmParallel.Compute(seq2ActiveColumns, false);
 
             // Verify that all active cells in the recalled second sequence are also present in the recalled first sequence
             Assert.IsTrue(recall2.ActiveCells.Select(c => c.Index).All(rc => recall1.ActiveCells.Select(c => c.Index).Contains(rc)));

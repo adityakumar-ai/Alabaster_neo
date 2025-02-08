@@ -6,4 +6,10 @@ namespace NeoCortexApi
     public interface IHtmAlgorithm<TIN, TOUT> : IHtmModule<TIN, TOUT>
     {
     }
+
+    //public interface IHtmAlgorithm<TIN, TOUT>
+    //{
+        // Define the methods required by the interface
+        //TOUT Compute(TIN input, bool learn);
+    //}
 }
