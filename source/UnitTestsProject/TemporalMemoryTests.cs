@@ -1055,10 +1055,36 @@ namespace UnitTestsProject
             var desiredResult = new int[] { 27, 28, 30 };
 
             // Learn the first sequence
+            //tm.Compute(seq1ActiveColumns, true);
+
+            stopwatch.Start();
             tm.Compute(seq1ActiveColumns, true);
+            stopwatch.Stop();
+            TimeSpan elapsed1_ = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed1_.TotalMilliseconds} milliseconds for compute par)");
+
+            stopwatch.Start();
+            tmParallel.Compute(seq1ActiveColumns, true);
+            stopwatch.Stop();
+            TimeSpan elapsed11_ = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed11_.TotalMilliseconds} milliseconds for compute par)");
+
 
             // Learn the second sequence
+            //tm.Compute(seq2ActiveColumns, true);
+
+            stopwatch.Start();
             tm.Compute(seq2ActiveColumns, true);
+            stopwatch.Stop();
+            TimeSpan elapsed01_ = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed01_.TotalMilliseconds} milliseconds for compute par)");
+
+            stopwatch.Start();
+            tmParallel.Compute(seq2ActiveColumns, true);
+            stopwatch.Stop();
+            TimeSpan elapsed02_ = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed02_.TotalMilliseconds} milliseconds for compute par)");
+
 
             // Recall the first sequence
             var recall1 = tm.Compute(seq1ActiveColumns, false);
