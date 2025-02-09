@@ -912,28 +912,45 @@ namespace UnitTestsProject
             TemporalMemory tm = new TemporalMemory();
             Connections cn = new Connections();
             Stopwatch stopwatch = new Stopwatch();
-            
+            TemporalMemoryParallelProcessing tmParallel = new TemporalMemoryParallelProcessing();
             // Set default parameters, specifying a column dimension of 64
             Parameters p = GetDefaultParameters(null, KEY.COLUMN_DIMENSIONS, new int[] { 100 });
             p.apply(cn);
+
+
+            stopwatch.Start();
+            tmParallel.Single_Threaded_Optimized_Init(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed.TotalMilliseconds} milliseconds");
+
+            
 
             // Initialize TemporalMemory with the Connections object
             stopwatch.Start();
             tm.Init(cn);
             stopwatch.Stop();
-            TimeSpan elapsed = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken: {elapsed.TotalMilliseconds} milliseconds");
+            TimeSpan elapsed_1 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed_1.TotalMilliseconds} milliseconds");
 
             // Define two sequences of active columns with high sparsity rates
             var seq1ActiveColumns = new int[] { 0, 10, 20, 30, 41, 52, 63, 70, 80, 90 };
             var seq2ActiveColumns = new int[] { 41, 52, 63 };
 
+
+            stopwatch.Start();
+            tmParallel.Compute(seq1ActiveColumns, true);
+            stopwatch.Stop();
+            TimeSpan elapsed_2 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for compute tmParallel(Single_Threaded_Optimized_Init): {elapsed_2.TotalMilliseconds} milliseconds");
+
+
             // Perform computation cycles to enable learning of the sequences
             stopwatch.Start();
             tm.Compute(seq1ActiveColumns, true);
             stopwatch.Stop();
-            TimeSpan elapsed1_ = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken: {elapsed1_.TotalMilliseconds} milliseconds for compute");
+            TimeSpan elapsed_3 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed_3.TotalMilliseconds} milliseconds for compute");
    
             // Recall the first sequence
             var recall1 = tm.Compute(seq1ActiveColumns, false);
