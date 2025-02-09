@@ -924,7 +924,12 @@ namespace UnitTestsProject
             TimeSpan elapsed = stopwatch.Elapsed;
             Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed.TotalMilliseconds} milliseconds");
 
-            
+            stopwatch.Start();
+            tmParallel.InitParallel_Omi(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_4 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for InitParallel_Omi : {elapsed_4.TotalMilliseconds} milliseconds");
+
 
             // Initialize TemporalMemory with the Connections object
             stopwatch.Start();
@@ -943,6 +948,13 @@ namespace UnitTestsProject
             stopwatch.Stop();
             TimeSpan elapsed_2 = stopwatch.Elapsed;
             Console.WriteLine($"Time taken for compute tmParallel(Single_Threaded_Optimized_Init): {elapsed_2.TotalMilliseconds} milliseconds");
+
+            stopwatch.Start();
+            tmParallel.Compute(seq1ActiveColumns, true);
+            stopwatch.Stop();
+            TimeSpan elapsed_5 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallel_Omi): {elapsed_5.TotalMilliseconds} milliseconds");
+
 
 
             // Perform computation cycles to enable learning of the sequences
