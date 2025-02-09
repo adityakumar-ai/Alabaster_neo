@@ -1011,13 +1011,20 @@ namespace UnitTestsProject
             Stopwatch stopwatch = new Stopwatch();
             Parameters p = GetDefaultParameters(null, KEY.COLUMN_DIMENSIONS, new int[] { 64 });
             p.apply(cn);
-           
+
             //initialized tm in parallel
             stopwatch.Start();
-            tmParallel.InitAsync(cn);
+            tm.Init(cn);
             stopwatch.Stop();
             TimeSpan elapsedParallel = stopwatch.Elapsed;
             Console.WriteLine($"Time taken: {elapsedParallel.TotalMilliseconds} milliseconds for Parallel Processing");
+
+
+            stopwatch.Start();
+            tmParallel.Init3(cn);
+            stopwatch.Stop();
+            TimeSpan elapsedParallel0 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsedParallel0.TotalMilliseconds} milliseconds for Parallel Processing");
 
             // Define two sequences of active columns
             var seq1ActiveColumns = new int[] { 0, 1, 2, 3, 4, 5, 6 };
