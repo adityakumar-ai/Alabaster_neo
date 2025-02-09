@@ -335,6 +335,69 @@ namespace NeoCortexApi
 
 
 
+        // Initializes columns in parallel using a ConcurrentDictionary for thread-safe column management.
+
+        public void InitParallelWithConcurrentDictionary(Connections conn)
+        {
+            this.connections = conn;
+
+            // Initialize matrix either from Memory or create a new one.
+            SparseObjectMatrix<Column> matrix = this.connections.Memory == null
+                ? new SparseObjectMatrix<Column>(this.connections.HtmConfig.ColumnDimensions)
+                : (SparseObjectMatrix<Column>)this.connections.Memory;
+
+            this.connections.Memory = matrix;
+
+            int numColumns = matrix.GetMaxIndex() + 1;
+            this.connections.HtmConfig.NumColumns = numColumns;
+            int cellsPerColumn = this.connections.HtmConfig.CellsPerColumn;
+            Cell[] cells = new Cell[numColumns * cellsPerColumn];
+
+            // Flag to check if columns are already created
+            bool createNewColumns = matrix.GetObject(0) == null;
+
+            // Use ConcurrentDictionary to store columns during parallel initialization
+            if (createNewColumns)
+            {
+                var columnDict = new ConcurrentDictionary<int, Column>();
+
+                Parallel.For(0, numColumns, i =>
+                {
+                    // Create columns concurrently and store them in the dictionary
+                    var column = new Column(cellsPerColumn, i, this.connections.HtmConfig.SynPermConnected, this.connections.HtmConfig.NumInputs);
+                    columnDict[i] = column; // Thread-safe insertion into dictionary
+
+                    // Copy cells for each column
+                    for (int j = 0; j < cellsPerColumn; j++)
+                    {
+                        cells[i * cellsPerColumn + j] = column.Cells[j];
+                    }
+                });
+
+                // Set columns to matrix after parallel operations
+                foreach (var kvp in columnDict)
+                {
+                    matrix.set(kvp.Key, kvp.Value);
+                }
+            }
+            else
+            {
+                // If columns are already created, just fetch and copy cells
+                for (int i = 0; i < numColumns; i++)
+                {
+                    Column column = matrix.GetObject(i);
+                    for (int j = 0; j < cellsPerColumn; j++)
+                    {
+                        cells[i * cellsPerColumn + j] = column.Cells[j];
+                    }
+                }
+            }
+
+            // Assign cells to the connection
+            this.connections.Cells = cells;
+        }
+
+
 
         #endregion
 
