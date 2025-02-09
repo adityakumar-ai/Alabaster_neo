@@ -94,22 +94,36 @@ This comparison helps determine whether the newly introduced asynchronous method
 
 
 
-### InitParallel_Omi()
+### `InitParallelRegularDictionary()`
 1. **Used `Parallel.For` for Parallel Column Initialization**
-   ✅ **Faster Execution** – Distributes column creation and cell assignment across multiple threads.
-   ✅ **Optimized for Large Data Sets** – Improves performance significantly when handling large numbers of columns.
+   - ✅ **Faster Execution** – Distributes column creation and cell assignment across multiple threads.
+   - ✅ **Optimized for Large Data Sets** – Improves performance significantly when handling large numbers of columns.
 
 2. **Reduced Redundant Checks with `createNewColumns` Flag**
-   ✅ **Avoids Rechecking in Every Loop Iteration** – The original code checked `matrix.GetObject(0) == null` multiple times inside the loop.
-   ✅ **Stored the Result in a Variable** – The condition is checked once before the loop, reducing unnecessary computations.
+   - ✅ **Avoids Rechecking in Every Loop Iteration** – The original code checked `matrix.GetObject(0) == null` multiple times inside the loop.
+   - ✅ **Stored the Result in a Variable** – The condition is checked once before the loop, reducing unnecessary computations.
 
 3. **Moved Column Creation and Cell Copying Inside Parallel Loop**
-   ✅ **Consolidates Operations** – Column creation and the copying of cells are done together in parallel, ensuring better use of resources.
-   ✅ **Eliminated Sequential Loops** – By merging column creation, matrix assignment, and cell copying, the code reduces overhead.
+   - ✅ **Consolidates Operations** – Column creation and the copying of cells are done together in parallel, ensuring better use of resources.
+   - ✅ **Eliminated Sequential Loops** – By merging column creation, matrix assignment, and cell copying, the code reduces overhead.
 
 4. **Improved Thread Safety with Direct Matrix Set**
-   ✅ **Minimized Synchronization Issues** – The `Parallel.For` ensures columns are set in parallel, with thread-safe operations.
-   ✅ **Avoids Extra Loops** – The original method had a separate loop for setting the matrix; now it's handled within the parallel block.
+   - ✅ **Minimized Synchronization Issues** – The `Parallel.For` ensures columns are set in parallel, with thread-safe operations using `ConcurrentDictionary`.
+   - ✅ **Avoids Extra Loops** – The original method had a separate loop for setting the matrix; now it's handled within the parallel block.
+
+
+### `InitParallelWithConcurrentDictionary()`
+1. **Parallelized Column Initialization**
+   - **In the InitParallelRegularDictionary Approach:** Used `Parallel.For` for parallel column initialization.
+   - **In the InitParallelWithConcurrentDictionary Approach:** Still using `Parallel.For`, but with the addition of `ConcurrentDictionary` to handle parallel writes to the `matrix`. This ensures thread-safe column assignment.
+
+2. **Thread-Safe Column Assignment**
+   - **In the InitParallelRegularDictionary Approach:** The matrix was updated directly within the `Parallel.For` loop without a mechanism for ensuring thread safety.
+   - **In the InitParallelWithConcurrentDictionary Approach:** Introduces `ConcurrentDictionary`, which is specifically designed for thread-safe operations. This prevents data races when updating columns concurrently, improving reliability in multithreaded environments.
+
+3. **Optimized Copying of Cells**
+   - **In the InitParallelRegularDictionary Approach:** Cells were copied after the parallel column creation in a separate loop, causing redundant operations.
+   - **In the InitParallelWithConcurrentDictionary Approach:** Cells are now copied within the parallel loop itself, eliminating the need for a separate loop and making the operation more efficient.
 
 
 ## References
