@@ -243,6 +243,55 @@ namespace NeoCortexApi
 
 
 
+        #region Omii's Section
+
+        public void Single_Threaded_Optimized_Init(Connections conn)
+        {
+            this.connections = conn;
+
+            SparseObjectMatrix<Column> matrix = this.connections.Memory as SparseObjectMatrix<Column>
+                ?? new SparseObjectMatrix<Column>(this.connections.HtmConfig.ColumnDimensions);
+
+            this.connections.Memory = matrix;
+            int numColumns = matrix.GetMaxIndex() + 1;
+            this.connections.HtmConfig.NumColumns = numColumns;
+            int cellsPerColumn = this.connections.HtmConfig.CellsPerColumn;
+            Cell[] cells = new Cell[numColumns * cellsPerColumn];
+
+            bool createNewColumns = matrix.GetObject(0) == null;
+
+            for (int i = 0; i < numColumns; i++)
+            {
+                Column column = createNewColumns
+                    ? new Column(cellsPerColumn, i, this.connections.HtmConfig.SynPermConnected, this.connections.HtmConfig.NumInputs)
+                    : matrix.GetObject(i);
+
+                for (int j = 0; j < cellsPerColumn; j++)
+                {
+                    cells[i * cellsPerColumn + j] = column.Cells[j];
+                }
+
+                if (createNewColumns)
+                    matrix.set(i, column);
+            }
+
+            this.connections.Cells = cells;
+        }
+
+
+
+
+        #endregion
+
+
+
+
+
+
+
+
+
+
         // Used fro performance testing.
         //StreamWriter tmperf1 = new StreamWriter("tm-perf-300000-25cells.p.csv");
 
