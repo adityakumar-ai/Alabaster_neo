@@ -925,10 +925,16 @@ namespace UnitTestsProject
             Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed.TotalMilliseconds} milliseconds");
 
             stopwatch.Start();
-            tmParallel.InitParallel_Omi(cn);
+            tmParallel.InitParallelRegularDictionary(cn);
             stopwatch.Stop();
             TimeSpan elapsed_4 = stopwatch.Elapsed;
             Console.WriteLine($"Time taken for InitParallel_Omi : {elapsed_4.TotalMilliseconds} milliseconds");
+
+            stopwatch.Start();
+            tmParallel.InitParallelWithConcurrentDictionary(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_6 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for InitParallel_Omi : {elapsed_6.TotalMilliseconds} milliseconds");
 
 
             // Initialize TemporalMemory with the Connections object
@@ -953,7 +959,13 @@ namespace UnitTestsProject
             tmParallel.Compute(seq1ActiveColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_5 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for compute tmParallel(InitParallel_Omi): {elapsed_5.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelRegularDictionary): {elapsed_5.TotalMilliseconds} milliseconds");
+
+            stopwatch.Start();
+            tmParallel.Compute(seq1ActiveColumns, true);
+            stopwatch.Stop();
+            TimeSpan elapsed_7 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelWithConcurrentDictionary): {elapsed_7.TotalMilliseconds} milliseconds");
 
 
 

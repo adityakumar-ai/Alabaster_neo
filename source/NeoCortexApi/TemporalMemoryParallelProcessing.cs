@@ -282,7 +282,7 @@ namespace NeoCortexApi
 
         // Initializes columns and cells, using parallel processing for new columns to optimize performance.
 
-        public void InitParallel_Omi(Connections conn)
+        public void InitParallelRegularDictionary(Connections conn)
         {
             this.connections = conn;
 
