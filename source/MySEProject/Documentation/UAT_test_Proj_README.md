@@ -78,16 +78,19 @@ This comparison helps determine whether the newly introduced asynchronous method
 
 
 
-### Single_Threaded_Optimized_Init()
-1. Used Null-Coalescing Operator (??) Instead of Ternary Operator (? :)
-         ✅ Faster Execution – Eliminates unnecessary type casting.
-         ✅ More Readable – as + ?? is a cleaner approach to checking and assigning a default value.
-2.Reduced Redundant Checks with createNewColumns Flag
-         ✅ Avoids Rechecking in Every Loop Iteration – The original code checked matrix.GetObject(0) == null multiple times inside the loop.
-         ✅ Stores the Result in a Variable – The check is done once before the loop, making it faster.
-3.Removed Unnecessary Variable (colZero)
-         ✅ Eliminates the colZero Variable – It was unnecessary and just duplicated the check.
-         ✅ Uses a Boolean Flag (createNewColumns) – More efficient than checking the same condition repeatedly.
+## Single_Threaded_Optimized_Init()
+
+### 1. Used Null-Coalescing Operator (`??`) Instead of Ternary Operator (`? :`)
+- ✅ **Faster Execution** – Eliminates unnecessary type casting.
+- ✅ **More Readable** – `??` is a cleaner approach for checking and assigning a default value.
+
+### 2. Reduced Redundant Checks with `createNewColumns` Flag
+- ✅ **Avoids Rechecking in Every Loop Iteration** – The original code checked `matrix.GetObject(0) == null` multiple times inside the loop.
+- ✅ **Stores the Result in a Variable** – The check is done once before the loop, making it faster.
+
+### 3. Removed Unnecessary Variable (`colZero`)
+- ✅ **Eliminates the `colZero` Variable** – It was unnecessary and just duplicated the check.
+- ✅ **Uses a Boolean Flag (`createNewColumns`)** – More efficient than checking the same condition repeatedly.
 
 
 
