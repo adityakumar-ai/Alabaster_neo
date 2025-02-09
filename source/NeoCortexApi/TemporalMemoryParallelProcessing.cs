@@ -399,6 +399,68 @@ namespace NeoCortexApi
 
 
 
+        // Using Partitioned Parallel.ForEach for efficient thread management and work distribution on large datasets
+
+        public void InitParallelPartitioned(Connections conn)
+        {
+            this.connections = conn;
+
+            // Initialize matrix either from Memory or create a new one.
+            SparseObjectMatrix<Column> matrix = this.connections.Memory == null
+                ? new SparseObjectMatrix<Column>(this.connections.HtmConfig.ColumnDimensions)
+                : (SparseObjectMatrix<Column>)this.connections.Memory;
+
+            this.connections.Memory = matrix;
+
+            int numColumns = matrix.GetMaxIndex() + 1;
+            this.connections.HtmConfig.NumColumns = numColumns;
+            int cellsPerColumn = this.connections.HtmConfig.CellsPerColumn;
+            Cell[] cells = new Cell[numColumns * cellsPerColumn];
+
+            // Flag to check if columns are already created
+            bool createNewColumns = matrix.GetObject(0) == null;
+
+            // Partitioned Parallel Initialization
+            if (createNewColumns)
+            {
+                // Partitioning the columns into chunks to avoid excessive overhead
+                var partitioner = Partitioner.Create(0, numColumns);
+
+                Parallel.ForEach(partitioner, (range, loopState) =>
+                {
+                    for (int i = range.Item1; i < range.Item2; i++)
+                    {
+                        // Create and assign columns to the matrix
+                        Column column = new Column(cellsPerColumn, i, this.connections.HtmConfig.SynPermConnected, this.connections.HtmConfig.NumInputs);
+                        matrix.set(i, column);  // Set column at index i
+
+                        // Copy cells for each column
+                        for (int j = 0; j < cellsPerColumn; j++)
+                        {
+                            cells[i * cellsPerColumn + j] = column.Cells[j];
+                        }
+                    }
+                });
+            }
+            else
+            {
+                // If columns are already created, just fetch and copy cells
+                for (int i = 0; i < numColumns; i++)
+                {
+                    Column column = matrix.GetObject(i);
+                    for (int j = 0; j < cellsPerColumn; j++)
+                    {
+                        cells[i * cellsPerColumn + j] = column.Cells[j];
+                    }
+                }
+            }
+
+            // Assign cells to the connection
+            this.connections.Cells = cells;
+        }
+
+
+
         #endregion
 
 
