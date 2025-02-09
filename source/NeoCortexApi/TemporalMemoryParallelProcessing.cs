@@ -31,6 +31,40 @@ namespace NeoCortexApi
             public string Name { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
 
+        public void Init3(Connections conn)
+        {
+            this.connections = conn;
+
+            SparseObjectMatrix<Column> matrix = this.connections.Memory == null ?
+                new SparseObjectMatrix<Column>(this.connections.HtmConfig.ColumnDimensions) :
+                    (SparseObjectMatrix<Column>)this.connections.Memory;
+
+            this.connections.Memory = matrix;
+
+            int numColumns = matrix.GetMaxIndex() + 1;
+            this.connections.HtmConfig.NumColumns = numColumns;
+            int cellsPerColumn = this.connections.HtmConfig.CellsPerColumn;
+            Cell[] cells = new Cell[numColumns * cellsPerColumn];
+
+            // Used as flag to determine if Column objects have been created.
+            Column colZero = matrix.GetObject(0);
+
+            // Parallelize the loop that initializes columns
+            Parallel.For(0, numColumns, i =>
+            {
+                Column column = colZero == null ?
+                    new Column(cellsPerColumn, i, this.connections.HtmConfig.SynPermConnected, this.connections.HtmConfig.NumInputs) : matrix.GetObject(i);
+
+                for (int j = 0; j < cellsPerColumn; j++)
+                {
+                    cells[i * cellsPerColumn + j] = column.Cells[j];
+                }
+
+                // If columns have not been previously configured
+                if (colZero == null)
+                    matrix.set(i, column);
+            });
+        }
         public void Init2(Connections conn)
         {
             this.connections = conn;

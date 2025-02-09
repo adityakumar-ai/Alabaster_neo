@@ -1069,7 +1069,7 @@ namespace UnitTestsProject
 
 
             stopwatch.Start();
-            tmParallel.InitAsync(cn);
+            tmParallel.Init3(cn);
             stopwatch.Stop();
             TimeSpan elapsedParallel = stopwatch.Elapsed;
             Console.WriteLine($"Time taken: {elapsedParallel.TotalMilliseconds} milliseconds for Parallel Processing");
