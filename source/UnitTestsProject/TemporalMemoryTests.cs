@@ -954,6 +954,7 @@ namespace UnitTestsProject
         public void TestHighSparsitySequenceLearningAndRecallParallel()
         {
             // Create a new instance of TemporalMemory and Connections
+            TemporalMemory tm = new TemporalMemory();
             TemporalMemoryParallelProcessing tmParallel = new();
             Connections cn = new Connections();
             Stopwatch stopwatch = new Stopwatch();
@@ -964,10 +965,17 @@ namespace UnitTestsProject
 
             // Initialize TemporalMemory with the Connections object
             stopwatch.Start();
-            tmParallel.InitAsync(cn);
+            tm.Init(cn);
             stopwatch.Stop();
             TimeSpan elapsed = stopwatch.Elapsed;
             Console.WriteLine($"Time taken: {elapsed.TotalMilliseconds} milliseconds for parallel initialization");
+
+
+            stopwatch.Start();
+            tmParallel.Init3(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed0 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed0.TotalMilliseconds} milliseconds for parallel initialization");
 
             // Define two sequences of active columns with high sparsity rates
             var seq1ActiveColumns = new int[] { 0, 10, 20, 30, 41, 52, 63, 70, 80, 90 };
@@ -997,6 +1005,7 @@ namespace UnitTestsProject
         public void TestLowSparsitySequenceLearningAndRecall()
         {
             // Create instances of TemporalMemory in parallel, Connections, and set parameters
+            TemporalMemory tm = new TemporalMemory();
             TemporalMemoryParallelProcessing tmParallel = new TemporalMemoryParallelProcessing();
             Connections cn = new Connections();
             Stopwatch stopwatch = new Stopwatch();
