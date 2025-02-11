@@ -10,6 +10,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 namespace UnitTestsProject
 {
@@ -1383,11 +1384,13 @@ namespace UnitTestsProject
             // Note: The test is marked as inconclusive with an exception to indicate that it's not fixed.
 
             // Initialization
-            TemporalMemory tm = new TemporalMemory();
+            //TemporalMemory tm = new TemporalMemory();
+            TemporalMemoryParallelProcessing tmParallel = new TemporalMemoryParallelProcessing();
             Connections cn = new Connections();
             Parameters p = GetDefaultParameters();
             p.apply(cn);
-            tm.Init(cn);
+            //tm.Init(cn);
+            tmParallel.InitAsync(cn);
 
             int[] activeColumns = { 0, 1, 2 };
             Cell[] activeCells = cn.GetCells(activeColumns);
