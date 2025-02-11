@@ -740,6 +740,19 @@ namespace UnitTestsProject
             Console.WriteLine($"Time taken: {elapsed.TotalMilliseconds} milliseconds");
 
             stopwatch.Start();
+            tmParallel.Init3(cn);
+            stopwatch.Stop();
+            TimeSpan elapsedParallel0 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsedParallel0.TotalMilliseconds} milliseconds for Parallel Processing Init 3");
+
+            stopwatch.Start();
+            tmParallel.Init4(cn);
+            stopwatch.Stop();
+            TimeSpan elapsedParallel01 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsedParallel01.TotalMilliseconds} milliseconds for Parallel Processing Init 4");
+
+
+            stopwatch.Start();
             tmParallel.InitAsync(cn);
             stopwatch.Stop();
             TimeSpan elapsedParallel = stopwatch.Elapsed;
@@ -792,6 +805,18 @@ namespace UnitTestsProject
             stopwatch.Stop();
             TimeSpan elapsed = stopwatch.Elapsed;
             Console.WriteLine($"Time taken: {elapsed.TotalMilliseconds} milliseconds");
+
+            stopwatch.Start();
+            tmParallel.Init3(cn);
+            stopwatch.Stop();
+            TimeSpan elapsedParallel0 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsedParallel0.TotalMilliseconds} milliseconds for Parallel Processing Init 3");
+
+            stopwatch.Start();
+            tmParallel.Init4(cn);
+            stopwatch.Stop();
+            TimeSpan elapsedParallel01 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsedParallel01.TotalMilliseconds} milliseconds for Parallel Processing Init 4");
 
             stopwatch.Start();
             tmParallel.InitAsync(cn);
@@ -865,6 +890,12 @@ namespace UnitTestsProject
             Console.WriteLine($"Time taken: {elapsed.TotalMilliseconds} milliseconds");
 
             stopwatch.Start();
+            tmParallel.Init3(cn);
+            stopwatch.Stop();
+            TimeSpan elapsedParallel0 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsedParallel0.TotalMilliseconds} milliseconds for Parallel Processing Init 3");
+
+            stopwatch.Start();
             tmParallel.InitAsync(cn);
             stopwatch.Stop();
             TimeSpan elapsedParallel = stopwatch.Elapsed;
@@ -913,28 +944,83 @@ namespace UnitTestsProject
             TemporalMemory tm = new TemporalMemory();
             Connections cn = new Connections();
             Stopwatch stopwatch = new Stopwatch();
-            
+            TemporalMemoryParallelProcessing tmParallel = new TemporalMemoryParallelProcessing();
             // Set default parameters, specifying a column dimension of 64
             Parameters p = GetDefaultParameters(null, KEY.COLUMN_DIMENSIONS, new int[] { 100 });
             p.apply(cn);
+
+
+            stopwatch.Start();
+            tmParallel.Single_Threaded_Optimized_Init(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_1 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+
+            stopwatch.Start();
+            tmParallel.InitParallelRegularDictionary(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_2 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for InitParallel_Omi : {elapsed_2.TotalMilliseconds} milliseconds");
+
+            stopwatch.Start();
+            tmParallel.InitParallelWithConcurrentDictionary(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_3 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for InitParallel_Omi : {elapsed_3.TotalMilliseconds} milliseconds");
+
+            stopwatch.Start();
+            tmParallel.InitParallelPartitioned(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_4 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for InitParallel_Omi : {elapsed_4.TotalMilliseconds} milliseconds");
+
 
             // Initialize TemporalMemory with the Connections object
             stopwatch.Start();
             tm.Init(cn);
             stopwatch.Stop();
-            TimeSpan elapsed = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken: {elapsed.TotalMilliseconds} milliseconds");
+            TimeSpan elapsed_5 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed_5.TotalMilliseconds} milliseconds");
 
             // Define two sequences of active columns with high sparsity rates
             var seq1ActiveColumns = new int[] { 0, 10, 20, 30, 41, 52, 63, 70, 80, 90 };
             var seq2ActiveColumns = new int[] { 41, 52, 63 };
 
+
+            stopwatch.Start();
+            tmParallel.Compute(seq1ActiveColumns, true);
+            stopwatch.Stop();
+            TimeSpan elapsed_6 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for compute tmParallel(Single_Threaded_Optimized_Init): {elapsed_6.TotalMilliseconds} milliseconds");
+
+            stopwatch.Start();
+            tmParallel.Compute(seq1ActiveColumns, true);
+            stopwatch.Stop();
+            TimeSpan elapsed_7 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelRegularDictionary): {elapsed_7.TotalMilliseconds} milliseconds");
+
+            stopwatch.Start();
+            tmParallel.Compute(seq1ActiveColumns, true);
+            stopwatch.Stop();
+            TimeSpan elapsed_8 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelWithConcurrentDictionary): {elapsed_8.TotalMilliseconds} milliseconds");
+
+
+            stopwatch.Start();
+            tmParallel.Compute(seq1ActiveColumns, true);
+            stopwatch.Stop();
+            TimeSpan elapsed_9 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelWithConcurrentDictionary): {elapsed_9.TotalMilliseconds} milliseconds");
+
+
+
+
             // Perform computation cycles to enable learning of the sequences
             stopwatch.Start();
             tm.Compute(seq1ActiveColumns, true);
             stopwatch.Stop();
-            TimeSpan elapsed1_ = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken: {elapsed1_.TotalMilliseconds} milliseconds for compute");
+            TimeSpan elapsed_10 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed_10.TotalMilliseconds} milliseconds for compute");
    
             // Recall the first sequence
             var recall1 = tm.Compute(seq1ActiveColumns, false);
@@ -955,6 +1041,7 @@ namespace UnitTestsProject
         public void TestHighSparsitySequenceLearningAndRecallParallel()
         {
             // Create a new instance of TemporalMemory and Connections
+            TemporalMemory tm = new TemporalMemory();
             TemporalMemoryParallelProcessing tmParallel = new();
             Connections cn = new Connections();
             Stopwatch stopwatch = new Stopwatch();
@@ -965,10 +1052,17 @@ namespace UnitTestsProject
 
             // Initialize TemporalMemory with the Connections object
             stopwatch.Start();
-            tmParallel.InitAsync(cn);
+            tm.Init(cn);
             stopwatch.Stop();
             TimeSpan elapsed = stopwatch.Elapsed;
             Console.WriteLine($"Time taken: {elapsed.TotalMilliseconds} milliseconds for parallel initialization");
+
+
+            stopwatch.Start();
+            tmParallel.Init3(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed0 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed0.TotalMilliseconds} milliseconds for parallel initialization");
 
             // Define two sequences of active columns with high sparsity rates
             var seq1ActiveColumns = new int[] { 0, 10, 20, 30, 41, 52, 63, 70, 80, 90 };
@@ -998,18 +1092,26 @@ namespace UnitTestsProject
         public void TestLowSparsitySequenceLearningAndRecall()
         {
             // Create instances of TemporalMemory in parallel, Connections, and set parameters
+            TemporalMemory tm = new TemporalMemory();
             TemporalMemoryParallelProcessing tmParallel = new TemporalMemoryParallelProcessing();
             Connections cn = new Connections();
             Stopwatch stopwatch = new Stopwatch();
             Parameters p = GetDefaultParameters(null, KEY.COLUMN_DIMENSIONS, new int[] { 64 });
             p.apply(cn);
-           
+
             //initialized tm in parallel
             stopwatch.Start();
-            tmParallel.InitAsync(cn);
+            tm.Init(cn);
             stopwatch.Stop();
             TimeSpan elapsedParallel = stopwatch.Elapsed;
             Console.WriteLine($"Time taken: {elapsedParallel.TotalMilliseconds} milliseconds for Parallel Processing");
+
+
+            stopwatch.Start();
+            tmParallel.Init3(cn);
+            stopwatch.Stop();
+            TimeSpan elapsedParallel0 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsedParallel0.TotalMilliseconds} milliseconds for Parallel Processing");
 
             // Define two sequences of active columns
             var seq1ActiveColumns = new int[] { 0, 1, 2, 3, 4, 5, 6 };
@@ -1070,7 +1172,7 @@ namespace UnitTestsProject
 
 
             stopwatch.Start();
-            tmParallel.InitAsync(cn);
+            tmParallel.Init3(cn);
             stopwatch.Stop();
             TimeSpan elapsedParallel = stopwatch.Elapsed;
             Console.WriteLine($"Time taken: {elapsedParallel.TotalMilliseconds} milliseconds for Parallel Processing");

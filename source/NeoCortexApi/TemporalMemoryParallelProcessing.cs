@@ -31,6 +31,81 @@ namespace NeoCortexApi
             public string Name { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
 
+        public void Init4(Connections conn)
+        {
+            this.connections = conn;
+
+            SparseObjectMatrix<Column> matrix = this.connections.Memory == null ?
+                new SparseObjectMatrix<Column>(this.connections.HtmConfig.ColumnDimensions) :
+                (SparseObjectMatrix<Column>)this.connections.Memory;
+
+            this.connections.Memory = matrix;
+
+            int numColumns = matrix.GetMaxIndex() + 1;
+            this.connections.HtmConfig.NumColumns = numColumns;
+            int cellsPerColumn = this.connections.HtmConfig.CellsPerColumn;
+            Cell[] cells = new Cell[numColumns * cellsPerColumn];
+
+            // Used as flag to determine if Column objects have been created.
+            Column colZero = matrix.GetObject(0);
+
+            // Parallelize the loop that initializes columns
+            Parallel.For(0, numColumns, i =>
+            {
+                Column column = colZero == null ?
+                    new Column(cellsPerColumn, i, this.connections.HtmConfig.SynPermConnected, this.connections.HtmConfig.NumInputs) :
+                    matrix.GetObject(i);
+
+                // Precompute the starting index for cells to avoid repeated calculations
+                int cellStartIndex = i * cellsPerColumn;
+
+                // Assign cells in a single loop
+                for (int j = 0; j < cellsPerColumn; j++)
+                {
+                    cells[cellStartIndex + j] = column.Cells[j];
+                }
+
+                // If columns have not been previously configured
+                if (colZero == null)
+                {
+                    matrix.set(i, column);
+                }
+            });
+        }
+        public void Init3(Connections conn)
+        {
+            this.connections = conn;
+
+            SparseObjectMatrix<Column> matrix = this.connections.Memory == null ?
+                new SparseObjectMatrix<Column>(this.connections.HtmConfig.ColumnDimensions) :
+                    (SparseObjectMatrix<Column>)this.connections.Memory;
+
+            this.connections.Memory = matrix;
+
+            int numColumns = matrix.GetMaxIndex() + 1;
+            this.connections.HtmConfig.NumColumns = numColumns;
+            int cellsPerColumn = this.connections.HtmConfig.CellsPerColumn;
+            Cell[] cells = new Cell[numColumns * cellsPerColumn];
+
+            // Used as flag to determine if Column objects have been created.
+            Column colZero = matrix.GetObject(0);
+
+            // Parallelize the loop that initializes columns
+            Parallel.For(0, numColumns, i =>
+            {
+                Column column = colZero == null ?
+                    new Column(cellsPerColumn, i, this.connections.HtmConfig.SynPermConnected, this.connections.HtmConfig.NumInputs) : matrix.GetObject(i);
+
+                for (int j = 0; j < cellsPerColumn; j++)
+                {
+                    cells[i * cellsPerColumn + j] = column.Cells[j];
+                }
+
+                // If columns have not been previously configured
+                if (colZero == null)
+                    matrix.set(i, column);
+            });
+        }
         public void Init2(Connections conn)
         {
             this.connections = conn;
@@ -204,6 +279,235 @@ namespace NeoCortexApi
 
             this.connections.Cells = cells;
         }
+
+
+
+
+
+        #region Omii's Section
+
+        public void Single_Threaded_Optimized_Init(Connections conn)
+        {
+            this.connections = conn;
+
+            SparseObjectMatrix<Column> matrix = this.connections.Memory as SparseObjectMatrix<Column>
+                ?? new SparseObjectMatrix<Column>(this.connections.HtmConfig.ColumnDimensions);
+
+            this.connections.Memory = matrix;
+            int numColumns = matrix.GetMaxIndex() + 1;
+            this.connections.HtmConfig.NumColumns = numColumns;
+            int cellsPerColumn = this.connections.HtmConfig.CellsPerColumn;
+            Cell[] cells = new Cell[numColumns * cellsPerColumn];
+
+            bool createNewColumns = matrix.GetObject(0) == null;
+
+            for (int i = 0; i < numColumns; i++)
+            {
+                Column column = createNewColumns
+                    ? new Column(cellsPerColumn, i, this.connections.HtmConfig.SynPermConnected, this.connections.HtmConfig.NumInputs)
+                    : matrix.GetObject(i);
+
+                for (int j = 0; j < cellsPerColumn; j++)
+                {
+                    cells[i * cellsPerColumn + j] = column.Cells[j];
+                }
+
+                if (createNewColumns)
+                    matrix.set(i, column);
+            }
+
+            this.connections.Cells = cells;
+        }
+
+
+
+        // Initializes columns and cells, using parallel processing for new columns to optimize performance.
+
+        public void InitParallelRegularDictionary(Connections conn)
+        {
+            this.connections = conn;
+
+            // Initialize matrix either from Memory or create a new one.
+            SparseObjectMatrix<Column> matrix = this.connections.Memory == null
+                ? new SparseObjectMatrix<Column>(this.connections.HtmConfig.ColumnDimensions)
+                : (SparseObjectMatrix<Column>)this.connections.Memory;
+
+            this.connections.Memory = matrix;
+
+            int numColumns = matrix.GetMaxIndex() + 1;
+            this.connections.HtmConfig.NumColumns = numColumns;
+            int cellsPerColumn = this.connections.HtmConfig.CellsPerColumn;
+            Cell[] cells = new Cell[numColumns * cellsPerColumn];
+
+            // Flag to check if columns are already created
+            bool createNewColumns = matrix.GetObject(0) == null;
+
+            // Parallel initialization of columns if needed
+            if (createNewColumns)
+            {
+                Parallel.For(0, numColumns, i =>
+                {
+                    // Create and assign columns to the matrix in parallel
+                    Column column = new Column(cellsPerColumn, i, this.connections.HtmConfig.SynPermConnected, this.connections.HtmConfig.NumInputs);
+                    matrix.set(i, column);  // Set column at index i
+                                            // Copy cells for each column
+                    for (int j = 0; j < cellsPerColumn; j++)
+                    {
+                        cells[i * cellsPerColumn + j] = column.Cells[j];
+                    }
+                });
+            }
+            else
+            {
+                // If columns are already created, just fetch and copy cells
+                for (int i = 0; i < numColumns; i++)
+                {
+                    Column column = matrix.GetObject(i);
+                    for (int j = 0; j < cellsPerColumn; j++)
+                    {
+                        cells[i * cellsPerColumn + j] = column.Cells[j];
+                    }
+                }
+            }
+
+            // Assign cells to the connection
+            this.connections.Cells = cells;
+        }
+
+
+
+        // Initializes columns in parallel using a ConcurrentDictionary for thread-safe column management.
+
+        public void InitParallelWithConcurrentDictionary(Connections conn)
+        {
+            this.connections = conn;
+
+            // Initialize matrix either from Memory or create a new one.
+            SparseObjectMatrix<Column> matrix = this.connections.Memory == null
+                ? new SparseObjectMatrix<Column>(this.connections.HtmConfig.ColumnDimensions)
+                : (SparseObjectMatrix<Column>)this.connections.Memory;
+
+            this.connections.Memory = matrix;
+
+            int numColumns = matrix.GetMaxIndex() + 1;
+            this.connections.HtmConfig.NumColumns = numColumns;
+            int cellsPerColumn = this.connections.HtmConfig.CellsPerColumn;
+            Cell[] cells = new Cell[numColumns * cellsPerColumn];
+
+            // Flag to check if columns are already created
+            bool createNewColumns = matrix.GetObject(0) == null;
+
+            // Use ConcurrentDictionary to store columns during parallel initialization
+            if (createNewColumns)
+            {
+                var columnDict = new ConcurrentDictionary<int, Column>();
+
+                Parallel.For(0, numColumns, i =>
+                {
+                    // Create columns concurrently and store them in the dictionary
+                    var column = new Column(cellsPerColumn, i, this.connections.HtmConfig.SynPermConnected, this.connections.HtmConfig.NumInputs);
+                    columnDict[i] = column; // Thread-safe insertion into dictionary
+
+                    // Copy cells for each column
+                    for (int j = 0; j < cellsPerColumn; j++)
+                    {
+                        cells[i * cellsPerColumn + j] = column.Cells[j];
+                    }
+                });
+
+                // Set columns to matrix after parallel operations
+                foreach (var kvp in columnDict)
+                {
+                    matrix.set(kvp.Key, kvp.Value);
+                }
+            }
+            else
+            {
+                // If columns are already created, just fetch and copy cells
+                for (int i = 0; i < numColumns; i++)
+                {
+                    Column column = matrix.GetObject(i);
+                    for (int j = 0; j < cellsPerColumn; j++)
+                    {
+                        cells[i * cellsPerColumn + j] = column.Cells[j];
+                    }
+                }
+            }
+
+            // Assign cells to the connection
+            this.connections.Cells = cells;
+        }
+
+
+
+        // Using Partitioned Parallel.ForEach for efficient thread management and work distribution on large datasets
+
+        public void InitParallelPartitioned(Connections conn)
+        {
+            this.connections = conn;
+
+            // Initialize matrix either from Memory or create a new one.
+            SparseObjectMatrix<Column> matrix = this.connections.Memory == null
+                ? new SparseObjectMatrix<Column>(this.connections.HtmConfig.ColumnDimensions)
+                : (SparseObjectMatrix<Column>)this.connections.Memory;
+
+            this.connections.Memory = matrix;
+
+            int numColumns = matrix.GetMaxIndex() + 1;
+            this.connections.HtmConfig.NumColumns = numColumns;
+            int cellsPerColumn = this.connections.HtmConfig.CellsPerColumn;
+            Cell[] cells = new Cell[numColumns * cellsPerColumn];
+
+            // Flag to check if columns are already created
+            bool createNewColumns = matrix.GetObject(0) == null;
+
+            // Partitioned Parallel Initialization
+            if (createNewColumns)
+            {
+                // Partitioning the columns into chunks to avoid excessive overhead
+                var partitioner = Partitioner.Create(0, numColumns);
+
+                Parallel.ForEach(partitioner, (range, loopState) =>
+                {
+                    for (int i = range.Item1; i < range.Item2; i++)
+                    {
+                        // Create and assign columns to the matrix
+                        Column column = new Column(cellsPerColumn, i, this.connections.HtmConfig.SynPermConnected, this.connections.HtmConfig.NumInputs);
+                        matrix.set(i, column);  // Set column at index i
+
+                        // Copy cells for each column
+                        for (int j = 0; j < cellsPerColumn; j++)
+                        {
+                            cells[i * cellsPerColumn + j] = column.Cells[j];
+                        }
+                    }
+                });
+            }
+            else
+            {
+                // If columns are already created, just fetch and copy cells
+                for (int i = 0; i < numColumns; i++)
+                {
+                    Column column = matrix.GetObject(i);
+                    for (int j = 0; j < cellsPerColumn; j++)
+                    {
+                        cells[i * cellsPerColumn + j] = column.Cells[j];
+                    }
+                }
+            }
+
+            // Assign cells to the connection
+            this.connections.Cells = cells;
+        }
+
+
+
+        #endregion
+
+
+
+
+
 
 
 
