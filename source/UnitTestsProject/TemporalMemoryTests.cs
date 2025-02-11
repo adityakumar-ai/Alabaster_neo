@@ -1511,7 +1511,7 @@ namespace UnitTestsProject
             cn.CreateSynapse(dd3, cn.GetCell(9), 0.5);
 
             // Compute the current cycle
-            ComputeCycle cycle = tm.Compute(activeColumns, true) as ComputeCycle;
+            ComputeCycle cycle = tmParallel.Compute(activeColumns, true) as ComputeCycle;
 
             // Assert that the correct dendrite segments are active
             Assert.IsTrue(cycle.ActiveSegments.Contains(dd1));
