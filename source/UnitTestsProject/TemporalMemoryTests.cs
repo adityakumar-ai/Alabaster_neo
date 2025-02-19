@@ -1043,6 +1043,12 @@ namespace UnitTestsProject
             TimeSpan elapsed1_ = stopwatch.Elapsed;
             Console.WriteLine($"Time taken: {elapsed1_.TotalMilliseconds} milliseconds to learn sequence parallelly");
 
+            stopwatch.Start();
+            tm.Compute(seq1ActiveColumns, true);
+            stopwatch.Stop();
+            TimeSpan elapsed_10 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed_10.TotalMilliseconds} milliseconds for compute");
+
             // Recall the first sequence
             var recall1 = tmParallel.Compute(seq1ActiveColumns, false);
 
