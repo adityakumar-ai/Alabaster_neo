@@ -1075,6 +1075,8 @@ namespace UnitTestsProject
             TimeSpan elapsed1_ = stopwatch.Elapsed;
             Console.WriteLine($"Time taken: {elapsed1_.TotalMilliseconds} milliseconds to learn sequence parallelly");
 
+            
+            //Faulty testing 
             stopwatch.Start();
             tm.Compute(seq1ActiveColumns, true);
             stopwatch.Stop();
@@ -1141,6 +1143,7 @@ namespace UnitTestsProject
             Console.WriteLine($"Time taken: {elapsed02_.TotalMilliseconds} milliseconds to compute seq2Activecolums in parallel");
 
 
+            //Faulty for testing
             stopwatch.Start();
             tm.Compute(seq1ActiveColumns, true);
             stopwatch.Stop();
@@ -1190,6 +1193,14 @@ namespace UnitTestsProject
             stopwatch.Stop();
             TimeSpan elapsedParallel = stopwatch.Elapsed;
             Console.WriteLine($"Time taken: {elapsedParallel.TotalMilliseconds} milliseconds for Parallel Processing");
+
+
+            //Faulty for testing
+            stopwatch.Start();
+            tm.Compute(seq1ActiveColumns, true);
+            stopwatch.Stop();
+            TimeSpan elapsed_10 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed_10.TotalMilliseconds} milliseconds for compute");
 
             // Create a distal segment for a specific cell
             DistalDendrite dd = cn.CreateDistalSegment(cn.GetCell(0));
