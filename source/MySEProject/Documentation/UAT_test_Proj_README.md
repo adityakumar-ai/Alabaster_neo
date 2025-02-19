@@ -94,7 +94,8 @@ This comparison helps determine whether the newly introduced asynchronous method
 
 
 
-### `InitParallelRegularDictionary()`
+### `InitParallelRegularDictionary()
+
 1. **Used `Parallel.For` for Parallel Column Initialization**
    - ✅ **Faster Execution** – Distributes column creation and cell assignment across multiple threads.
    - ✅ **Optimized for Large Data Sets** – Improves performance significantly when handling large numbers of columns.
@@ -112,7 +113,9 @@ This comparison helps determine whether the newly introduced asynchronous method
    - ✅ **Avoids Extra Loops** – The original method had a separate loop for setting the matrix; now it's handled within the parallel block.
 
 
-### `InitParallelWithConcurrentDictionary()`
+
+### `InitParallelWithConcurrentDictionary()
+
 1. **Parallelized Column Initialization**
    - **In the InitParallelRegularDictionary Approach:** Used `Parallel.For` for parallel column initialization.
    - **In the InitParallelWithConcurrentDictionary Approach:** Still using `Parallel.For`, but with the addition of `ConcurrentDictionary` to handle parallel writes to the `matrix`. This ensures thread-safe column assignment.
@@ -124,6 +127,41 @@ This comparison helps determine whether the newly introduced asynchronous method
 3. **Optimized Copying of Cells**
    - **In the InitParallelRegularDictionary Approach:** Cells were copied after the parallel column creation in a separate loop, causing redundant operations.
    - **In the InitParallelWithConcurrentDictionary Approach:** Cells are now copied within the parallel loop itself, eliminating the need for a separate loop and making the operation more efficient.
+
+  
+### InitParallelPartitionedForEach()
+1. **Used `Parallel.ForEach` with Partitioner for Efficient Work Distribution**
+- ✅ **Optimized for Large Data Sets** – Partitions the work into smaller chunks, allowing efficient execution across multiple threads.
+- ✅ **Improved Thread Management** – Divides the task into ranges and processes each range in parallel, optimizing CPU usage.
+
+2. **Column Initialization and Cell Assignment Inside Parallel Block**
+- ✅ **Consolidates Operations** – Combines column retrieval, assignment, and cell copying within a single parallelized block.
+- ✅ **Avoids Extra Loops** – No need for a separate loop for column assignment or cell copying, minimizing overhead.
+
+3. **Partitioning Ensures Better Performance in Highly Parallelized Workloads**
+- ✅ **Improved Thread Safety** – Using partitioned ranges reduces potential race conditions and ensures better synchronization between threads.
+- ✅ **More Efficient on Large Datasets** – Perfect for handling large numbers of columns (`numColumns ≥ 1000`) while distributing the workload evenly across threads.
+
+
+
+### Comparison of `InitParallelPartitionedForEach()` vs `Parallel.For` vs `Single-Threaded Optimized
+
+| **Aspect**                          | **`InitParallelPartitionedForEach()`**                                         | **`Parallel.For`**                                               | **`Single-Threaded Optimized`**                                  |
+|-------------------------------------|----------------------------------------------------------------------------|------------------------------------------------------------------|------------------------------------------------------------------|
+| **Work Distribution**               | ✅ Uses `Partitioner` to efficiently divide work into smaller chunks.      | ✅ Works on the entire dataset, may be less efficient for large sets. | ❌ Sequential execution, less efficient for large datasets.      |
+| **Thread Management**               | ✅ Efficient thread management via partitioning.                           | ✅ Parallel execution but lacks fine thread control.             | ❌ Single-threaded execution.                                   |
+| **Column Initialization and Cell Assignment** | ✅ Combines both in the parallel block, reducing overhead.               | ✅ Parallelizes column init, but requires separate loops for setting and copying. | ❌ Sequential, with separate loops for each task.                |
+| **Performance on Large Datasets**   | ✅ Optimized for large datasets (`numColumns ≥ 1000`).                    | ✅ Works well for large datasets but lacks partitioning.         | ❌ Performance drops with larger datasets.                       |
+
+
+
+### Conclusion:
+- **`InitParallelPartitionedForEach()`** is the most optimized solution for large datasets (`numColumns ≥ 1000`), ensuring better performance and thread management through partitioning.
+- **`Parallel.For`** is better than single-threaded but lacks partitioning and fine-grained control over threads.
+- **`Single-Threaded Optimized`** is the simplest and most efficient for small datasets but doesn't scale well for large numbers of columns.
+
+
+
 
 
 ## References

@@ -10,6 +10,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 namespace UnitTestsProject
 {
@@ -739,6 +740,19 @@ namespace UnitTestsProject
             Console.WriteLine($"Time taken: {elapsed.TotalMilliseconds} milliseconds");
 
             stopwatch.Start();
+            tmParallel.Init3(cn);
+            stopwatch.Stop();
+            TimeSpan elapsedParallel0 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsedParallel0.TotalMilliseconds} milliseconds for Parallel Processing Init 3");
+
+            stopwatch.Start();
+            tmParallel.Init4(cn);
+            stopwatch.Stop();
+            TimeSpan elapsedParallel01 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsedParallel01.TotalMilliseconds} milliseconds for Parallel Processing Init 4");
+
+
+            stopwatch.Start();
             tmParallel.InitAsync(cn);
             stopwatch.Stop();
             TimeSpan elapsedParallel = stopwatch.Elapsed;
@@ -791,6 +805,18 @@ namespace UnitTestsProject
             stopwatch.Stop();
             TimeSpan elapsed = stopwatch.Elapsed;
             Console.WriteLine($"Time taken: {elapsed.TotalMilliseconds} milliseconds");
+
+            stopwatch.Start();
+            tmParallel.Init3(cn);
+            stopwatch.Stop();
+            TimeSpan elapsedParallel0 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsedParallel0.TotalMilliseconds} milliseconds for Parallel Processing Init 3");
+
+            stopwatch.Start();
+            tmParallel.Init4(cn);
+            stopwatch.Stop();
+            TimeSpan elapsedParallel01 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsedParallel01.TotalMilliseconds} milliseconds for Parallel Processing Init 4");
 
             stopwatch.Start();
             tmParallel.InitAsync(cn);
@@ -862,6 +888,12 @@ namespace UnitTestsProject
             stopwatch.Stop();
             TimeSpan elapsed = stopwatch.Elapsed;
             Console.WriteLine($"Time taken: {elapsed.TotalMilliseconds} milliseconds");
+
+            stopwatch.Start();
+            tmParallel.Init3(cn);
+            stopwatch.Stop();
+            TimeSpan elapsedParallel0 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsedParallel0.TotalMilliseconds} milliseconds for Parallel Processing Init 3");
 
             stopwatch.Start();
             tmParallel.InitAsync(cn);
@@ -1460,11 +1492,19 @@ namespace UnitTestsProject
             // Note: The test is marked as inconclusive with an exception to indicate that it's not fixed.
 
             // Initialization
-            TemporalMemory tm = new TemporalMemory();
+            //TemporalMemory tm = new TemporalMemory();
+            TemporalMemoryParallelProcessing tmParallel = new TemporalMemoryParallelProcessing();
             Connections cn = new Connections();
             Parameters p = GetDefaultParameters();
+            Stopwatch stopwatch = new Stopwatch();
             p.apply(cn);
-            tm.Init(cn);
+            //tm.Init(cn);
+
+            stopwatch.Start();
+            tmParallel.InitAsync(cn);
+            stopwatch.Stop();
+            TimeSpan elapsedParallel = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsedParallel.TotalMilliseconds} milliseconds for Parallel Processing");
 
             int[] activeColumns = { 0, 1, 2 };
             Cell[] activeCells = cn.GetCells(activeColumns);
@@ -1483,7 +1523,7 @@ namespace UnitTestsProject
             cn.CreateSynapse(dd3, cn.GetCell(9), 0.5);
 
             // Compute the current cycle
-            ComputeCycle cycle = tm.Compute(activeColumns, true) as ComputeCycle;
+            ComputeCycle cycle = tmParallel.Compute(activeColumns, true) as ComputeCycle;
 
             // Assert that the correct dendrite segments are active
             Assert.IsTrue(cycle.ActiveSegments.Contains(dd1));
