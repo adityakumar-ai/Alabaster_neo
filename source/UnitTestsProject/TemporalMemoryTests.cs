@@ -1611,7 +1611,7 @@ namespace UnitTestsProject
 
             ComputeCycle cc = tmParallel.Compute(previousActiveColumns, true) as ComputeCycle;
             Assert.IsTrue(prevWinnerCells.SequenceEqual(cc.WinnerCells));
-            cc = tm.Compute(activeColumns, true) as ComputeCycle;
+            cc = tmParallel.Compute(activeColumns, true) as ComputeCycle;
 
             List<Cell> presynapticCells = new List<Cell>();
             foreach (var syn in activeSegment.Synapses)
