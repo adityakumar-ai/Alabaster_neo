@@ -180,7 +180,8 @@ This comparison helps determine whether the newly introduced asynchronous method
 - ✅ **Preserved Parallel Execution** – `RecordSegmentActivity` runs in `Parallel.ForEach`.
 - ✅ **Ensures Efficient Learning** – Maximizes CPU usage while maintaining logic.
 
-- 
+
+### Parallel.Invoke() is used to run active synapse processing and potential synapse processing in parallel, ensuring both tasks execute simultaneously without blocking each other.
 
 ## References
 
