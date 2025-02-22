@@ -1587,6 +1587,7 @@ namespace UnitTestsProject
         public void TestActiveSegmentGrowSynapsesAccordingToPotentialOverlap(int[] previousActiveColumns, int[] activeColumns, int[] expectedPresynapticCells, int expectedCount)
         {
             TemporalMemory tm = new TemporalMemory();
+            TemporalMemoryParallelProcessing tmParallel = new TemporalMemoryParallelProcessing();
             Connections cn = new Connections();
             Parameters p = GetDefaultParameters(null, KEY.CELLS_PER_COLUMN, 1);
             p = GetDefaultParameters(p, KEY.MIN_THRESHOLD, 1);
@@ -1594,6 +1595,7 @@ namespace UnitTestsProject
             p = GetDefaultParameters(p, KEY.MAX_NEW_SYNAPSE_COUNT, 4);
             p.apply(cn);
             tm.Init(cn);
+            tmParallel.InitAsync(cn);
 
             // Use 1 cell per column for easy control over the winner cells.
             List<Cell> prevWinnerCells = new List<Cell>();
