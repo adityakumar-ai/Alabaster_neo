@@ -941,6 +941,7 @@ namespace NeoCortexApi
                 Debug.WriteLine($"\nActive segments: {activeSegments.Count}, Matching segments: {matchingSegments.Count}");
             }
 
+        //  Parallel.Invoke() is used to run active synapse processing and potential synapse processing in parallel, ensuring both tasks execute simultaneously without blocking each other.
 
         protected async Task ActivateDendrites2Async_Omkar(Connections conn, ComputeCycle cycle, bool learn, int[] externalPredictiveInputsActive = null, int[] externalPredictiveInputsWinners = null)
         {
