@@ -1609,7 +1609,7 @@ namespace UnitTestsProject
             cn.CreateSynapse(activeSegment, cn.GetCell(1), 0.5);
             cn.CreateSynapse(activeSegment, cn.GetCell(2), 0.2);
 
-            ComputeCycle cc = tm.Compute(previousActiveColumns, true) as ComputeCycle;
+            ComputeCycle cc = tmParallel.Compute(previousActiveColumns, true) as ComputeCycle;
             Assert.IsTrue(prevWinnerCells.SequenceEqual(cc.WinnerCells));
             cc = tm.Compute(activeColumns, true) as ComputeCycle;
 
