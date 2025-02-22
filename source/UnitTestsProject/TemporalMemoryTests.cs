@@ -1595,6 +1595,7 @@ namespace UnitTestsProject
             p = GetDefaultParameters(p, KEY.MAX_NEW_SYNAPSE_COUNT, 4);
             p.apply(cn);
             tm.Init(cn);
+            tmParallel.InitAsync(cn);
 
             // Use 1 cell per column for easy control over the winner cells.
             List<Cell> prevWinnerCells = new List<Cell>();
