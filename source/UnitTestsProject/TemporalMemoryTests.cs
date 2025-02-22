@@ -1197,7 +1197,7 @@ namespace UnitTestsProject
         public void TestCreateSynapseInDistalSegment()
         {
             // Create instances of TemporalMemory, Connections, and Parameters
-            TemporalMemory tmParallel = new TemporalMemory();
+            
             TemporalMemoryParallelProcessing tmParallel = new TemporalMemoryParallelProcessing();
             Connections cn = new Connections();
             Stopwatch stopwatch = new Stopwatch();
@@ -1206,7 +1206,7 @@ namespace UnitTestsProject
             
 
             stopwatch.Start();
-            tmParallel.Init(cn);
+            tmParallel.InitAsync(cn);
             stopwatch.Stop();
             TimeSpan elapsed = stopwatch.Elapsed;
             Console.WriteLine($"Time taken: {elapsed.TotalMilliseconds} milliseconds");
@@ -1218,6 +1218,8 @@ namespace UnitTestsProject
             TimeSpan elapsedParallel = stopwatch.Elapsed;
             Console.WriteLine($"Time taken: {elapsedParallel.TotalMilliseconds} milliseconds for Parallel Processing");
 
+            //focus in here (bug fixing required-seq1ActiveColumns was not present but added)
+            var seq1ActiveColumns = new int[] { 0, 10, 20, 30, 41, 52, 63, 70, 80, 90 };
 
             //Faulty for testing
             stopwatch.Start();
