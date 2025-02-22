@@ -1197,7 +1197,7 @@ namespace UnitTestsProject
         public void TestCreateSynapseInDistalSegment()
         {
             // Create instances of TemporalMemory, Connections, and Parameters
-            TemporalMemory tm = new TemporalMemory();
+            TemporalMemory tmParallel = new TemporalMemory();
             TemporalMemoryParallelProcessing tmParallel = new TemporalMemoryParallelProcessing();
             Connections cn = new Connections();
             Stopwatch stopwatch = new Stopwatch();
@@ -1206,7 +1206,7 @@ namespace UnitTestsProject
             
 
             stopwatch.Start();
-            tm.Init(cn);
+            tmParallel.Init(cn);
             stopwatch.Stop();
             TimeSpan elapsed = stopwatch.Elapsed;
             Console.WriteLine($"Time taken: {elapsed.TotalMilliseconds} milliseconds");
@@ -1221,7 +1221,7 @@ namespace UnitTestsProject
 
             //Faulty for testing
             stopwatch.Start();
-            tm.Compute(seq1ActiveColumns, true);
+            tmParallel.Compute(seq1ActiveColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_10 = stopwatch.Elapsed;
             Console.WriteLine($"Time taken: {elapsed_10.TotalMilliseconds} milliseconds for compute");
@@ -1586,7 +1586,7 @@ namespace UnitTestsProject
         [DataRow(new int[] { 0, 1, 2, 3, 4 }, new int[] { 5 }, new int[] { 0, 1, 2, 4 }, 4)]
         public void TestActiveSegmentGrowSynapsesAccordingToPotentialOverlap(int[] previousActiveColumns, int[] activeColumns, int[] expectedPresynapticCells, int expectedCount)
         {
-            TemporalMemory tm = new TemporalMemory();
+            
             TemporalMemoryParallelProcessing tmParallel = new TemporalMemoryParallelProcessing();
             Connections cn = new Connections();
             Parameters p = GetDefaultParameters(null, KEY.CELLS_PER_COLUMN, 1);
@@ -1594,7 +1594,7 @@ namespace UnitTestsProject
             p = GetDefaultParameters(p, KEY.ACTIVATION_THRESHOLD, 2);
             p = GetDefaultParameters(p, KEY.MAX_NEW_SYNAPSE_COUNT, 4);
             p.apply(cn);
-            tm.Init(cn);
+            
             tmParallel.InitAsync(cn);
 
             // Use 1 cell per column for easy control over the winner cells.
