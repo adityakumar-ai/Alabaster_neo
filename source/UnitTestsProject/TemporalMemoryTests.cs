@@ -1586,7 +1586,7 @@ namespace UnitTestsProject
         [DataRow(new int[] { 0, 1, 2, 3, 4 }, new int[] { 5 }, new int[] { 0, 1, 2, 4 }, 4)]
         public void TestActiveSegmentGrowSynapsesAccordingToPotentialOverlap(int[] previousActiveColumns, int[] activeColumns, int[] expectedPresynapticCells, int expectedCount)
         {
-            
+            //Temporal memory in parallel version implemented
             TemporalMemoryParallelProcessing tmParallel = new TemporalMemoryParallelProcessing();
             Connections cn = new Connections();
             Parameters p = GetDefaultParameters(null, KEY.CELLS_PER_COLUMN, 1);
@@ -1595,6 +1595,7 @@ namespace UnitTestsProject
             p = GetDefaultParameters(p, KEY.MAX_NEW_SYNAPSE_COUNT, 4);
             p.apply(cn);
             
+            //Initiallizing the connections with tm parallel
             tmParallel.InitAsync(cn);
 
             // Use 1 cell per column for easy control over the winner cells.
@@ -1609,6 +1610,7 @@ namespace UnitTestsProject
             cn.CreateSynapse(activeSegment, cn.GetCell(1), 0.5);
             cn.CreateSynapse(activeSegment, cn.GetCell(2), 0.2);
 
+            //computation with respect to parallel method
             ComputeCycle cc = tmParallel.Compute(previousActiveColumns, true) as ComputeCycle;
             Assert.IsTrue(prevWinnerCells.SequenceEqual(cc.WinnerCells));
             cc = tmParallel.Compute(activeColumns, true) as ComputeCycle;
