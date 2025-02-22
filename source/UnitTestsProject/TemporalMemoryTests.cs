@@ -1587,6 +1587,7 @@ namespace UnitTestsProject
         public void TestActiveSegmentGrowSynapsesAccordingToPotentialOverlap(int[] previousActiveColumns, int[] activeColumns, int[] expectedPresynapticCells, int expectedCount)
         {
             TemporalMemory tm = new TemporalMemory();
+            TemporalMemoryParallelProcessing tmParallel = new TemporalMemoryParallelProcessing();
             Connections cn = new Connections();
             Parameters p = GetDefaultParameters(null, KEY.CELLS_PER_COLUMN, 1);
             p = GetDefaultParameters(p, KEY.MIN_THRESHOLD, 1);
