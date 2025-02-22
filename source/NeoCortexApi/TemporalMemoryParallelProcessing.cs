@@ -942,12 +942,77 @@ namespace NeoCortexApi
             }
 
 
-            /// <summary>
-            /// Indicates the start of a new sequence. 
-            /// Clears any predictions and makes sure synapses don't grow to the currently active cells in the next time step.
-            /// </summary>
-            /// <param name="connections"></param>
-            public void Reset(Connections connections)
+        protected async Task ActivateDendrites2Async_Omkar(Connections conn, ComputeCycle cycle, bool learn, int[] externalPredictiveInputsActive = null, int[] externalPredictiveInputsWinners = null)
+        {
+            // Step 1: Compute segment activity asynchronously
+            var activity = await Task.Run(() => Connections.ComputeActivity(cycle.ActiveCells, conn.HtmConfig.ConnectedPermanence));
+
+            // Step 2: Use Parallel.ForEach for active synapses
+            var activeSegments = new ConcurrentBag<DistalDendrite>();
+            var matchingSegments = new ConcurrentBag<DistalDendrite>();
+
+            Parallel.Invoke(
+                () => Parallel.ForEach(activity.ActiveSynapses, item =>
+                {
+                    if (item.Value >= conn.HtmConfig.ActivationThreshold)
+                    {
+                        var seg = conn.GetSegmentForFlatIdx(item.Key);
+                        if (seg != null) activeSegments.Add(seg);
+                    }
+                }),
+                () => Parallel.ForEach(activity.PotentialSynapses, item =>
+                {
+                    var seg = conn.GetSegmentForFlatIdx(item.Key);
+                    if (seg != null && item.Value >= conn.HtmConfig.MinThreshold)
+                    {
+                        matchingSegments.Add(seg);
+                    }
+                })
+            );
+
+            // Step 3: Convert concurrent collections to lists and sort
+            var sortedActiveSegments = activeSegments.ToList();
+            var sortedMatchingSegments = matchingSegments.ToList();
+
+            Parallel.Invoke(
+                () => sortedActiveSegments.Sort(GetComparer(conn.NextSegmentOrdinal)),
+                () => sortedMatchingSegments.Sort(GetComparer(conn.NextSegmentOrdinal))
+            );
+
+            // Step 4: Store results in cycle and connection objects
+            cycle.ActiveSegments = sortedActiveSegments;
+            cycle.MatchingSegments = sortedMatchingSegments;
+
+            conn.ActiveCells = new HashSet<Cell>(cycle.ActiveCells);
+            conn.WinnerCells = new HashSet<Cell>(cycle.WinnerCells);
+            conn.ActiveSegments = sortedActiveSegments;
+            conn.MatchingSegments = sortedMatchingSegments;
+
+            // Step 5: Clear predictive cells and start a new iteration
+            conn.ClearPredictiveCells();
+
+            if (learn)
+            {
+                Parallel.ForEach(sortedActiveSegments, segment =>
+                {
+                    conn.RecordSegmentActivity(segment);
+                });
+
+                conn.StartNewIteration();
+            }
+
+            Debug.WriteLine($"\nActive segments: {sortedActiveSegments.Count}, Matching segments: {sortedMatchingSegments.Count}");
+        }
+
+
+
+
+        /// <summary>
+        /// Indicates the start of a new sequence. 
+        /// Clears any predictions and makes sure synapses don't grow to the currently active cells in the next time step.
+        /// </summary>
+        /// <param name="connections"></param>
+        public void Reset(Connections connections)
             {
                 connections.ActiveCells.Clear();
                 connections.WinnerCells.Clear();
