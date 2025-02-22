@@ -162,7 +162,25 @@ This comparison helps determine whether the newly introduced asynchronous method
 
 
 
+## Optimized ActivateDendrites2Async()
 
+### 1. Used `Task.Run()` for Asynchronous Activity Computation
+- ✅ **Non-Blocking Execution** – Offloads `ComputeActivity` computation to a separate thread.
+- ✅ **Improves Responsiveness** – Prevents blocking the main thread while computing activity.
+
+### 2. Replaced `Parallel.ForEach` with `Parallel.Invoke` for Independent Tasks
+- ✅ **Better CPU Utilization** – Executes active and potential synapse processing in parallel.
+- ✅ **Minimizes Task Scheduling Overhead** – Reduces thread context switching.
+
+### 3. Used `Parallel.Invoke` for Sorting
+- ✅ **Parallel Sorting** – Sorts `sortedActiveSegments` and `sortedMatchingSegments` concurrently.
+- ✅ **Faster Execution** – Reduces sequential processing time.
+
+### 4. Maintained Parallel Learning Processing
+- ✅ **Preserved Parallel Execution** – `RecordSegmentActivity` runs in `Parallel.ForEach`.
+- ✅ **Ensures Efficient Learning** – Maximizes CPU usage while maintaining logic.
+
+- 
 
 ## References
 
