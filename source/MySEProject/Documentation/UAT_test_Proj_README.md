@@ -96,19 +96,19 @@ This comparison helps determine whether the newly introduced asynchronous method
 
 ### `InitParallelRegularDictionary()
 
-1. **Used `Parallel.For` for Parallel Column Initialization**
+### 1. Used `Parallel.For` for Parallel Column Initialization**
    - ✅ **Faster Execution** – Distributes column creation and cell assignment across multiple threads.
    - ✅ **Optimized for Large Data Sets** – Improves performance significantly when handling large numbers of columns.
 
-2. **Reduced Redundant Checks with `createNewColumns` Flag**
+### 2. Reduced Redundant Checks with `createNewColumns` Flag**
    - ✅ **Avoids Rechecking in Every Loop Iteration** – The original code checked `matrix.GetObject(0) == null` multiple times inside the loop.
    - ✅ **Stored the Result in a Variable** – The condition is checked once before the loop, reducing unnecessary computations.
 
-3. **Moved Column Creation and Cell Copying Inside Parallel Loop**
+### 3. Moved Column Creation and Cell Copying Inside Parallel Loop**
    - ✅ **Consolidates Operations** – Column creation and the copying of cells are done together in parallel, ensuring better use of resources.
    - ✅ **Eliminated Sequential Loops** – By merging column creation, matrix assignment, and cell copying, the code reduces overhead.
 
-4. **Improved Thread Safety with Direct Matrix Set**
+### 4. Improved Thread Safety with Direct Matrix Set**
    - ✅ **Minimized Synchronization Issues** – The `Parallel.For` ensures columns are set in parallel, with thread-safe operations using `ConcurrentDictionary`.
    - ✅ **Avoids Extra Loops** – The original method had a separate loop for setting the matrix; now it's handled within the parallel block.
 
@@ -116,29 +116,29 @@ This comparison helps determine whether the newly introduced asynchronous method
 
 ### `InitParallelWithConcurrentDictionary()
 
-1. **Parallelized Column Initialization**
+### 1. Parallelized Column Initialization**
    - **In the InitParallelRegularDictionary Approach:** Used `Parallel.For` for parallel column initialization.
    - **In the InitParallelWithConcurrentDictionary Approach:** Still using `Parallel.For`, but with the addition of `ConcurrentDictionary` to handle parallel writes to the `matrix`. This ensures thread-safe column assignment.
 
-2. **Thread-Safe Column Assignment**
+### 2. Thread-Safe Column Assignment**
    - **In the InitParallelRegularDictionary Approach:** The matrix was updated directly within the `Parallel.For` loop without a mechanism for ensuring thread safety.
    - **In the InitParallelWithConcurrentDictionary Approach:** Introduces `ConcurrentDictionary`, which is specifically designed for thread-safe operations. This prevents data races when updating columns concurrently, improving reliability in multithreaded environments.
 
-3. **Optimized Copying of Cells**
+### 3. Optimized Copying of Cells**
    - **In the InitParallelRegularDictionary Approach:** Cells were copied after the parallel column creation in a separate loop, causing redundant operations.
    - **In the InitParallelWithConcurrentDictionary Approach:** Cells are now copied within the parallel loop itself, eliminating the need for a separate loop and making the operation more efficient.
 
   
 ### InitParallelPartitionedForEach()
-1. **Used `Parallel.ForEach` with Partitioner for Efficient Work Distribution**
+### 1. Used `Parallel.ForEach` with Partitioner for Efficient Work Distribution**
 - ✅ **Optimized for Large Data Sets** – Partitions the work into smaller chunks, allowing efficient execution across multiple threads.
 - ✅ **Improved Thread Management** – Divides the task into ranges and processes each range in parallel, optimizing CPU usage.
 
-2. **Column Initialization and Cell Assignment Inside Parallel Block**
+### 2. Column Initialization and Cell Assignment Inside Parallel Block**
 - ✅ **Consolidates Operations** – Combines column retrieval, assignment, and cell copying within a single parallelized block.
 - ✅ **Avoids Extra Loops** – No need for a separate loop for column assignment or cell copying, minimizing overhead.
 
-3. **Partitioning Ensures Better Performance in Highly Parallelized Workloads**
+### 3. Partitioning Ensures Better Performance in Highly Parallelized Workloads**
 - ✅ **Improved Thread Safety** – Using partitioned ranges reduces potential race conditions and ensures better synchronization between threads.
 - ✅ **More Efficient on Large Datasets** – Perfect for handling large numbers of columns (`numColumns ≥ 1000`) while distributing the workload evenly across threads.
 
