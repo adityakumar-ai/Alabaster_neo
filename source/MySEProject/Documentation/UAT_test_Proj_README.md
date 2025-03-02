@@ -181,6 +181,16 @@ This comparison helps determine whether the newly introduced asynchronous method
 - ✅ **Ensures Efficient Learning** – Maximizes CPU usage while maintaining logic.
 
 
+## Optimized ActivateCells Function (ActivateCells_Omi)
+
+- ✅ **Eliminated Unnecessary Ordering** – Removed `.OrderBy(i => i)`, since sorting is not needed for parallel execution.
+- ✅ **Used Parallel.ForEach with Partitioner** – Instead of a simple `Parallel.For`, used `Partitioner` to optimize thread utilization.
+- ✅ **Avoided Unnecessary Object Conversions** – Directly used `ConcurrentBag<Column>` and avoided `.ToArray()` where possible.
+- ✅ **Used HashSet<Cell> for Faster Lookups** – Lookups in `prevActiveCells` and `prevWinnerCells` are now O(1) instead of O(n).
+- ✅ **Removed Redundant List Conversions** – Avoided unnecessary `.Cast<object>().ToList()` operations.
+- ✅ **Reduced Memory Allocations** – Directly iterated over existing structures instead of creating unnecessary intermediate lists.
+
+
 ### Parallel.Invoke() is used to run active synapse processing and potential synapse processing in parallel, ensuring both tasks execute simultaneously without blocking each other.
 
 ## References
