@@ -726,6 +726,11 @@ namespace NeoCortexApi
                 return cycle;
             }
 
+
+
+
+        #region Omii's Section
+        //Omis Edited Function
         protected void ActivateDendrites2(Connections conn, ComputeCycle cycle, bool learn, int[] externalPredictiveInputsActive = null, int[] externalPredictiveInputsWinners = null)
         {
             // Step 1: Compute segment activity
@@ -790,6 +795,79 @@ namespace NeoCortexApi
 
             Debug.WriteLine($"\nActive segments: {sortedActiveSegments.Count}, Matching segments: {sortedMatchingSegments.Count}");
         }
+
+        //Further More Updated Code
+        protected void ActivateDendrites2_(Connections conn, ComputeCycle cycle, bool learn, int[] externalPredictiveInputsActive = null, int[] externalPredictiveInputsWinners = null)
+        {
+            // Step 1: Compute segment activity
+            SegmentActivity activity = Connections.ComputeActivity(cycle.ActiveCells, conn.HtmConfig.ConnectedPermanence);
+
+            // Step 2: Use ConcurrentQueue instead of ConcurrentBag for better performance
+            var activeSegments = new ConcurrentQueue<DistalDendrite>();
+            var matchingSegments = new ConcurrentQueue<DistalDendrite>();
+
+            // Step 3: Use AsParallel() to improve parallel performance dynamically
+            activity.ActiveSynapses.AsParallel().ForAll(item =>
+            {
+                if (item.Value >= conn.HtmConfig.ActivationThreshold)
+                {
+                    var seg = conn.GetSegmentForFlatIdx(item.Key);
+                    if (seg != null)
+                    {
+                        activeSegments.Enqueue(seg);
+                    }
+                }
+            });
+
+            activity.PotentialSynapses.AsParallel().ForAll(item =>
+            {
+                var seg = conn.GetSegmentForFlatIdx(item.Key);
+                if (seg != null && item.Value >= conn.HtmConfig.MinThreshold)
+                {
+                    matchingSegments.Enqueue(seg);
+                }
+            });
+
+            // Step 4: Convert ConcurrentQueue to SortedSet for automatic sorting
+            var sortedActiveSegments = new SortedSet<DistalDendrite>(activeSegments, GetComparer(conn.NextSegmentOrdinal));
+            var sortedMatchingSegments = new SortedSet<DistalDendrite>(matchingSegments, GetComparer(conn.NextSegmentOrdinal));
+
+            // Step 5: Store results in cycle object
+            cycle.ActiveSegments = sortedActiveSegments.ToList();
+            cycle.MatchingSegments = sortedMatchingSegments.ToList();
+
+            // Step 6: Store results in connection object without re-allocating memory
+            conn.ActiveCells.Clear();
+            conn.ActiveCells.UnionWith(cycle.ActiveCells);
+
+            conn.WinnerCells.Clear();
+            conn.WinnerCells.UnionWith(cycle.WinnerCells);
+
+            conn.ActiveSegments = cycle.ActiveSegments;
+            conn.MatchingSegments = cycle.MatchingSegments;
+
+            // Step 7: Clear predictive cells and start a new iteration
+            conn.ClearPredictiveCells();
+
+            if (learn)
+            {
+                sortedActiveSegments.AsParallel().ForAll(segment =>
+                {
+                    conn.RecordSegmentActivity(segment);
+                });
+
+                conn.StartNewIteration();
+            }
+
+            Debug.WriteLine($"\nActive segments: {sortedActiveSegments.Count}, Matching segments: {sortedMatchingSegments.Count}");
+        }
+
+        #endregion
+
+
+
+
+
 
         protected void ActivateDendrites3(Connections conn, ComputeCycle cycle, bool learn, int[] externalPredictiveInputsActive = null, int[] externalPredictiveInputsWinners = null)
         {
