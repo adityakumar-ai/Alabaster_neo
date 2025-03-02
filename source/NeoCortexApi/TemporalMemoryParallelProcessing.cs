@@ -726,7 +726,86 @@ namespace NeoCortexApi
                 return cycle;
             }
 
+            protected virtual ComputeCycle ActivateCells_Omi(Connections conn, int[] activeColumnIndices, bool learn)
+        {
+            ComputeCycle cycle = new ComputeCycle { ActivColumnIndicies = activeColumnIndices };
+            ColumnData activeColumnData = new ColumnData();
 
+            HashSet<Cell> prevActiveCells = new HashSet<Cell>(conn.ActiveCells);
+            HashSet<Cell> prevWinnerCells = new HashSet<Cell>(conn.WinnerCells);
+
+            // Use ConcurrentBag for thread-safe operations
+            ConcurrentBag<Column> activeColumns= new ConcurrentBag<Column>();
+
+            // Use Partitioner for better performance in Parallel.ForEach
+            Parallel.ForEach(Partitioner.Create(0, activeColumnIndices.Length), range =>
+            {
+                for (int i = range.Item1; i < range.Item2; i++)
+                {
+                    activeColumns.Add(conn.GetColumn(activeColumnIndices[i]));
+                }
+            });
+
+            // Function to get parent column of a segment
+            Func<object, Column> segToCol = segment =>
+                conn.Memory.GetColumn(((DistalDendrite)segment).ParentCell.ParentColumnIndex);
+
+            Func<object, Column> times1Fnc = x => (Column)x;
+
+            var list = new Pair<List<object>, Func<object, Column>>[]
+            {
+            new Pair<List<object>, Func<object, Column>>(activeColumns.Cast<object>().ToList(), times1Fnc),
+            new Pair<List<object>, Func<object, Column>>(conn.ActiveSegments.Cast<object>().ToList(), segToCol),
+            new Pair<List<object>, Func<object, Column>>(conn.MatchingSegments.Cast<object>().ToList(), segToCol)
+            };
+
+
+            GroupBy2<Column> grouper = GroupBy2<Column>.Of(list);
+
+            double permanenceIncrement = conn.HtmConfig.PermanenceIncrement;
+            double permanenceDecrement = conn.HtmConfig.PermanenceDecrement;
+
+            // Process grouped columns
+            Parallel.ForEach(grouper, tuple =>
+            {
+                activeColumnData.Set(tuple);
+
+                if (activeColumnData.IsExistAnyActiveCol(cIndexofACTIVE_COLUMNS))
+                {
+                    if (activeColumnData.ActiveSegments?.Count > 0)
+                    {
+                        var cellsOwnersOfActSegs = ActivatePredictedColumn(
+                            conn, activeColumnData.ActiveSegments, activeColumnData.MatchingSegments,
+                            prevActiveCells, prevWinnerCells, permanenceIncrement, permanenceDecrement, learn);
+
+                        foreach (var cell in cellsOwnersOfActSegs)
+                        {
+                            cycle.ActiveCells.Add(cell);
+                            cycle.WinnerCells.Add(cell);
+                        }
+                    }
+                    else
+                    {
+                        // Burst mode if no active segments
+                        var burstingResult = BurstColumn(
+                            conn, activeColumnData.Column(), activeColumnData.MatchingSegments,
+                            prevActiveCells, prevWinnerCells, permanenceIncrement, permanenceDecrement,
+                            conn.HtmConfig.Random, learn);
+
+                        cycle.ActiveCells.AddRange(burstingResult.Cells);
+                        cycle.WinnerCells.Add(burstingResult.BestCell);
+                    }
+                }
+                else if (learn)
+                {
+                    PunishPredictedColumn(
+                        conn, activeColumnData.ActiveSegments, activeColumnData.MatchingSegments,
+                        prevActiveCells, prevWinnerCells, conn.HtmConfig.PredictedSegmentDecrement);
+                }
+            });
+
+            return cycle;
+        }
 
 
         #region Omii's Section
