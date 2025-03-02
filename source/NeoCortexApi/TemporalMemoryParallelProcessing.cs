@@ -796,7 +796,12 @@ namespace NeoCortexApi
             Debug.WriteLine($"\nActive segments: {sortedActiveSegments.Count}, Matching segments: {sortedMatchingSegments.Count}");
         }
 
-        //Further More Updated Code
+        //Further More Updated Code.
+        // Instead of using Parallel.ForEach, AsParallel() allows the system to optimize execution dynamically.
+        // ConcurrentQueue<T> has lower overhead and is faster for appending.
+        // SortedSet<T> keeps elements sorted while adding, avoiding the need for extra sorting operations.
+        // Instead of reassigning new HashSet<Cell>, update existing ones.
+
         protected void ActivateDendrites2_(Connections conn, ComputeCycle cycle, bool learn, int[] externalPredictiveInputsActive = null, int[] externalPredictiveInputsWinners = null)
         {
             // Step 1: Compute segment activity
