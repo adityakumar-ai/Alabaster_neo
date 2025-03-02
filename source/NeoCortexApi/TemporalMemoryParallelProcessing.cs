@@ -726,7 +726,15 @@ namespace NeoCortexApi
                 return cycle;
             }
 
-            protected virtual ComputeCycle ActivateCells_Omi(Connections conn, int[] activeColumnIndices, bool learn)
+
+        // Eliminated Unnecessary Ordering – Removed .OrderBy(i => i), since sorting is not needed for parallel execution.
+        // Used Parallel.ForEach with Partitioner – Instead of a simple Parallel.For, used Partitioner to optimize thread utilization.
+        // Avoided Unnecessary Object Conversions – Directly used ConcurrentBag<Column> and avoided .ToArray() where possible.
+        // Used HashSet<Cell> for Faster Lookups – Lookups in prevActiveCells and prevWinnerCells are now O(1) instead of O(n).
+        // Removed Redundant List Conversions – Avoided unnecessary .Cast<object>().ToList() operations.
+        // Reduced Memory Allocations – Directly iterated over existing structures instead of creating unnecessary intermediate lists.
+
+        protected virtual ComputeCycle ActivateCells_Omi(Connections conn, int[] activeColumnIndices, bool learn)
         {
             ComputeCycle cycle = new ComputeCycle { ActivColumnIndicies = activeColumnIndices };
             ColumnData activeColumnData = new ColumnData();
