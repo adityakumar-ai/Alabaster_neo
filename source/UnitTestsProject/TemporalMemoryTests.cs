@@ -292,6 +292,20 @@ namespace UnitTestsProject
             TimeSpan elapsedParallel = stopwatch.Elapsed;
             Console.WriteLine($"Time taken: {elapsedParallel.TotalMilliseconds} milliseconds for Parallel Processing");
 
+            //Testing
+            stopwatch.Start();
+            tmParallel.Init3(cn);
+            stopwatch.Stop();
+            TimeSpan elapsedParallel0 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsedParallel0.TotalMilliseconds} milliseconds for Parallel Processing Init 3");
+
+            //Testing
+            stopwatch.Start();
+            tmParallel.Init4(cn);
+            stopwatch.Stop();
+            TimeSpan elapsedParallel01 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsedParallel01.TotalMilliseconds} milliseconds for Parallel Processing Init 4");
+
 
             stopwatch.Start();
             await tmParallel.InitAsync2(cn);
@@ -342,12 +356,14 @@ namespace UnitTestsProject
             TimeSpan elapsedParallel = stopwatch.Elapsed;
             Console.WriteLine($"Time taken: {elapsedParallel.TotalMilliseconds} milliseconds for Parallel Processing");
 
+            //Testing
             stopwatch.Start();
             tmParallel.Init3(cn);
             stopwatch.Stop();
             TimeSpan elapsedParallel0 = stopwatch.Elapsed;
             Console.WriteLine($"Time taken: {elapsedParallel0.TotalMilliseconds} milliseconds for Parallel Processing Init 3");
 
+            //Testing
             stopwatch.Start();
             tmParallel.Init4(cn);
             stopwatch.Stop();
