@@ -31,6 +31,131 @@ namespace NeoCortexApi
             public string Name { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
 
+        
+
+        /// <summary>
+        /// Asynchronously initializes the temporal memory by creating and configuring the <see cref="Column"/> and <see cref="Cell"/> infrastructure 
+        /// using the specified <see cref="Connections"/> object. This method utilizes parallel execution to optimize performance for CPU-bound operations.
+        /// 
+        /// The <see cref="Connections"/> object holds the <see cref="Column"/> and <see cref="Cell"/> infrastructure, which is used by both the <see cref="SpatialPooler"/> 
+        /// and <see cref="TemporalMemory"/>. While either of these components can initialize the columns and cells, the <see cref="InitAsync"/> method ensures 
+        /// that both <see cref="Column"/>s and <see cref="Cell"/>s are initialized correctly without redundancy. 
+        /// 
+        /// The parallelization of the initialization process enhances performance by leveraging multiple CPU cores, reducing execution time.
+        /// 
+        /// Note that <see cref="Cell"/>s are only created during the initialization of the <see cref="TemporalMemory"/> and are not required by the <see cref="SpatialPooler"/>.
+        /// </summary>
+        /// <param name="conn"><see cref="Connections"/> object containing the configuration and memory data for initialization.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation, ensuring non-blocking execution and improved performance.</returns>
+
+
+        public void InitAsync(Connections conn)
+        {
+            this.connections = conn;
+
+            SparseObjectMatrix<Column> matrix = this.connections.Memory == null
+                ? new SparseObjectMatrix<Column>(this.connections.HtmConfig.ColumnDimensions)
+                : (SparseObjectMatrix<Column>)this.connections.Memory;
+
+            this.connections.Memory = matrix;
+
+            int numColumns = matrix.GetMaxIndex() + 1;
+            this.connections.HtmConfig.NumColumns = numColumns;
+            int cellsPerColumn = this.connections.HtmConfig.CellsPerColumn;
+
+            Cell[] cells = new Cell[numColumns * cellsPerColumn];
+
+            // Used as flag to determine if Column objects have been created.
+            bool createNewColumns = matrix.GetObject(0) == null;
+
+            // Concurrent dictionary to safely store columns before assigning
+            ConcurrentDictionary<int, Column> columnDict = new ConcurrentDictionary<int, Column>();
+
+            // Step 1: Ensure all columns are initialized before proceeding
+            if (createNewColumns)
+            {
+                Parallel.For(0, numColumns, i =>
+                {
+                    columnDict[i] = new Column(cellsPerColumn, i, this.connections.HtmConfig.SynPermConnected, this.connections.HtmConfig.NumInputs);
+                });
+
+                // Assign initialized columns to matrix in a thread-safe manner
+                foreach (var kvp in columnDict)
+                {
+                    matrix.set(kvp.Key, kvp.Value);
+                }
+            }
+
+            // Step 2: Assign columns and cells in a parallel-safe manner
+            Parallel.For(0, numColumns, i =>
+            {
+                Column column = matrix.GetObject(i); // Ensure column retrieval is after initialization
+
+                if (column == null)
+                {
+                    throw new NullReferenceException($"Column at index {i} is null after initialization.");
+                }
+
+                for (int j = 0; j < cellsPerColumn; j++)
+                {
+                    if (column.Cells == null)
+                    {
+                        throw new NullReferenceException($"Cells array in column {i} is null.");
+                    }
+
+                    cells[i * cellsPerColumn + j] = column.Cells[j];
+                }
+            });
+
+            // Step 3: Assign initialized cells to connection
+            this.connections.Cells = cells;
+        }
+
+
+        public async Task InitAsync2(Connections conn)
+        {
+            this.connections = conn;
+
+            SparseObjectMatrix<Column> matrix = this.connections.Memory == null
+                ? new SparseObjectMatrix<Column>(this.connections.HtmConfig.ColumnDimensions)
+                : (SparseObjectMatrix<Column>)this.connections.Memory;
+
+            this.connections.Memory = matrix;
+
+            int numColumns = matrix.GetMaxIndex() + 1;
+            this.connections.HtmConfig.NumColumns = numColumns;
+            int cellsPerColumn = this.connections.HtmConfig.CellsPerColumn;
+            Cell[] cells = new Cell[numColumns * cellsPerColumn];
+
+            Column colZero = matrix.GetObject(0);
+
+            await Task.Run(() =>
+            {
+                Parallel.For(0, numColumns, i =>
+                {
+                    Column column = colZero == null
+                        ? new Column(cellsPerColumn, i, this.connections.HtmConfig.SynPermConnected, this.connections.HtmConfig.NumInputs)
+                        : matrix.GetObject(i);
+
+                    for (int j = 0; j < cellsPerColumn; j++)
+                    {
+                        cells[i * cellsPerColumn + j] = column.Cells[j];
+                    }
+
+                    lock (matrix)
+                    {
+                        if (colZero == null)
+                            matrix.set(i, column);
+                    }
+                });
+            });
+
+            this.connections.Cells = cells;
+        }
+
+
+        #region Aaditya's  Section
+
         public void Init4(Connections conn)
         {
             this.connections = conn;
@@ -160,128 +285,8 @@ namespace NeoCortexApi
             this.connections.Cells = cells;
         }
 
-        /// <summary>
-        /// Asynchronously initializes the temporal memory by creating and configuring the <see cref="Column"/> and <see cref="Cell"/> infrastructure 
-        /// using the specified <see cref="Connections"/> object. This method utilizes parallel execution to optimize performance for CPU-bound operations.
-        /// 
-        /// The <see cref="Connections"/> object holds the <see cref="Column"/> and <see cref="Cell"/> infrastructure, which is used by both the <see cref="SpatialPooler"/> 
-        /// and <see cref="TemporalMemory"/>. While either of these components can initialize the columns and cells, the <see cref="InitAsync"/> method ensures 
-        /// that both <see cref="Column"/>s and <see cref="Cell"/>s are initialized correctly without redundancy. 
-        /// 
-        /// The parallelization of the initialization process enhances performance by leveraging multiple CPU cores, reducing execution time.
-        /// 
-        /// Note that <see cref="Cell"/>s are only created during the initialization of the <see cref="TemporalMemory"/> and are not required by the <see cref="SpatialPooler"/>.
-        /// </summary>
-        /// <param name="conn"><see cref="Connections"/> object containing the configuration and memory data for initialization.</param>
-        /// <returns>A <see cref="Task"/> representing the asynchronous operation, ensuring non-blocking execution and improved performance.</returns>
-
-
-        public void InitAsync(Connections conn)
-        {
-            this.connections = conn;
-
-            SparseObjectMatrix<Column> matrix = this.connections.Memory == null
-                ? new SparseObjectMatrix<Column>(this.connections.HtmConfig.ColumnDimensions)
-                : (SparseObjectMatrix<Column>)this.connections.Memory;
-
-            this.connections.Memory = matrix;
-
-            int numColumns = matrix.GetMaxIndex() + 1;
-            this.connections.HtmConfig.NumColumns = numColumns;
-            int cellsPerColumn = this.connections.HtmConfig.CellsPerColumn;
-
-            Cell[] cells = new Cell[numColumns * cellsPerColumn];
-
-            // Used as flag to determine if Column objects have been created.
-            bool createNewColumns = matrix.GetObject(0) == null;
-
-            // Concurrent dictionary to safely store columns before assigning
-            ConcurrentDictionary<int, Column> columnDict = new ConcurrentDictionary<int, Column>();
-
-            // Step 1: Ensure all columns are initialized before proceeding
-            if (createNewColumns)
-            {
-                Parallel.For(0, numColumns, i =>
-                {
-                    columnDict[i] = new Column(cellsPerColumn, i, this.connections.HtmConfig.SynPermConnected, this.connections.HtmConfig.NumInputs);
-                });
-
-                // Assign initialized columns to matrix in a thread-safe manner
-                foreach (var kvp in columnDict)
-                {
-                    matrix.set(kvp.Key, kvp.Value);
-                }
-            }
-
-            // Step 2: Assign columns and cells in a parallel-safe manner
-            Parallel.For(0, numColumns, i =>
-            {
-                Column column = matrix.GetObject(i); // Ensure column retrieval is after initialization
-
-                if (column == null)
-                {
-                    throw new NullReferenceException($"Column at index {i} is null after initialization.");
-                }
-
-                for (int j = 0; j < cellsPerColumn; j++)
-                {
-                    if (column.Cells == null)
-                    {
-                        throw new NullReferenceException($"Cells array in column {i} is null.");
-                    }
-
-                    cells[i * cellsPerColumn + j] = column.Cells[j];
-                }
-            });
-
-            // Step 3: Assign initialized cells to connection
-            this.connections.Cells = cells;
-        }
-
-
-        public async Task InitAsync2(Connections conn)
-        {
-            this.connections = conn;
-
-            SparseObjectMatrix<Column> matrix = this.connections.Memory == null
-                ? new SparseObjectMatrix<Column>(this.connections.HtmConfig.ColumnDimensions)
-                : (SparseObjectMatrix<Column>)this.connections.Memory;
-
-            this.connections.Memory = matrix;
-
-            int numColumns = matrix.GetMaxIndex() + 1;
-            this.connections.HtmConfig.NumColumns = numColumns;
-            int cellsPerColumn = this.connections.HtmConfig.CellsPerColumn;
-            Cell[] cells = new Cell[numColumns * cellsPerColumn];
-
-            Column colZero = matrix.GetObject(0);
-
-            await Task.Run(() =>
-            {
-                Parallel.For(0, numColumns, i =>
-                {
-                    Column column = colZero == null
-                        ? new Column(cellsPerColumn, i, this.connections.HtmConfig.SynPermConnected, this.connections.HtmConfig.NumInputs)
-                        : matrix.GetObject(i);
-
-                    for (int j = 0; j < cellsPerColumn; j++)
-                    {
-                        cells[i * cellsPerColumn + j] = column.Cells[j];
-                    }
-
-                    lock (matrix)
-                    {
-                        if (colZero == null)
-                            matrix.set(i, column);
-                    }
-                });
-            });
-
-            this.connections.Cells = cells;
-        }
-
-
-
+       
+        #endregion
 
 
         #region Omii's Section
@@ -442,6 +447,7 @@ namespace NeoCortexApi
 
         // Using Partitioned Parallel.ForEach for efficient thread management and work distribution on large datasets
 
+
         public void InitParallelPartitioned(Connections conn)
         {
             this.connections = conn;
@@ -454,8 +460,18 @@ namespace NeoCortexApi
             this.connections.Memory = matrix;
 
             int numColumns = matrix.GetMaxIndex() + 1;
+
+            // Validate numColumns
+            if (numColumns <= 0)
+                throw new InvalidOperationException("Invalid number of columns calculated.");
+
             this.connections.HtmConfig.NumColumns = numColumns;
             int cellsPerColumn = this.connections.HtmConfig.CellsPerColumn;
+
+            // Validate cellsPerColumn
+            if (cellsPerColumn <= 0)
+                throw new InvalidOperationException("Invalid number of cells per column.");
+
             Cell[] cells = new Cell[numColumns * cellsPerColumn];
 
             // Flag to check if columns are already created
@@ -473,12 +489,21 @@ namespace NeoCortexApi
                     {
                         // Create and assign columns to the matrix
                         Column column = new Column(cellsPerColumn, i, this.connections.HtmConfig.SynPermConnected, this.connections.HtmConfig.NumInputs);
-                        matrix.set(i, column);  // Set column at index i
+
+                        lock (matrix)  // Ensure thread-safe update
+                        {
+                            matrix.set(i, column);  // Set column at index i
+                        }
 
                         // Copy cells for each column
                         for (int j = 0; j < cellsPerColumn; j++)
                         {
-                            cells[i * cellsPerColumn + j] = column.Cells[j];
+                            int cellIndex = i * cellsPerColumn + j;
+
+                            if (cellIndex >= cells.Length)
+                                throw new IndexOutOfRangeException($"Invalid cell index {cellIndex}, max allowed: {cells.Length - 1}");
+
+                            cells[cellIndex] = column.Cells[j];
                         }
                     }
                 });
@@ -489,9 +514,18 @@ namespace NeoCortexApi
                 for (int i = 0; i < numColumns; i++)
                 {
                     Column column = matrix.GetObject(i);
+
+                    if (column == null)
+                        throw new InvalidOperationException($"Column at index {i} is null.");
+
                     for (int j = 0; j < cellsPerColumn; j++)
                     {
-                        cells[i * cellsPerColumn + j] = column.Cells[j];
+                        int cellIndex = i * cellsPerColumn + j;
+
+                        if (cellIndex >= cells.Length)
+                            throw new IndexOutOfRangeException($"Invalid cell index {cellIndex}, max allowed: {cells.Length - 1}");
+
+                        cells[cellIndex] = column.Cells[j];
                     }
                 }
             }
@@ -499,7 +533,6 @@ namespace NeoCortexApi
             // Assign cells to the connection
             this.connections.Cells = cells;
         }
-
 
 
         #endregion
@@ -562,7 +595,8 @@ namespace NeoCortexApi
                 //sw.Restart();
 
                //ActivateDendrites(this.connections, cycle, learn, externalPredictiveInputsActive, externalPredictiveInputsWinners);
-               ActivateDendrites2(this.connections, cycle, learn, externalPredictiveInputsActive, externalPredictiveInputsWinners);
+               //ActivateDendrites2(this.connections, cycle, learn, externalPredictiveInputsActive, externalPredictiveInputsWinners);
+               ActivateDendrites2_(this.connections, cycle, learn, externalPredictiveInputsActive, externalPredictiveInputsWinners);
 
 
             //sw.Stop();
