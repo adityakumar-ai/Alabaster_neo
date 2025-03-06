@@ -670,7 +670,13 @@ namespace UnitTestsProject
             tmParallel.Init4(cn);
             stopwatch.Stop();
             TimeSpan elapsedParallel00 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken: {elapsedParallel00.TotalMilliseconds} milliseconds for Parallel Processing");
+            Console.WriteLine($"Time taken: {elapsedParallel00.TotalMilliseconds} milliseconds for Parallel Processing 4");
+
+            stopwatch.Start();
+            tmParallel.Init5(cn);
+            stopwatch.Stop();
+            TimeSpan elapsedParallel02 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsedParallel02.TotalMilliseconds} milliseconds for Parallel Processing 5");
 
 
             int[] previousActiveColumns = { 0 };
