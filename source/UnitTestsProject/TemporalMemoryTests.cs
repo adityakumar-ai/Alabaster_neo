@@ -1790,13 +1790,15 @@ namespace UnitTestsProject
         {
             // Arrange
             TemporalMemory tm = new TemporalMemory();
-            
+            //Add TemporalMemoryParallelProcessing instance
             TemporalMemoryParallelProcessing tmParallel = new TemporalMemoryParallelProcessing();
             Connections cn = new Connections();
             Parameters p = GetDefaultParameters(null, KEY.CELLS_PER_COLUMN, 1);
             p.apply(cn);
-            tmParallel.InitAsync(cn);
             tm.Init(cn);
+            //asynchronous initialization of the TemporalMemoryParallelProcessing object.
+            tmParallel.InitAsync(cn);
+            
 
             Connections conn = new Connections();
             DistalDendrite segment = cn.CreateDistalSegment(cn.GetCell(5));
@@ -1807,7 +1809,7 @@ namespace UnitTestsProject
             double permanenceIncrement = 0.1;
             double permanenceDecrement = 0.05;
 
-            // Act
+            // Act (Parallel version)
             TemporalMemoryParallelProcessing.AdaptSegment(conn, segment, prevActiveCells, permanenceIncrement, permanenceDecrement);
 
             // Assert
