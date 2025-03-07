@@ -1808,7 +1808,7 @@ namespace UnitTestsProject
             double permanenceDecrement = 0.05;
 
             // Act
-            TemporalMemory.AdaptSegment(conn, segment, prevActiveCells, permanenceIncrement, permanenceDecrement);
+            TemporalMemoryParallelProcessing.AdaptSegment(conn, segment, prevActiveCells, permanenceIncrement, permanenceDecrement);
 
             // Assert
             Assert.AreEqual(0.45, as1.Permanence);
