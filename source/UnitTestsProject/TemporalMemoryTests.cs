@@ -1749,12 +1749,16 @@ namespace UnitTestsProject
         {
             // Initialize temporal memory, connections, and parameters
             TemporalMemory tm = new TemporalMemory();
+            // Initialize temporal memory, connections, and parameters in parallel form
+            TemporalMemoryParallelProcessing tmParallel = new TemporalMemoryParallelProcessing();
             Connections cn = new Connections();
             Parameters p = GetDefaultParameters(null, KEY.INITIAL_PERMANENCE, 0.2);
             p = GetDefaultParameters(p, KEY.MAX_NEW_SYNAPSE_COUNT, 4);
             p = GetDefaultParameters(p, KEY.PREDICTED_SEGMENT_DECREMENT, 0.02);
             p.apply(cn);
             tm.Init(cn);
+            //initialized temporal memory in asynchronously
+            tmParallel.InitAsync(cn);
 
             // Set up previous and current active columns
             int[] previousActiveColumns = { prevActive };
@@ -1770,9 +1774,9 @@ namespace UnitTestsProject
             // Weak Synapse
             cn.CreateSynapse(activeSegment, previousActiveCells[3], 0.009);
 
-            // Perform two cycles of activity
-            tm.Compute(previousActiveColumns, true);
-            tm.Compute(activeColumns, true);
+            // Perform two cycles of activity using async method
+            tmParallel.Compute(previousActiveColumns, true);
+            tmParallel.Compute(activeColumns, true);
 
             // Assert that the actual synapse count matches the expected count
             Assert.AreEqual(expectedSynapseCount, activeSegment.Synapses.Count);
@@ -1786,10 +1790,15 @@ namespace UnitTestsProject
         {
             // Arrange
             TemporalMemory tm = new TemporalMemory();
+            //Add TemporalMemoryParallelProcessing instance
+            TemporalMemoryParallelProcessing tmParallel = new TemporalMemoryParallelProcessing();
             Connections cn = new Connections();
             Parameters p = GetDefaultParameters(null, KEY.CELLS_PER_COLUMN, 1);
             p.apply(cn);
             tm.Init(cn);
+            //asynchronous initialization of the TemporalMemoryParallelProcessing object.
+            tmParallel.InitAsync(cn);
+            
 
             Connections conn = new Connections();
             DistalDendrite segment = cn.CreateDistalSegment(cn.GetCell(5));
@@ -1800,8 +1809,8 @@ namespace UnitTestsProject
             double permanenceIncrement = 0.1;
             double permanenceDecrement = 0.05;
 
-            // Act
-            TemporalMemory.AdaptSegment(conn, segment, prevActiveCells, permanenceIncrement, permanenceDecrement);
+            // Act (Parallel version)
+            TemporalMemoryParallelProcessing.AdaptSegment(conn, segment, prevActiveCells, permanenceIncrement, permanenceDecrement);
 
             // Assert
             Assert.AreEqual(0.45, as1.Permanence);
