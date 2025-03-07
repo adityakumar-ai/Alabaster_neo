@@ -1795,6 +1795,7 @@ namespace UnitTestsProject
             Connections cn = new Connections();
             Parameters p = GetDefaultParameters(null, KEY.CELLS_PER_COLUMN, 1);
             p.apply(cn);
+            tmParallel.InitAsync(cn);
             tm.Init(cn);
 
             Connections conn = new Connections();
