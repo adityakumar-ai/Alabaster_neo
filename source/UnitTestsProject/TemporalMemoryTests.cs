@@ -1749,6 +1749,7 @@ namespace UnitTestsProject
         {
             // Initialize temporal memory, connections, and parameters
             TemporalMemory tm = new TemporalMemory();
+            TemporalMemoryParallelProcessing tmParallel = new TemporalMemoryParallelProcessing();
             Connections cn = new Connections();
             Parameters p = GetDefaultParameters(null, KEY.INITIAL_PERMANENCE, 0.2);
             p = GetDefaultParameters(p, KEY.MAX_NEW_SYNAPSE_COUNT, 4);
