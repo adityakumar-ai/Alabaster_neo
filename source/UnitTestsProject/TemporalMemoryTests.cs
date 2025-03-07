@@ -3440,5 +3440,62 @@ namespace UnitTestsProject
         }
 
 
+
+
+        public void GenerateGraphsAfterAllTests(string csvFilePath)
+        {
+            // Call the Python script to generate graphs after all test cases are finished
+            GenerateGraphWithPython(csvFilePath);
+        }
+
+        // Call this method after all test cases are completed
+        public void RunAllTestsAndGenerateGraph()
+        {
+            // Run all test cases
+            TestCase1();
+            TestCase2();
+            TestCaseN(); // Continue running all test cases
+
+            // After all tests are done, call the Python method to generate the graph
+            GenerateGraphsAfterAllTests(@"C:\path\to\MethodPerformance.csv");
+        }
+
+
+        private void GenerateGraphWithPython(string csvFilePath)
+        {
+            try
+            {
+                // Adjust the path as needed for your Python script
+                string pythonScriptPath = @"C:\path\to\generate_graph.py";
+
+                // Set the arguments for the script (the path to the CSV file)
+                string arguments = $"\"{pythonScriptPath}\" \"{csvFilePath}\"";
+
+                // Create a process to execute the Python script
+                ProcessStartInfo startInfo = new ProcessStartInfo()
+                {
+                    FileName = "python",
+                    Arguments = arguments,
+                    RedirectStandardOutput = true,
+                    UseShellExecute = false,
+                    CreateNoWindow = true
+                };
+
+                // Start the process
+                using (Process process = Process.Start(startInfo))
+                {
+                    // Wait for the process to finish and output the result
+                    string output = process.StandardOutput.ReadToEnd();
+                    Console.WriteLine(output);
+                    process.WaitForExit();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("An error occurred while executing the Python script: " + ex.Message);
+            }
+        }
+
     }
+
 }
