@@ -153,6 +153,58 @@ namespace NeoCortexApi
             this.connections.Cells = cells;
         }
 
+        public void Init5(Connections conn)
+        {
+            this.connections = conn;
+
+            // Initialize matrix either from Memory or create a new one.
+            SparseObjectMatrix<Column> matrix = this.connections.Memory == null
+                ? new SparseObjectMatrix<Column>(this.connections.HtmConfig.ColumnDimensions)
+                : (SparseObjectMatrix<Column>)this.connections.Memory;
+
+            this.connections.Memory = matrix;
+
+            int numColumns = matrix.GetMaxIndex() + 1;
+            this.connections.HtmConfig.NumColumns = numColumns;
+            int cellsPerColumn = this.connections.HtmConfig.CellsPerColumn;
+            Cell[] cells = new Cell[numColumns * cellsPerColumn];
+
+            // Flag to check if columns are already created
+            bool createNewColumns = matrix.GetObject(0) == null;
+
+            // Parallel initialization of columns if needed
+            if (createNewColumns)
+            {
+                Parallel.For(0, numColumns, i =>
+                {
+                    // Create and assign columns to the matrix in parallel
+                    Column column = new Column(cellsPerColumn, i, this.connections.HtmConfig.SynPermConnected, this.connections.HtmConfig.NumInputs);
+                    matrix.set(i, column);  // Set column at index i
+
+                    // Copy cells for each column in parallel
+                    Parallel.For(0, cellsPerColumn, j =>
+                    {
+                        cells[i * cellsPerColumn + j] = column.Cells[j];
+                    });
+                });
+            }
+            else
+            {
+                // If columns are already created, just fetch and copy cells in parallel
+                Parallel.For(0, numColumns, i =>
+                {
+                    Column column = matrix.GetObject(i);
+                    Parallel.For(0, cellsPerColumn, j =>
+                    {
+                        cells[i * cellsPerColumn + j] = column.Cells[j];
+                    });
+                });
+            }
+
+            // Assign cells to the connection
+            this.connections.Cells = cells;
+        }
+
 
         #region Aaditya's  Section
 
