@@ -1773,8 +1773,8 @@ namespace UnitTestsProject
             cn.CreateSynapse(activeSegment, previousActiveCells[3], 0.009);
 
             // Perform two cycles of activity
-            tm.Compute(previousActiveColumns, true);
-            tm.Compute(activeColumns, true);
+            tmParallel.Compute(previousActiveColumns, true);
+            tmParallel.Compute(activeColumns, true);
 
             // Assert that the actual synapse count matches the expected count
             Assert.AreEqual(expectedSynapseCount, activeSegment.Synapses.Count);
