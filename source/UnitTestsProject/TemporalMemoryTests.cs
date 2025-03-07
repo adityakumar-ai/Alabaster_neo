@@ -1756,6 +1756,7 @@ namespace UnitTestsProject
             p = GetDefaultParameters(p, KEY.PREDICTED_SEGMENT_DECREMENT, 0.02);
             p.apply(cn);
             tm.Init(cn);
+            tmParallel.InitAsync(cn);
 
             // Set up previous and current active columns
             int[] previousActiveColumns = { prevActive };
