@@ -1790,6 +1790,8 @@ namespace UnitTestsProject
         {
             // Arrange
             TemporalMemory tm = new TemporalMemory();
+            
+            TemporalMemoryParallelProcessing tmParallel = new TemporalMemoryParallelProcessing();
             Connections cn = new Connections();
             Parameters p = GetDefaultParameters(null, KEY.CELLS_PER_COLUMN, 1);
             p.apply(cn);
