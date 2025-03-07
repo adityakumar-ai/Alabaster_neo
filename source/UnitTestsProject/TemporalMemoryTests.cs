@@ -7,7 +7,9 @@ using NeoCortexApi.Types;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
@@ -1043,6 +1045,7 @@ namespace UnitTestsProject
             stopwatch.Stop();
             TimeSpan elapsed_3 = stopwatch.Elapsed;
             Console.WriteLine($"Time taken for InitParallel_Omi : {elapsed_3.TotalMilliseconds} milliseconds");
+            double initParallelTime = elapsed_3.TotalMilliseconds;
 
             //stopwatch.Start();
             //tmParallel.InitParallelPartitioned(cn);
@@ -1057,6 +1060,7 @@ namespace UnitTestsProject
             stopwatch.Stop();
             TimeSpan elapsed_5 = stopwatch.Elapsed;
             Console.WriteLine($"Time taken: {elapsed_5.TotalMilliseconds} milliseconds");
+            double initTime = elapsed_5.TotalMilliseconds;
 
             // Define two sequences of active columns with high sparsity rates
             var seq1ActiveColumns = new int[] { 0, 10, 20, 30, 41, 52, 63, 70, 80, 90 };
@@ -1080,7 +1084,7 @@ namespace UnitTestsProject
             stopwatch.Stop();
             TimeSpan elapsed_8 = stopwatch.Elapsed;
             Console.WriteLine($"Time taken for compute tmParallel(InitParallelWithConcurrentDictionary): {elapsed_8.TotalMilliseconds} milliseconds");
-
+            double initParallelTimeCompute = elapsed_8.TotalMilliseconds;
 
             //stopwatch.Start();
             //tmParallel.Compute(seq1ActiveColumns, true);
@@ -1097,7 +1101,11 @@ namespace UnitTestsProject
             stopwatch.Stop();
             TimeSpan elapsed_10 = stopwatch.Elapsed;
             Console.WriteLine($"Time taken: {elapsed_10.TotalMilliseconds} milliseconds for compute");
-   
+            double initTimeCompute = elapsed_10.TotalMilliseconds;
+
+            LogPerformance(nameof(TestHighSparsitySequenceLearningAndRecall), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
+
+
             // Recall the first sequence
             var recall1 = tm.Compute(seq1ActiveColumns, false);
 
@@ -1107,6 +1115,28 @@ namespace UnitTestsProject
             // Verify that all active cells in the recalled second sequence are also present in the recalled first sequence
             Assert.IsTrue(recall2.ActiveCells.Select(c => c.Index).All(rc => recall1.ActiveCells.Select(c => c.Index).Contains(rc)));
         }
+
+
+        public static void LogPerformance(string methodName, double initTime, double initParallelTime, double initTimeCompute, double initParallelTimeCompute)
+        {
+            string csvFilePath = "MethodPerformance.csv";
+            if (!File.Exists(csvFilePath))
+            {
+                using (StreamWriter writer = new StreamWriter(csvFilePath))
+                {
+                    writer.WriteLine("Test_Case,Init_Time,InitParallel_Time,Compute_Time,ComputeParallel_Time");
+                }
+            }
+
+            using (StreamWriter writer = new StreamWriter(csvFilePath, append: true))
+            {
+                writer.WriteLine($"{methodName},{initTime},{initParallelTime},{initParallelTime},{initTimeCompute}");
+            }
+        }
+
+
+
+
         /// <summary>
         /// This unit test assesses the ability of the Temporal Memory to learn and recall patterns
         /// of sequences characterized by a high sparsity rate.
@@ -3383,5 +3413,7 @@ namespace UnitTestsProject
 
             Assert.IsFalse(cc.ActiveCells.SequenceEqual(burstingCells));
         }
+
+
     }
 }
