@@ -1157,7 +1157,7 @@ namespace UnitTestsProject
 
             using (StreamWriter writer = new StreamWriter(csvFilePath, append: true))
             {
-                writer.WriteLine($"{methodName},{initTime},{initParallelTime},{initParallelTime},{initTimeCompute}");
+                writer.WriteLine($"{methodName},{initTime},{initParallelTime},{initTimeCompute},{initParallelTime}");
             }
         }
 
@@ -1221,7 +1221,7 @@ namespace UnitTestsProject
             Console.WriteLine($"Time taken: {elapsed_10.TotalMilliseconds} milliseconds for compute");
             double initTimeCompute = elapsed_10.TotalMilliseconds;
 
-            LogPerformance(nameof(TestHighSparsitySequenceLearningAndRecall), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
+            LogPerformance(nameof(TestHighSparsitySequenceLearningAndRecallParallel), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
 
 
             // Recall the first sequence
@@ -1285,7 +1285,7 @@ namespace UnitTestsProject
             Console.WriteLine($"Time taken: {elapsed_10.TotalMilliseconds} milliseconds for compute");
             double initTimeCompute = elapsed_10.TotalMilliseconds;
 
-            LogPerformance(nameof(TestHighSparsitySequenceLearningAndRecall), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
+            LogPerformance(nameof(TestLowSparsitySequenceLearningAndRecall), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
 
 
             // Recall the first sequence         
@@ -1351,7 +1351,7 @@ namespace UnitTestsProject
             Console.WriteLine($"Time taken: {elapsed_10.TotalMilliseconds} milliseconds for compute");
             double initTimeCompute = elapsed_10.TotalMilliseconds;
 
-            LogPerformance(nameof(TestHighSparsitySequenceLearningAndRecall), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
+            LogPerformance(nameof(TestCreateSynapseInDistalSegment), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
 
             // Create a distal segment for a specific cell
             DistalDendrite dd = cn.CreateDistalSegment(cn.GetCell(0));
@@ -1419,7 +1419,7 @@ namespace UnitTestsProject
             Console.WriteLine($"Time taken: {elapsed_10.TotalMilliseconds} milliseconds for compute");
             double initTimeCompute = elapsed_10.TotalMilliseconds;
 
-            LogPerformance(nameof(TestHighSparsitySequenceLearningAndRecall), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
+            LogPerformance(nameof(TestNewSegmentGrowthWhenNoMatchingSegmentFound), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
 
 
 
@@ -1467,26 +1467,28 @@ namespace UnitTestsProject
             // Compute active cells for two columns
             int[] activeColumns = { 0, 1 };
 
+           
+            
+
+
+
+            //ComputeCycle cc = tm.Compute(activeColumns, true) as ComputeCycle;
             // Perform computation cycles to enable learning of the sequences
             stopwatch.Start();
-            tmParallel.Compute(activeColumns, true);
+            ComputeCycle cc = tmParallel.Compute(activeColumns, true) as ComputeCycle;
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
             Console.WriteLine($"Time taken for compute tmParallel(Single_Threaded_Optimized_Init): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             stopwatch.Start();
-            tm.Compute(activeColumns, true);
+            ComputeCycle cc_ = tm.Compute(activeColumns, true) as ComputeCycle;
             stopwatch.Stop();
             TimeSpan elapsed_10 = stopwatch.Elapsed;
             Console.WriteLine($"Time taken: {elapsed_10.TotalMilliseconds} milliseconds for compute");
             double initTimeCompute = elapsed_10.TotalMilliseconds;
 
-            LogPerformance(nameof(TestHighSparsitySequenceLearningAndRecall), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
-
-
-
-            ComputeCycle cc = tm.Compute(activeColumns, true) as ComputeCycle;
+            LogPerformance(nameof(TestNoOverlapInActiveCells), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
 
             // Get active cells for the first column
             var activeCellsColumn0 = cc.ActiveCells
@@ -1562,7 +1564,7 @@ namespace UnitTestsProject
             Console.WriteLine($"Time taken: {elapsed_10.TotalMilliseconds} milliseconds for compute");
             double initTimeCompute = elapsed_10.TotalMilliseconds;
 
-            LogPerformance(nameof(TestHighSparsitySequenceLearningAndRecall), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
+            LogPerformance(nameof(TestTemporalMemoryComputeReturnsWinnerCells), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
 
 
 
@@ -1629,7 +1631,7 @@ namespace UnitTestsProject
             Console.WriteLine($"Time taken: {elapsed_10.TotalMilliseconds} milliseconds for compute");
             double initTimeCompute = elapsed_10.TotalMilliseconds;
 
-            LogPerformance(nameof(TestHighSparsitySequenceLearningAndRecall), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
+            LogPerformance(nameof(TestTemporalMemoryComputeReturnsWinnerCellsWithDataRow), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
 
 
 
@@ -1751,7 +1753,7 @@ namespace UnitTestsProject
             Console.WriteLine($"Time taken: {elapsed_10.TotalMilliseconds} milliseconds for compute");
             double initTimeCompute = elapsed_10.TotalMilliseconds;
 
-            LogPerformance(nameof(TestHighSparsitySequenceLearningAndRecall), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
+            LogPerformance(nameof(TestWhichCellsBecomeActive), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
 
 
 
@@ -3593,9 +3595,9 @@ namespace UnitTestsProject
         public void RunAllTestsAndGenerateGraph()
         {
             // Run all test cases
-            TestCase1();
-            TestCase2();
-            TestCaseN(); // Continue running all test cases
+            //TestCase1();
+            //TestCase2();
+            //TestCaseN(); // Continue running all test cases
 
             // After all tests are done, call the Python method to generate the graph
             GenerateGraphsAfterAllTests(@"C:\path\to\MethodPerformance.csv");
