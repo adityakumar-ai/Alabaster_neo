@@ -1058,6 +1058,7 @@ namespace UnitTestsProject
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
             Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            double initParallelTime = elapsed_1.TotalMilliseconds;
 
             //stopwatch.Start();
             //tmParallel.InitParallelRegularDictionary(cn);
@@ -1097,13 +1098,14 @@ namespace UnitTestsProject
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
             Console.WriteLine($"Time taken for compute tmParallel(Single_Threaded_Optimized_Init): {elapsed_6.TotalMilliseconds} milliseconds");
+            double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             //stopwatch.Start();
             //tmParallel.Compute(seq1ActiveColumns, true);
             //stopwatch.Stop();
             //TimeSpan elapsed_7 = stopwatch.Elapsed;
             //Console.WriteLine($"Time taken for compute tmParallel(InitParallelRegularDictionary): {elapsed_7.TotalMilliseconds} milliseconds");
-            
+
             //stopwatch.Start();
             //tmParallel.Compute(seq1ActiveColumns, true);
             //stopwatch.Stop();
@@ -1182,19 +1184,24 @@ namespace UnitTestsProject
             p.apply(cn);
 
             // Initialize TemporalMemory with the Connections object
+
+            stopwatch.Start();
+            tmParallel.Single_Threaded_Optimized_Init(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_1 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            double initParallelTime = elapsed_1.TotalMilliseconds;
+
+
             stopwatch.Start();
             tm.Init(cn);
             stopwatch.Stop();
-            TimeSpan elapsed = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken: {elapsed.TotalMilliseconds} milliseconds for parallel initialization");
+            TimeSpan elapsed_5 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed_5.TotalMilliseconds} milliseconds");
+            double initTime = elapsed_5.TotalMilliseconds;
 
 
-            stopwatch.Start();
-            tmParallel.Init3(cn);
-            stopwatch.Stop();
-            TimeSpan elapsed0 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken: {elapsed0.TotalMilliseconds} milliseconds for parallel initialization");
-
+            
             // Define two sequences of active columns with high sparsity rates
             var seq1ActiveColumns = new int[] { 0, 10, 20, 30, 41, 52, 63, 70, 80, 90 };
             var seq2ActiveColumns = new int[] { 41, 52, 63 };
@@ -1203,16 +1210,19 @@ namespace UnitTestsProject
             stopwatch.Start();
             tmParallel.Compute(seq1ActiveColumns, true);
             stopwatch.Stop();
-            TimeSpan elapsed1_ = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken: {elapsed1_.TotalMilliseconds} milliseconds to learn sequence parallelly");
+            TimeSpan elapsed_6 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for compute tmParallel(Single_Threaded_Optimized_Init): {elapsed_6.TotalMilliseconds} milliseconds");
+            double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
-            
-            //Faulty testing 
             stopwatch.Start();
             tm.Compute(seq1ActiveColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_10 = stopwatch.Elapsed;
             Console.WriteLine($"Time taken: {elapsed_10.TotalMilliseconds} milliseconds for compute");
+            double initTimeCompute = elapsed_10.TotalMilliseconds;
+
+            LogPerformance(nameof(TestHighSparsitySequenceLearningAndRecall), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
+
 
             // Recall the first sequence
             var recall1 = tmParallel.Compute(seq1ActiveColumns, false);
@@ -1238,19 +1248,20 @@ namespace UnitTestsProject
             Parameters p = GetDefaultParameters(null, KEY.COLUMN_DIMENSIONS, new int[] { 64 });
             p.apply(cn);
 
-            //initialized tm in parallel
+            stopwatch.Start();
+            tmParallel.Single_Threaded_Optimized_Init(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_1 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            double initParallelTime = elapsed_1.TotalMilliseconds;
+
+
             stopwatch.Start();
             tm.Init(cn);
             stopwatch.Stop();
-            TimeSpan elapsedParallel = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken: {elapsedParallel.TotalMilliseconds} milliseconds for Parallel Processing");
-
-
-            stopwatch.Start();
-            tmParallel.Init3(cn);
-            stopwatch.Stop();
-            TimeSpan elapsedParallel0 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken: {elapsedParallel0.TotalMilliseconds} milliseconds for Parallel Processing");
+            TimeSpan elapsed_5 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed_5.TotalMilliseconds} milliseconds");
+            double initTime = elapsed_5.TotalMilliseconds;
 
             // Define two sequences of active columns
             var seq1ActiveColumns = new int[] { 0, 1, 2, 3, 4, 5, 6 };
@@ -1259,27 +1270,22 @@ namespace UnitTestsProject
             // Define the desired result for sequence recall
             var desiredResult = new int[] { 27, 28, 30 };
 
-            // Learn the first sequence
+            // Perform computation cycles to enable learning of the sequences
             stopwatch.Start();
             tmParallel.Compute(seq1ActiveColumns, true);
             stopwatch.Stop();
-            TimeSpan elapsed11_ = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken: {elapsed11_.TotalMilliseconds} milliseconds to compute seq1Activecolums in parallel");
-            
-            // Learn the second sequence
-            stopwatch.Start();
-            tmParallel.Compute(seq2ActiveColumns, true);
-            stopwatch.Stop();
-            TimeSpan elapsed02_ = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken: {elapsed02_.TotalMilliseconds} milliseconds to compute seq2Activecolums in parallel");
+            TimeSpan elapsed_6 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for compute tmParallel(Single_Threaded_Optimized_Init): {elapsed_6.TotalMilliseconds} milliseconds");
+            double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
-
-            //Faulty for testing
             stopwatch.Start();
             tm.Compute(seq1ActiveColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_10 = stopwatch.Elapsed;
             Console.WriteLine($"Time taken: {elapsed_10.TotalMilliseconds} milliseconds for compute");
+            double initTimeCompute = elapsed_10.TotalMilliseconds;
+
+            LogPerformance(nameof(TestHighSparsitySequenceLearningAndRecall), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
 
 
             // Recall the first sequence         
@@ -1304,36 +1310,48 @@ namespace UnitTestsProject
         public void TestCreateSynapseInDistalSegment()
         {
             // Create instances of TemporalMemory, Connections, and Parameters
-            
+            TemporalMemory tm = new TemporalMemory();
             TemporalMemoryParallelProcessing tmParallel = new TemporalMemoryParallelProcessing();
             Connections cn = new Connections();
             Stopwatch stopwatch = new Stopwatch();
             Parameters p = Parameters.getAllDefaultParameters();
             p.apply(cn);
-            
-
-            stopwatch.Start();
-            tmParallel.InitAsync(cn);
-            stopwatch.Stop();
-            TimeSpan elapsed = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken: {elapsed.TotalMilliseconds} milliseconds");
 
 
             stopwatch.Start();
-            tmParallel.Init3(cn);
+            tmParallel.Single_Threaded_Optimized_Init(cn);
             stopwatch.Stop();
-            TimeSpan elapsedParallel = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken: {elapsedParallel.TotalMilliseconds} milliseconds for Parallel Processing");
+            TimeSpan elapsed_1 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            double initParallelTime = elapsed_1.TotalMilliseconds;
+
+
+            stopwatch.Start();
+            tm.Init(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_5 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed_5.TotalMilliseconds} milliseconds");
+            double initTime = elapsed_5.TotalMilliseconds;
 
             //focus in here (bug fixing required-seq1ActiveColumns was not present but added)
             var seq1ActiveColumns = new int[] { 0, 10, 20, 30, 41, 52, 63, 70, 80, 90 };
 
-            //Faulty for testing
+            // Perform computation cycles to enable learning of the sequences
             stopwatch.Start();
             tmParallel.Compute(seq1ActiveColumns, true);
             stopwatch.Stop();
+            TimeSpan elapsed_6 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for compute tmParallel(Single_Threaded_Optimized_Init): {elapsed_6.TotalMilliseconds} milliseconds");
+            double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
+
+            stopwatch.Start();
+            tm.Compute(seq1ActiveColumns, true);
+            stopwatch.Stop();
             TimeSpan elapsed_10 = stopwatch.Elapsed;
             Console.WriteLine($"Time taken: {elapsed_10.TotalMilliseconds} milliseconds for compute");
+            double initTimeCompute = elapsed_10.TotalMilliseconds;
+
+            LogPerformance(nameof(TestHighSparsitySequenceLearningAndRecall), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
 
             // Create a distal segment for a specific cell
             DistalDendrite dd = cn.CreateDistalSegment(cn.GetCell(0));
@@ -1364,16 +1382,19 @@ namespace UnitTestsProject
             p.apply(cn);
 
             stopwatch.Start();
-            tm.Init(cn);
+            tmParallel.Single_Threaded_Optimized_Init(cn);
             stopwatch.Stop();
-            TimeSpan elapsed = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken: {elapsed.TotalMilliseconds} milliseconds");
+            TimeSpan elapsed_1 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            double initParallelTime = elapsed_1.TotalMilliseconds;
+
 
             stopwatch.Start();
-            tmParallel.InitAsync(cn);
+            tm.Init(cn);
             stopwatch.Stop();
-            TimeSpan elapsedParallel = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken: {elapsedParallel.TotalMilliseconds} milliseconds for Parallel Processing");
+            TimeSpan elapsed_5 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed_5.TotalMilliseconds} milliseconds");
+            double initTime = elapsed_5.TotalMilliseconds;
 
             int[] activeColumns = { 0 };
             Cell[] activeCells = { cn.GetCell(0), cn.GetCell(1), cn.GetCell(2), cn.GetCell(3) };
@@ -1383,8 +1404,24 @@ namespace UnitTestsProject
             cn.CreateSynapse(dd, cn.GetCell(4), 0.3);
             cn.CreateSynapse(dd, cn.GetCell(5), 0.3);
 
-            // Execute the Temporal Memory Algorithm with the given active columns
+            // Perform computation cycles to enable learning of the sequences
+            stopwatch.Start();
+            tmParallel.Compute(activeColumns, true);
+            stopwatch.Stop();
+            TimeSpan elapsed_6 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for compute tmParallel(Single_Threaded_Optimized_Init): {elapsed_6.TotalMilliseconds} milliseconds");
+            double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
+
+            stopwatch.Start();
             tm.Compute(activeColumns, true);
+            stopwatch.Stop();
+            TimeSpan elapsed_10 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed_10.TotalMilliseconds} milliseconds for compute");
+            double initTimeCompute = elapsed_10.TotalMilliseconds;
+
+            LogPerformance(nameof(TestHighSparsitySequenceLearningAndRecall), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
+
+
 
             // No matching segment should be found, so a new dendrite segment should be grown
             Assert.AreEqual(1, activeCells[0].DistalDendrites.Count);
@@ -1413,20 +1450,43 @@ namespace UnitTestsProject
 
 
             stopwatch.Start();
-            tm.Init(cn);
+            tmParallel.Single_Threaded_Optimized_Init(cn);
             stopwatch.Stop();
-            TimeSpan elapsed = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken: {elapsed.TotalMilliseconds} milliseconds");
+            TimeSpan elapsed_1 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            double initParallelTime = elapsed_1.TotalMilliseconds;
+
 
             stopwatch.Start();
-            tmParallel.InitAsync(cn);
+            tm.Init(cn);
             stopwatch.Stop();
-            TimeSpan elapsedParallel = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken: {elapsedParallel.TotalMilliseconds} milliseconds for Parallel Processing");
+            TimeSpan elapsed_5 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed_5.TotalMilliseconds} milliseconds");
+            double initTime = elapsed_5.TotalMilliseconds;
 
             // Compute active cells for two columns
             int[] activeColumns = { 0, 1 };
-            ComputeCycle cc = tm.Compute(activeColumns, true) as ComputeCycle;
+
+            // Perform computation cycles to enable learning of the sequences
+            stopwatch.Start();
+            tmParallel.Compute(activeColumns, true);
+            stopwatch.Stop();
+            TimeSpan elapsed_6 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for compute tmParallel(Single_Threaded_Optimized_Init): {elapsed_6.TotalMilliseconds} milliseconds");
+            double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
+
+            stopwatch.Start();
+            tm.Compute(activeColumns, true);
+            stopwatch.Stop();
+            TimeSpan elapsed_10 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed_10.TotalMilliseconds} milliseconds for compute");
+            double initTimeCompute = elapsed_10.TotalMilliseconds;
+
+            LogPerformance(nameof(TestHighSparsitySequenceLearningAndRecall), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
+
+
+
+            //ComputeCycle cc = tm.Compute(activeColumns, true) as ComputeCycle;
 
             // Get active cells for the first column
             var activeCellsColumn0 = cc.ActiveCells
