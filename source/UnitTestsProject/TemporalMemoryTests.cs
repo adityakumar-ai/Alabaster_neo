@@ -3583,25 +3583,17 @@ namespace UnitTestsProject
         }
 
 
-
+        //GenerateGraphsAfterAllTests(@"C:\path\to\MethodPerformance.csv");
 
         public void GenerateGraphsAfterAllTests(string csvFilePath)
         {
-            // Call the Python script to generate graphs after all test cases are finished
-            GenerateGraphWithPython(csvFilePath);
+            
+           GenerateGraphWithPython(csvFilePath);
+            
         }
 
         // Call this method after all test cases are completed
-        public void RunAllTestsAndGenerateGraph()
-        {
-            // Run all test cases
-            //TestCase1();
-            //TestCase2();
-            //TestCaseN(); // Continue running all test cases
 
-            // After all tests are done, call the Python method to generate the graph
-            GenerateGraphsAfterAllTests(@"C:\path\to\MethodPerformance.csv");
-        }
 
 
         private void GenerateGraphWithPython(string csvFilePath)
@@ -3609,7 +3601,7 @@ namespace UnitTestsProject
             try
             {
                 // Adjust the path as needed for your Python script
-                string pythonScriptPath = @"C:\path\to\generate_graph.py";
+                string pythonScriptPath = @"D:\first.py";
 
                 // Set the arguments for the script (the path to the CSV file)
                 string arguments = $"\"{pythonScriptPath}\" \"{csvFilePath}\"";
