@@ -3584,10 +3584,11 @@ namespace UnitTestsProject
 
 
         //GenerateGraphsAfterAllTests(@"C:\path\to\MethodPerformance.csv");
-
-        public void GenerateGraphsAfterAllTests(string csvFilePath)
+        [TestMethod]
+        public void GenerateGraphsAfterAllTests()
         {
-            
+        
+           string csvFilePath = @"C:\SE - Project UAT\Alabaster_neo\source\UnitTestsProject\bin\Debug\net8.0\MethodPerformance.csv";
            GenerateGraphWithPython(csvFilePath);
             
         }
@@ -3601,19 +3602,21 @@ namespace UnitTestsProject
             try
             {
                 // Adjust the path as needed for your Python script
-                string pythonScriptPath = @"D:\first.py";
-
+                string pythonScriptPath = @"C:\python\first.py";
+            
                 // Set the arguments for the script (the path to the CSV file)
                 string arguments = $"\"{pythonScriptPath}\" \"{csvFilePath}\"";
 
                 // Create a process to execute the Python script
                 ProcessStartInfo startInfo = new ProcessStartInfo()
                 {
-                    FileName = "python",
+                    FileName = pythonScriptPath,
                     Arguments = arguments,
                     RedirectStandardOutput = true,
+                    RedirectStandardError = true,
                     UseShellExecute = false,
-                    CreateNoWindow = true
+                    CreateNoWindow = true,
+                    WorkingDirectory = Path.GetDirectoryName(pythonScriptPath)
                 };
 
                 // Start the process
