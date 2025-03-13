@@ -243,14 +243,14 @@ namespace UnitTestsProject
             // Perform two cycles of activity.
 
             stopwatch.Start();
-            tmParallel.Compute(previousActiveColumns, true);
+            tmParallel.Compute(activeColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
             Console.WriteLine($"Time taken for compute tmParallel(Single_Threaded_Optimized_Init): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             stopwatch.Start();
-            tm.Compute(previousActiveColumns, true);
+            tm.Compute(activeColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_10 = stopwatch.Elapsed;
             Console.WriteLine($"Time taken: {elapsed_10.TotalMilliseconds} milliseconds for compute");
@@ -261,8 +261,8 @@ namespace UnitTestsProject
 
 
 
-            //tm.Compute(previousActiveColumns, true);
-            tm.Compute(activeColumns, true);
+            tm.Compute(previousActiveColumns, true);
+            //tm.Compute(activeColumns, true);
 
             // Assert that the synapse permanence of matching synapses has been updated.
             Assert.AreEqual(0.3, as1.Permanence, 0.01);
@@ -466,14 +466,14 @@ namespace UnitTestsProject
             // Simulate a computation cycle with the third set of previous and current active columns
 
             stopwatch.Start();
-            tmParallel.Compute(prevActiveColumns3, true);
+            tmParallel.Compute(activeColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
             Console.WriteLine($"Time taken for compute tmParallel(Single_Threaded_Optimized_Init): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             stopwatch.Start();
-            tm.Compute(prevActiveColumns3, true);
+            tm.Compute(activeColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_10 = stopwatch.Elapsed;
             Console.WriteLine($"Time taken: {elapsed_10.TotalMilliseconds} milliseconds for compute");
@@ -483,8 +483,8 @@ namespace UnitTestsProject
 
 
 
-            //tm.Compute(prevActiveColumns3, true);
-            tm.Compute(activeColumns, true);
+            tm.Compute(prevActiveColumns3, true);
+            //tm.Compute(activeColumns, true);
 
             // Assert that there are still two distal dendrites for cell9
             Assert.AreEqual(2, cell9.DistalDendrites.Count);
@@ -536,14 +536,14 @@ namespace UnitTestsProject
             int[] activeColumns = Enumerable.Range(3, numActiveCols).ToArray();
 
             stopwatch.Start();
-            tmParallel.Compute(previousActiveColumns, true);
+            tmParallel.Compute(activeColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
             Console.WriteLine($"Time taken for compute tmParallel(Single_Threaded_Optimized_Init): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             stopwatch.Start();
-            tm.Compute(previousActiveColumns, true);
+            tm.Compute(activeColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_10 = stopwatch.Elapsed;
             Console.WriteLine($"Time taken: {elapsed_10.TotalMilliseconds} milliseconds for compute");
@@ -642,14 +642,14 @@ namespace UnitTestsProject
 
             // Perform computation cycles to enable learning of the sequences
             stopwatch.Start();
-            tmParallel.Compute(previousActiveColumns, true);
+            tmParallel.Compute(activeColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
             Console.WriteLine($"Time taken for compute tmParallel(Single_Threaded_Optimized_Init): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             stopwatch.Start();
-            tm.Compute(previousActiveColumns, true);
+            tm.Compute(activeColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_10 = stopwatch.Elapsed;
             Console.WriteLine($"Time taken: {elapsed_10.TotalMilliseconds} milliseconds for compute");
@@ -659,8 +659,8 @@ namespace UnitTestsProject
 
 
 
-            //tm.Compute(previousActiveColumns, true);
-            tm.Compute(activeColumns, true);
+            tm.Compute(previousActiveColumns, true);
+            //tm.Compute(activeColumns, true);
 
             // Assert
             // Checking that the weak synapse has been destroyed, and only three synapses remain in the active segment.
@@ -877,14 +877,14 @@ namespace UnitTestsProject
 
             // Perform computation cycles to enable learning of the sequences
             stopwatch.Start();
-            tmParallel.Compute(prevActiveColumns, true);
+            tmParallel.Compute(activeColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
             Console.WriteLine($"Time taken for compute tmParallel(Single_Threaded_Optimized_Init): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             stopwatch.Start();
-            tm.Compute(prevActiveColumns, true);
+            tm.Compute(activeColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_10 = stopwatch.Elapsed;
             Console.WriteLine($"Time taken: {elapsed_10.TotalMilliseconds} milliseconds for compute");
@@ -895,8 +895,8 @@ namespace UnitTestsProject
 
 
             // Act
-            //tm.Compute(prevActiveColumns, true);
-            tm.Compute(activeColumns, true);
+            tm.Compute(prevActiveColumns, true);
+            //tm.Compute(activeColumns, true);
 
             // Assert
             // Check that the expected active cell has the correct number of segments
@@ -1749,7 +1749,7 @@ namespace UnitTestsProject
             // Note: The test is marked as inconclusive with an exception to indicate that it's not fixed.
 
             // Initialization
-            //TemporalMemory tm = new TemporalMemory();
+            TemporalMemory tm = new TemporalMemory();
             TemporalMemoryParallelProcessing tmParallel = new TemporalMemoryParallelProcessing();
             Connections cn = new Connections();
             Parameters p = GetDefaultParameters();
@@ -1758,11 +1758,21 @@ namespace UnitTestsProject
             //tm.Init(cn);
 
             stopwatch.Start();
-            tmParallel.InitAsync(cn);
+            tmParallel.Single_Threaded_Optimized_Init(cn);
             stopwatch.Stop();
-            TimeSpan elapsedParallel = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken: {elapsedParallel.TotalMilliseconds} milliseconds for Parallel Processing");
+            TimeSpan elapsed_1 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            double initParallelTime = elapsed_1.TotalMilliseconds;
 
+
+            stopwatch.Start();
+            tm.Init(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_5 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed_5.TotalMilliseconds} milliseconds");
+            double initTime = elapsed_5.TotalMilliseconds;
+
+           
             int[] activeColumns = { 0, 1, 2 };
             Cell[] activeCells = cn.GetCells(activeColumns);
 
@@ -1778,6 +1788,23 @@ namespace UnitTestsProject
             DistalDendrite dd3 = cn.CreateDistalSegment(activeCells[2]);
             cn.CreateSynapse(dd3, cn.GetCell(8), 0.5);
             cn.CreateSynapse(dd3, cn.GetCell(9), 0.5);
+
+            stopwatch.Start();
+            tmParallel.Compute(activeColumns, true);
+            stopwatch.Stop();
+            TimeSpan elapsed_6 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for compute tmParallel(Single_Threaded_Optimized_Init): {elapsed_6.TotalMilliseconds} milliseconds");
+            double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
+
+            stopwatch.Start();
+            tm.Compute(activeColumns, true);
+            stopwatch.Stop();
+            TimeSpan elapsed_10 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed_10.TotalMilliseconds} milliseconds for compute");
+            double initTimeCompute = elapsed_10.TotalMilliseconds;
+
+            LogPerformance(nameof(TestWhichCellsBecomeActive), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
+ 
 
             // Compute the current cycle
             ComputeCycle cycle = tmParallel.Compute(activeColumns, true) as ComputeCycle;
@@ -1801,16 +1828,35 @@ namespace UnitTestsProject
         public void TestActiveSegmentGrowSynapsesAccordingToPotentialOverlap(int[] previousActiveColumns, int[] activeColumns, int[] expectedPresynapticCells, int expectedCount)
         {
             //Temporal memory in parallel version implemented
+            TemporalMemory tm = new TemporalMemory();
             TemporalMemoryParallelProcessing tmParallel = new TemporalMemoryParallelProcessing();
             Connections cn = new Connections();
             Parameters p = GetDefaultParameters(null, KEY.CELLS_PER_COLUMN, 1);
+            Stopwatch stopwatch = new Stopwatch();
             p = GetDefaultParameters(p, KEY.MIN_THRESHOLD, 1);
             p = GetDefaultParameters(p, KEY.ACTIVATION_THRESHOLD, 2);
             p = GetDefaultParameters(p, KEY.MAX_NEW_SYNAPSE_COUNT, 4);
             p.apply(cn);
-            
+
+
+            stopwatch.Start();
+            tmParallel.Single_Threaded_Optimized_Init(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_1 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            double initParallelTime = elapsed_1.TotalMilliseconds;
+
+
+            stopwatch.Start();
+            tm.Init(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_5 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed_5.TotalMilliseconds} milliseconds");
+            double initTime = elapsed_5.TotalMilliseconds;
+
+
             //Initiallizing the connections with tm parallel
-            tmParallel.InitAsync(cn);
+            //tmParallel.InitAsync(cn);
 
             // Use 1 cell per column for easy control over the winner cells.
             List<Cell> prevWinnerCells = new List<Cell>();
@@ -1823,6 +1869,26 @@ namespace UnitTestsProject
             cn.CreateSynapse(activeSegment, cn.GetCell(0), 0.5);
             cn.CreateSynapse(activeSegment, cn.GetCell(1), 0.5);
             cn.CreateSynapse(activeSegment, cn.GetCell(2), 0.2);
+
+
+            stopwatch.Start();
+            tmParallel.Compute(activeColumns, true);
+            stopwatch.Stop();
+            TimeSpan elapsed_6 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for compute tmParallel(Single_Threaded_Optimized_Init): {elapsed_6.TotalMilliseconds} milliseconds");
+            double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
+
+            stopwatch.Start();
+            tm.Compute(activeColumns, true);
+            stopwatch.Stop();
+            TimeSpan elapsed_10 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed_10.TotalMilliseconds} milliseconds for compute");
+            double initTimeCompute = elapsed_10.TotalMilliseconds;
+
+            LogPerformance(nameof(TestWhichCellsBecomeActive), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
+
+
+
 
             //computation with respect to parallel method
             ComputeCycle cc = tmParallel.Compute(previousActiveColumns, true) as ComputeCycle;
@@ -1857,13 +1923,30 @@ namespace UnitTestsProject
             // Initialize temporal memory, connections, and parameters in parallel form
             TemporalMemoryParallelProcessing tmParallel = new TemporalMemoryParallelProcessing();
             Connections cn = new Connections();
+            Stopwatch stopwatch = new Stopwatch();
             Parameters p = GetDefaultParameters(null, KEY.INITIAL_PERMANENCE, 0.2);
             p = GetDefaultParameters(p, KEY.MAX_NEW_SYNAPSE_COUNT, 4);
             p = GetDefaultParameters(p, KEY.PREDICTED_SEGMENT_DECREMENT, 0.02);
             p.apply(cn);
+
+            stopwatch.Start();
+            tmParallel.Single_Threaded_Optimized_Init(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_1 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            double initParallelTime = elapsed_1.TotalMilliseconds;
+
+
+            stopwatch.Start();
             tm.Init(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_5 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed_5.TotalMilliseconds} milliseconds");
+            double initTime = elapsed_5.TotalMilliseconds;
+
+            //tm.Init(cn);
             //initialized temporal memory in asynchronously
-            tmParallel.InitAsync(cn);
+            //tmParallel.InitAsync(cn);
 
             // Set up previous and current active columns
             int[] previousActiveColumns = { prevActive };
@@ -1879,9 +1962,30 @@ namespace UnitTestsProject
             // Weak Synapse
             cn.CreateSynapse(activeSegment, previousActiveCells[3], 0.009);
 
+
+
+            stopwatch.Start();
+            tmParallel.Compute(activeColumns, true);
+            stopwatch.Stop();
+            TimeSpan elapsed_6 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for compute tmParallel(Single_Threaded_Optimized_Init): {elapsed_6.TotalMilliseconds} milliseconds");
+            double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
+
+            stopwatch.Start();
+            tm.Compute(activeColumns, true);
+            stopwatch.Stop();
+            TimeSpan elapsed_10 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed_10.TotalMilliseconds} milliseconds for compute");
+            double initTimeCompute = elapsed_10.TotalMilliseconds;
+
+            LogPerformance(nameof(TestWhichCellsBecomeActive), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
+
+            
+
+
             // Perform two cycles of activity using async method
             tmParallel.Compute(previousActiveColumns, true);
-            tmParallel.Compute(activeColumns, true);
+            //tmParallel.Compute(activeColumns, true);
 
             // Assert that the actual synapse count matches the expected count
             Assert.AreEqual(expectedSynapseCount, activeSegment.Synapses.Count);
@@ -1899,11 +2003,28 @@ namespace UnitTestsProject
             TemporalMemoryParallelProcessing tmParallel = new TemporalMemoryParallelProcessing();
             Connections cn = new Connections();
             Parameters p = GetDefaultParameters(null, KEY.CELLS_PER_COLUMN, 1);
+            Stopwatch stopwatch = new Stopwatch();
             p.apply(cn);
-            tm.Init(cn);
+
+            //tm.Init(cn);
             //asynchronous initialization of the TemporalMemoryParallelProcessing object.
-            tmParallel.InitAsync(cn);
-            
+            //tmParallel.InitAsync(cn);
+
+            stopwatch.Start();
+            tmParallel.Single_Threaded_Optimized_Init(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_1 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            double initParallelTime = elapsed_1.TotalMilliseconds;
+
+
+            stopwatch.Start();
+            tm.Init(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_5 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed_5.TotalMilliseconds} milliseconds");
+            double initTime = elapsed_5.TotalMilliseconds;
+
 
             Connections conn = new Connections();
             DistalDendrite segment = cn.CreateDistalSegment(cn.GetCell(5));
@@ -1931,10 +2052,27 @@ namespace UnitTestsProject
         {
             // Arrange
             TemporalMemory tm = new TemporalMemory();
+            TemporalMemoryParallelProcessing tmParallel = new TemporalMemoryParallelProcessing();
             Connections cn = new Connections();
+            Stopwatch stopwatch = new Stopwatch();
             Parameters p = GetDefaultParameters(null, KEY.CELLS_PER_COLUMN, 1);
             p.apply(cn);
+            //tm.Init(cn);
+
+            stopwatch.Start();
+            tmParallel.Single_Threaded_Optimized_Init(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_1 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            double initParallelTime = elapsed_1.TotalMilliseconds;
+
+
+            stopwatch.Start();
             tm.Init(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_5 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed_5.TotalMilliseconds} milliseconds");
+            double initTime = elapsed_5.TotalMilliseconds;
 
             var segment = new DistalDendrite();
             var cell1 = cn.GetCell(1);
@@ -1958,10 +2096,27 @@ namespace UnitTestsProject
         {
             // Initialize
             TemporalMemory tm = new TemporalMemory();
+            TemporalMemoryParallelProcessing tmParallel = new TemporalMemoryParallelProcessing();
             Connections cn = new Connections();
+            Stopwatch stopwatch = new Stopwatch();
             Parameters p = Parameters.getAllDefaultParameters();
             p.apply(cn);
+            //tm.Init(cn);
+
+            stopwatch.Start();
+            tmParallel.Single_Threaded_Optimized_Init(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_1 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            double initParallelTime = elapsed_1.TotalMilliseconds;
+
+
+            stopwatch.Start();
             tm.Init(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_5 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed_5.TotalMilliseconds} milliseconds");
+            double initTime = elapsed_5.TotalMilliseconds;
 
             DistalDendrite dd = cn.CreateDistalSegment(cn.GetCell(0));
 
@@ -1983,10 +2138,27 @@ namespace UnitTestsProject
         {
             // Initialize
             TemporalMemory tm = new TemporalMemory();
+            TemporalMemoryParallelProcessing tmParallel = new TemporalMemoryParallelProcessing();
             Connections cn = new Connections();
             Parameters p = Parameters.getAllDefaultParameters();
+            Stopwatch stopwatch = new Stopwatch();
             p.apply(cn);
+
+            stopwatch.Start();
+            tmParallel.Single_Threaded_Optimized_Init(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_1 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            double initParallelTime = elapsed_1.TotalMilliseconds;
+
+
+            stopwatch.Start();
             tm.Init(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_5 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed_5.TotalMilliseconds} milliseconds");
+            double initTime = elapsed_5.TotalMilliseconds;
+           
 
             DistalDendrite dd = cn.CreateDistalSegment(cn.GetCell(0));
             Synapse s1 = cn.CreateSynapse(dd, cn.GetCell(23), 0.9);
@@ -2011,10 +2183,27 @@ namespace UnitTestsProject
         {
             // Initialize
             TemporalMemory tm = new TemporalMemory();
+            TemporalMemoryParallelProcessing tmParallel = new TemporalMemoryParallelProcessing();
             Connections cn = new Connections();
+            Stopwatch stopwatch = new Stopwatch();
             Parameters p = Parameters.getAllDefaultParameters();
             p.apply(cn);
+            //tm.Init(cn);
+
+            stopwatch.Start();
+            tmParallel.Single_Threaded_Optimized_Init(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_1 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            double initParallelTime = elapsed_1.TotalMilliseconds;
+
+
+            stopwatch.Start();
             tm.Init(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_5 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed_5.TotalMilliseconds} milliseconds");
+            double initTime = elapsed_5.TotalMilliseconds;
 
 
             DistalDendrite dd = cn.CreateDistalSegment(cn.GetCell(0));
@@ -2037,10 +2226,27 @@ namespace UnitTestsProject
         {
             //Arrange
             TemporalMemory tm = new TemporalMemory();
+            TemporalMemoryParallelProcessing tmParallel = new TemporalMemoryParallelProcessing();
             Connections cn = new Connections();
             Parameters p = Parameters.getAllDefaultParameters();
+            Stopwatch stopwatch = new Stopwatch();
             p.apply(cn);
+            //tm.Init(cn);
+
+            stopwatch.Start();
+            tmParallel.Single_Threaded_Optimized_Init(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_1 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            double initParallelTime = elapsed_1.TotalMilliseconds;
+
+
+            stopwatch.Start();
             tm.Init(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_5 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed_5.TotalMilliseconds} milliseconds");
+            double initTime = elapsed_5.TotalMilliseconds;
 
             DistalDendrite dd = cn.CreateDistalSegment(cn.GetCell(0));
             Synapse s1 = cn.CreateSynapse(dd, cn.GetCell(23), 0.6); // central 
@@ -2058,13 +2264,50 @@ namespace UnitTestsProject
         {
             // Arrange
             TemporalMemory tm = new TemporalMemory();
+            TemporalMemoryParallelProcessing tmParallel = new TemporalMemoryParallelProcessing();
             Connections cn = new Connections();
+            Stopwatch stopwatch = new Stopwatch();
             Parameters p = GetDefaultParameters(null, KEY.MIN_THRESHOLD, 2);
             p.apply(cn);
+            //tm.Init(cn);
+
+            stopwatch.Start();
+            tmParallel.Single_Threaded_Optimized_Init(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_1 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            double initParallelTime = elapsed_1.TotalMilliseconds;
+
+
+            stopwatch.Start();
             tm.Init(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_5 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed_5.TotalMilliseconds} milliseconds");
+            double initTime = elapsed_5.TotalMilliseconds;
 
             int[] previousActiveColumns = { 0, 1, 2 };
             int[] activeColumns = { 1, 2, 3 };
+
+
+            stopwatch.Start();
+            tmParallel.Compute(activeColumns, true);
+            stopwatch.Stop();
+            TimeSpan elapsed_6 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for compute tmParallel(Single_Threaded_Optimized_Init): {elapsed_6.TotalMilliseconds} milliseconds");
+            double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
+
+            stopwatch.Start();
+            tm.Compute(activeColumns, true);
+            stopwatch.Stop();
+            TimeSpan elapsed_10 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed_10.TotalMilliseconds} milliseconds for compute");
+            double initTimeCompute = elapsed_10.TotalMilliseconds;
+
+            LogPerformance(nameof(TestWhichCellsBecomeActive), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
+
+
+
 
             // Activate some cells
             ComputeCycle cc = tm.Compute(previousActiveColumns, true) as ComputeCycle;
@@ -2097,12 +2340,29 @@ namespace UnitTestsProject
         public void TestGetLeastUsedCell1()
         {
             Connections cn = new Connections();
+            Stopwatch stopwatch = new Stopwatch();
+            TemporalMemoryParallelProcessing tmParallel = new TemporalMemoryParallelProcessing();
             Parameters p = GetDefaultParameters(null, KEY.COLUMN_DIMENSIONS, new int[] { 4 });
             p = GetDefaultParameters(p, KEY.CELLS_PER_COLUMN, 3);
             p.apply(cn);
 
             TemporalMemory tm = new TemporalMemory();
+            //tm.Init(cn);
+
+            stopwatch.Start();
+            tmParallel.Single_Threaded_Optimized_Init(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_1 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            double initParallelTime = elapsed_1.TotalMilliseconds;
+
+
+            stopwatch.Start();
             tm.Init(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_5 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed_5.TotalMilliseconds} milliseconds");
+            double initTime = elapsed_5.TotalMilliseconds;
 
             // Create a distal segment and synapses
             DistalDendrite dd = cn.CreateDistalSegment(cn.GetCell(1));
@@ -2135,10 +2395,27 @@ namespace UnitTestsProject
         {
             // Initialize
             TemporalMemory tm = new TemporalMemory();
+            TemporalMemoryParallelProcessing tmParallel = new TemporalMemoryParallelProcessing();
             Connections cn = new Connections();
             Parameters p = GetDefaultParameters(null, KEY.CELLS_PER_COLUMN, 5);
+            Stopwatch stopwatch = new Stopwatch();
+
             p.apply(cn);
+            //tm.Init(cn);
+            stopwatch.Start();
+            tmParallel.Single_Threaded_Optimized_Init(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_1 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            double initParallelTime = elapsed_1.TotalMilliseconds;
+
+
+            stopwatch.Start();
             tm.Init(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_5 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed_5.TotalMilliseconds} milliseconds");
+            double initTime = elapsed_5.TotalMilliseconds;
 
             int[] activeColumns = { 0 };
             ComputeCycle cc = tm.Compute(activeColumns, true) as ComputeCycle;
@@ -2159,17 +2436,27 @@ namespace UnitTestsProject
              double expectedPermanence)
         {
             TemporalMemoryParallelProcessing tmParallel = new TemporalMemoryParallelProcessing();
+            TemporalMemory tm = new TemporalMemory();
             Connections cn = new Connections();
             Parameters p = Parameters.getAllDefaultParameters();
             Stopwatch stopwatch = new Stopwatch();
 
             p.apply(cn);
-            stopwatch.Start();
-            tmParallel.InitAsync(cn);
-            stopwatch.Stop();
-            TimeSpan elapsedParallel = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken: {elapsedParallel.TotalMilliseconds} milliseconds for Parallel Processing");
 
+            stopwatch.Start();
+            tmParallel.Single_Threaded_Optimized_Init(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_1 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            double initParallelTime = elapsed_1.TotalMilliseconds;
+
+
+            stopwatch.Start();
+            tm.Init(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_5 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed_5.TotalMilliseconds} milliseconds");
+            double initTime = elapsed_5.TotalMilliseconds;
             DistalDendrite dd = cn.CreateDistalSegment(cn.GetCell(0));
             Synapse s1 = cn.CreateSynapse(dd, cn.GetCell(23), initialPermanence);
 
@@ -2192,8 +2479,43 @@ namespace UnitTestsProject
             HtmConfig htmConfig = GetDefaultTMParameters();
             Connections cn = new Connections(htmConfig);
             TemporalMemory tm = new TemporalMemory();
+            TemporalMemoryParallelProcessing tmParallel = new TemporalMemoryParallelProcessing();
+            Stopwatch stopwatch = new Stopwatch();
+            //tm.Init(cn);
+
+            stopwatch.Start();
+            tmParallel.Single_Threaded_Optimized_Init(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_1 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            double initParallelTime = elapsed_1.TotalMilliseconds;
+
+
+            stopwatch.Start();
             tm.Init(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_5 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed_5.TotalMilliseconds} milliseconds");
+            double initTime = elapsed_5.TotalMilliseconds;
+
             Cell[] excludedCells = cn.GetCells(excludedCellIndices);
+
+            stopwatch.Start();
+            tmParallel.Compute(activeColumns, true);
+            stopwatch.Stop();
+            TimeSpan elapsed_6 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for compute tmParallel(Single_Threaded_Optimized_Init): {elapsed_6.TotalMilliseconds} milliseconds");
+            double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
+
+            stopwatch.Start();
+            tm.Compute(activeColumns, true);
+            stopwatch.Stop();
+            TimeSpan elapsed_10 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed_10.TotalMilliseconds} milliseconds for compute");
+            double initTimeCompute = elapsed_10.TotalMilliseconds;
+
+            LogPerformance(nameof(TestWhichCellsBecomeActive), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
+
 
             // Act
             ComputeCycle cc = tm.Compute(activeColumns, true) as ComputeCycle;
@@ -2211,11 +2533,46 @@ namespace UnitTestsProject
         public void TestBurstNotpredictedColumns(int[] activeColumns, int[] expectedBurstingCellIndexes)
         {
             TemporalMemory tm = new TemporalMemory();
+            TemporalMemoryParallelProcessing tmParallel = new TemporalMemoryParallelProcessing();
             Connections cn = new Connections();
+            Stopwatch stopwatch = new Stopwatch();
             Parameters p = GetDefaultParameters();
             p.apply(cn);
+            //tm.Init(cn);
+
+            stopwatch.Start();
+            tmParallel.Single_Threaded_Optimized_Init(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_1 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            double initParallelTime = elapsed_1.TotalMilliseconds;
+
+
+            stopwatch.Start();
             tm.Init(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_5 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed_5.TotalMilliseconds} milliseconds");
+            double initTime = elapsed_5.TotalMilliseconds;
+
             IList<Cell> expectedBurstingCells = cn.GetCells(expectedBurstingCellIndexes); //Expected bursting cells
+
+            stopwatch.Start();
+            tmParallel.Compute(activeColumns, true);
+            stopwatch.Stop();
+            TimeSpan elapsed_6 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for compute tmParallel(Single_Threaded_Optimized_Init): {elapsed_6.TotalMilliseconds} milliseconds");
+            double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
+
+            stopwatch.Start();
+            tm.Compute(activeColumns, true);
+            stopwatch.Stop();
+            TimeSpan elapsed_10 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed_10.TotalMilliseconds} milliseconds for compute");
+            double initTimeCompute = elapsed_10.TotalMilliseconds;
+
+            LogPerformance(nameof(TestWhichCellsBecomeActive), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
+
 
             ComputeCycle cc = tm.Compute(activeColumns, true) as ComputeCycle; //Compute class object 
 
@@ -2232,11 +2589,28 @@ namespace UnitTestsProject
             int[] activeColumns, int[] previousActiveCellIndexes, int[] burstingCellIndexes, double as1Permanence, double is1Permanence)
         {
             TemporalMemory tm = new TemporalMemory();
+            TemporalMemoryParallelProcessing tmParallel = new TemporalMemoryParallelProcessing();
             Connections cn = new Connections();
             Parameters p = GetDefaultParameters(null, KEY.PERMANENCE_DECREMENT, 0.08);
-
+            Stopwatch stopwatch = new Stopwatch();
             p.apply(cn);
+            //tm.Init(cn);
+
+            stopwatch.Start();
+            tmParallel.Single_Threaded_Optimized_Init(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_1 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            double initParallelTime = elapsed_1.TotalMilliseconds;
+
+
+            stopwatch.Start();
             tm.Init(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_5 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed_5.TotalMilliseconds} milliseconds");
+            double initTime = elapsed_5.TotalMilliseconds;
+
 
             Cell[] previousActiveCells = cn.GetCells(previousActiveCellIndexes);
             Cell[] burstingCells = cn.GetCells(burstingCellIndexes);
@@ -2251,8 +2625,27 @@ namespace UnitTestsProject
             Synapse as1 = cn.CreateSynapse(otherMatchingSegment, previousActiveCells[0], 0.3);
             Synapse is1 = cn.CreateSynapse(otherMatchingSegment, cn.GetCell(81), 0.3);
 
-            tm.Compute(previousActiveColumns, true);
+
+
+            stopwatch.Start();
+            tmParallel.Compute(activeColumns, true);
+            stopwatch.Stop();
+            TimeSpan elapsed_6 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for compute tmParallel(Single_Threaded_Optimized_Init): {elapsed_6.TotalMilliseconds} milliseconds");
+            double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
+
+            stopwatch.Start();
             tm.Compute(activeColumns, true);
+            stopwatch.Stop();
+            TimeSpan elapsed_10 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed_10.TotalMilliseconds} milliseconds for compute");
+            double initTimeCompute = elapsed_10.TotalMilliseconds;
+
+            LogPerformance(nameof(TestWhichCellsBecomeActive), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
+
+
+            tm.Compute(previousActiveColumns, true);
+            //tm.Compute(activeColumns, true);
 
             Assert.AreEqual(as1Permanence, as1.Permanence, 0.01);
             Assert.AreEqual(is1Permanence, is1.Permanence, 0.01);
@@ -2342,7 +2735,9 @@ namespace UnitTestsProject
         {
             // Arrange
             // Create a new TemporalMemory object
+            Stopwatch stopwatch = new Stopwatch();
             var tm = new TemporalMemory();
+            TemporalMemoryParallelProcessing tmParallel = new TemporalMemoryParallelProcessing();
 
             // Create a new Connections object
             var cn = new Connections();
@@ -2354,11 +2749,45 @@ namespace UnitTestsProject
             p.apply(cn);
 
             // Initialize the TemporalMemory object with the Connections object
+            //tm.Init(cn);
+
+            stopwatch.Start();
+            tmParallel.Single_Threaded_Optimized_Init(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_1 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            double initParallelTime = elapsed_1.TotalMilliseconds;
+
+
+            stopwatch.Start();
             tm.Init(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_5 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed_5.TotalMilliseconds} milliseconds");
+            double initTime = elapsed_5.TotalMilliseconds;
 
             // Define the active columns and bursting cells
             var activeColumns = new int[] { 0 };
             var burstingCells = cn.GetCells(new int[] { 0, 1, 2, 3, 4 });
+
+
+            stopwatch.Start();
+            tmParallel.Compute(activeColumns, true);
+            stopwatch.Stop();
+            TimeSpan elapsed_6 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for compute tmParallel(Single_Threaded_Optimized_Init): {elapsed_6.TotalMilliseconds} milliseconds");
+            double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
+
+            stopwatch.Start();
+            tm.Compute(activeColumns, true);
+            stopwatch.Stop();
+            TimeSpan elapsed_10 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed_10.TotalMilliseconds} milliseconds for compute");
+            double initTimeCompute = elapsed_10.TotalMilliseconds;
+
+            LogPerformance(nameof(TestWhichCellsBecomeActive), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
+
+
 
             // Act
             // Compute the result using the specified active columns and set the learn flag to true
@@ -2374,8 +2803,8 @@ namespace UnitTestsProject
         public void TestSegmentCreationIfNotEnoughWinnerCells2()
         {
             // Create a new TemporalMemory object
-            //TemporalMemory tm = new TemporalMemory();
-
+            TemporalMemory tm = new TemporalMemory();
+            Stopwatch stopwatch = new Stopwatch();
             // Create a new TemporalMemory(Parallel) object
             TemporalMemoryParallelProcessing tmParallel = new TemporalMemoryParallelProcessing();
 
@@ -2388,18 +2817,57 @@ namespace UnitTestsProject
             // Apply the default parameters to the Connections object
             p.apply(cn);
 
+            stopwatch.Start();
+            tmParallel.Single_Threaded_Optimized_Init(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_1 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            double initParallelTime = elapsed_1.TotalMilliseconds;
+
+
+            stopwatch.Start();
+            tm.Init(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_5 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed_5.TotalMilliseconds} milliseconds");
+            double initTime = elapsed_5.TotalMilliseconds;
+
+
+
             // Initialize the TemporalMemory object with the Connections object
-            tmParallel.InitAsync(cn);
+            //tmParallel.InitAsync(cn);
 
             // Define the zero columns and active columns
             int[] zeroColumns = { 0, 1, 2, 3 };
             int[] activeColumns = { 3, 4 };
 
+
+            stopwatch.Start();
+            tmParallel.Compute(activeColumns, true);
+            stopwatch.Stop();
+            TimeSpan elapsed_6 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for compute tmParallel(Single_Threaded_Optimized_Init): {elapsed_6.TotalMilliseconds} milliseconds");
+            double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
+
+            stopwatch.Start();
+            tm.Compute(activeColumns, true);
+            stopwatch.Stop();
+            TimeSpan elapsed_10 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed_10.TotalMilliseconds} milliseconds for compute");
+            double initTimeCompute = elapsed_10.TotalMilliseconds;
+
+            LogPerformance(nameof(TestWhichCellsBecomeActive), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
+
+
+
+
             // Compute the result with the zero columns and set the learn flag to true
             tmParallel.Compute(zeroColumns, true);
 
             // Compute the result with the active columns and set the learn flag to true
-            tmParallel.Compute(activeColumns, true);
+            //tmParallel.Compute(activeColumns, true);
+
+            
 
             // Assert
             // Check that the number of segments in the Connections object is equal to 2
@@ -2412,11 +2880,28 @@ namespace UnitTestsProject
             // Create a new instance of TemporalMemory and Connections, and set default parameters.
             TemporalMemory tm = new TemporalMemory();
             Connections cn = new Connections();
+            TemporalMemoryParallelProcessing tmParallel = new TemporalMemoryParallelProcessing();
+            Stopwatch stopwatch = new Stopwatch();
             Parameters p = getDefaultParameters1(null, KEY.CELLS_PER_COLUMN, 1);
             p = getDefaultParameters1(p, KEY.MIN_THRESHOLD, 1);
             p.apply(cn);
-            tm.Init(cn);
+            //tm.Init(cn);
 
+
+            stopwatch.Start();
+            tmParallel.Single_Threaded_Optimized_Init(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_1 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            double initParallelTime = elapsed_1.TotalMilliseconds;
+
+            stopwatch.Start();
+            tm.Init(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_5 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed_5.TotalMilliseconds} milliseconds");
+            double initTime = elapsed_5.TotalMilliseconds;
+            
             // Set up some initial state for the memory, with some active columns and previous winner cells.
             int[] previousActiveColumns = { 0, 1, 2, 3, 4 };
             IList<Cell> prevWinnerCells = cn.GetCells(new int[] { 0, 1, 2, 3, 4 });
@@ -2427,6 +2912,25 @@ namespace UnitTestsProject
             cn.CreateSynapse(matchingSegment, cn.GetCell(0), 0.15);
 
             // Compute the memory for one cycle with the previous active columns, and then with the new active column.
+            
+            stopwatch.Start();
+            tmParallel.Compute(activeColumns, true);
+            stopwatch.Stop();
+            TimeSpan elapsed_6 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for compute tmParallel(Single_Threaded_Optimized_Init): {elapsed_6.TotalMilliseconds} milliseconds");
+            double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
+
+            stopwatch.Start();
+            tm.Compute(activeColumns, true);
+            stopwatch.Stop();
+            TimeSpan elapsed_10 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed_10.TotalMilliseconds} milliseconds for compute");
+            double initTimeCompute = elapsed_10.TotalMilliseconds;
+
+            LogPerformance(nameof(TestWhichCellsBecomeActive), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
+
+
+
             ComputeCycle cc = tm.Compute(previousActiveColumns, true) as ComputeCycle;
             Assert.IsTrue(cc.WinnerCells.SequenceEqual(prevWinnerCells));
             cc = tm.Compute(activeColumns, true) as ComputeCycle;
@@ -2457,10 +2961,28 @@ namespace UnitTestsProject
             //The method creates a new instance of the TemporalMemory class and a Connections object, and sets some default parameters for the memory using the getDefaultParameters1() method.
             int implementation = 0;
             TemporalMemory tm = implementation == 0 ? new TemporalMemory() : new TemporalMemoryMT();
+            TemporalMemoryParallelProcessing tmParallel = new TemporalMemoryParallelProcessing();
             Connections cn = new Connections();
+            Stopwatch stopwatch = new Stopwatch();
             Parameters p = getDefaultParameters1();
             p.apply(cn);
+            //tm.Init(cn);
+
+            stopwatch.Start();
+            tmParallel.Single_Threaded_Optimized_Init(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_1 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            double initParallelTime = elapsed_1.TotalMilliseconds;
+
+
+            stopwatch.Start();
             tm.Init(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_5 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed_5.TotalMilliseconds} milliseconds");
+            double initTime = elapsed_5.TotalMilliseconds;
+
 
             //The method creates an input pattern by setting the previousActiveColumns and activeColumns arrays, which represent the indices of the active columns in the previous and current time steps, respectively.
             int[] previousActiveColumns = { 0 };
@@ -2471,6 +2993,28 @@ namespace UnitTestsProject
             ISet<Cell> expectedPredictiveCells = new HashSet<Cell>(new Cell[] { cell5 });
 
             CreateSynapses(cn, cell5, new int[] { 0, 1, 2, 3, 4 }, 0.15);
+
+
+
+
+            stopwatch.Start();
+            tmParallel.Compute(activeColumns, true);
+            stopwatch.Stop();
+            TimeSpan elapsed_6 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for compute tmParallel(Single_Threaded_Optimized_Init): {elapsed_6.TotalMilliseconds} milliseconds");
+            double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
+
+            stopwatch.Start();
+            tm.Compute(activeColumns, true);
+            stopwatch.Stop();
+            TimeSpan elapsed_10 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed_10.TotalMilliseconds} milliseconds for compute");
+            double initTimeCompute = elapsed_10.TotalMilliseconds;
+
+            LogPerformance(nameof(TestWhichCellsBecomeActive), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
+
+
+
 
             // Act
             //The method then calls the Compute() method of the TemporalMemory instance twice with the input pattern to activate the memory and obtain the resulting active and predictive cells.
@@ -2497,25 +3041,54 @@ namespace UnitTestsProject
         }
 
 
-
-
-
-
-
         [TestMethod]
         public void TestBurstUnpredictedColumnsforFiveCells1()
         {
             // Get default configuration parameters for the HtmConfig class and create a new Connections object.
             HtmConfig htmConfig = GetDefaultTMParameters1();
             Connections cn = new Connections(htmConfig);
-
+            Stopwatch stopwatch = new Stopwatch();
             // Create a new instance of TemporalMemory and initialize it with the Connections object.
             TemporalMemory tm = new TemporalMemory();
+            TemporalMemoryParallelProcessing tmParallel = new TemporalMemoryParallelProcessing();
+
+            stopwatch.Start();
+            tmParallel.Single_Threaded_Optimized_Init(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_1 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            double initParallelTime = elapsed_1.TotalMilliseconds;
+
+
+            stopwatch.Start();
             tm.Init(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_5 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed_5.TotalMilliseconds} milliseconds");
+            double initTime = elapsed_5.TotalMilliseconds;
+            //tm.Init(cn);
 
             // Set up some initial state for the memory, with one active column and five bursting cells.
             int[] activeColumns = { 0 };
             var burstingCells = cn.GetCells(new int[] { 0, 1, 2, 3, 4 });
+
+            stopwatch.Start();
+            tmParallel.Compute(activeColumns, true);
+            stopwatch.Stop();
+            TimeSpan elapsed_6 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for compute tmParallel(Single_Threaded_Optimized_Init): {elapsed_6.TotalMilliseconds} milliseconds");
+            double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
+
+            stopwatch.Start();
+            tm.Compute(activeColumns, true);
+            stopwatch.Stop();
+            TimeSpan elapsed_10 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed_10.TotalMilliseconds} milliseconds for compute");
+            double initTimeCompute = elapsed_10.TotalMilliseconds;
+
+            LogPerformance(nameof(TestWhichCellsBecomeActive), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
+
+
 
             // Compute the memory for one cycle with the active column.
             ComputeCycle cc = tm.Compute(activeColumns, true) as ComputeCycle;
@@ -2524,18 +3097,34 @@ namespace UnitTestsProject
             Assert.IsTrue(cc.ActiveCells.SequenceEqual(burstingCells));
         }
 
-
-
         [TestMethod]
         [TestCategory("Prod")]
         public void TestNoneActiveColumns()
         {
             // Create a new TemporalMemory and Connections object, and initialize them with default parameters.
             TemporalMemory tm = new TemporalMemory();
+            TemporalMemoryParallelProcessing tmParallel = new TemporalMemoryParallelProcessing();
             Connections cn = new Connections();
+            Stopwatch stopwatch = new Stopwatch();
             Parameters p = getDefaultParameters1();
             p.apply(cn);
+            //tm.Init(cn);
+
+            stopwatch.Start();
+            tmParallel.Single_Threaded_Optimized_Init(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_1 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            double initParallelTime = elapsed_1.TotalMilliseconds;
+
+
+            stopwatch.Start();
             tm.Init(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_5 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed_5.TotalMilliseconds} milliseconds");
+            double initTime = elapsed_5.TotalMilliseconds;
+
 
             // Set up some initial state for the memory, with one active segment and five synapses to other cells.
             int[] previousActiveColumns = { 0 };
@@ -2555,6 +3144,24 @@ namespace UnitTestsProject
 
             // Compute the memory for one cycle with no active columns, and check that there are no active, winner, or predictive cells.
             int[] zeroColumns = new int[0];
+
+            stopwatch.Start();
+            tmParallel.Compute(zeroColumns, true);
+            stopwatch.Stop();
+            TimeSpan elapsed_6 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for compute tmParallel(Single_Threaded_Optimized_Init): {elapsed_6.TotalMilliseconds} milliseconds");
+            double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
+
+            stopwatch.Start();
+            tm.Compute(zeroColumns, true);
+            stopwatch.Stop();
+            TimeSpan elapsed_10 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed_10.TotalMilliseconds} milliseconds for compute");
+            double initTimeCompute = elapsed_10.TotalMilliseconds;
+
+            LogPerformance(nameof(TestWhichCellsBecomeActive), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
+
+
             ComputeCycle cc2 = tm.Compute(zeroColumns, true) as ComputeCycle;
             Assert.IsTrue(cc2.ActiveCells.Count == 0);
             Assert.IsTrue(cc2.WinnerCells.Count == 0);
@@ -2569,11 +3176,27 @@ namespace UnitTestsProject
         {
             //The test initializes a TemporalMemory object and a Connections object with default parameters and sets up some active columns and cells.
             TemporalMemory tm = new TemporalMemory();
+            TemporalMemoryParallelProcessing tmParallel = new TemporalMemoryParallelProcessing();
             Connections cn = new Connections();
+            Stopwatch stopwatch = new Stopwatch();
             Parameters p = getDefaultParameters1();
             p.apply(cn);
-            tm.Init(cn);
+            //tm.Init(cn);
 
+            stopwatch.Start();
+            tmParallel.Single_Threaded_Optimized_Init(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_1 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            double initParallelTime = elapsed_1.TotalMilliseconds;
+
+
+            stopwatch.Start();
+            tm.Init(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_5 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed_5.TotalMilliseconds} milliseconds");
+            double initTime = elapsed_5.TotalMilliseconds;
 
             //The test creates two DistalDendrite objects and creates synapses between them and the previous active cells.
             int[] previousActiveColumns = { 0 };
@@ -2594,6 +3217,25 @@ namespace UnitTestsProject
             cn.CreateSynapse(activeSegment2, previousActiveCells[2], 0.15);
             cn.CreateSynapse(activeSegment2, previousActiveCells[3], 0.15);
 
+
+
+            stopwatch.Start();
+            tmParallel.Compute(activeColumns, true);
+            stopwatch.Stop();
+            TimeSpan elapsed_6 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for compute tmParallel(Single_Threaded_Optimized_Init): {elapsed_6.TotalMilliseconds} milliseconds");
+            double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
+
+            stopwatch.Start();
+            tm.Compute(activeColumns, true);
+            stopwatch.Stop();
+            TimeSpan elapsed_10 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed_10.TotalMilliseconds} milliseconds for compute");
+            double initTimeCompute = elapsed_10.TotalMilliseconds;
+
+            LogPerformance(nameof(TestWhichCellsBecomeActive), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
+
+
             //The test finally checks if the expected winner cells match the actual winner cells.
             ComputeCycle cc = tm.Compute(previousActiveColumns, false) as ComputeCycle; // learn=false
             cc = tm.Compute(activeColumns, false) as ComputeCycle; // learn=false
@@ -2607,10 +3249,30 @@ namespace UnitTestsProject
         {
             // The code instantiates a TemporalMemory object and a Connections object and initializes them with default parameters.
             TemporalMemory tm = new TemporalMemory();
+            TemporalMemoryParallelProcessing tmParallel = new TemporalMemoryParallelProcessing();
             Connections cn = new Connections();
+            Stopwatch stopwatch = new Stopwatch();
             Parameters p = getDefaultParameters1(null, KEY.PERMANENCE_DECREMENT, 0.8);
             p.apply(cn);
+            //tm.Init(cn);
+
+            stopwatch.Start();
+            tmParallel.Single_Threaded_Optimized_Init(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_1 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            double initParallelTime = elapsed_1.TotalMilliseconds;
+
+
+            stopwatch.Start();
             tm.Init(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_5 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed_5.TotalMilliseconds} milliseconds");
+            double initTime = elapsed_5.TotalMilliseconds;
+
+
+
             // It creates arrays of previousActiveColumns, activeColumns, previousActiveCells, and burstingCells.
             int[] previousActiveColumns = { 0 };
             int[] activeColumns = { 1 };
@@ -2632,9 +3294,28 @@ namespace UnitTestsProject
             cn.CreateSynapse(otherMatchingSegment, previousActiveCells[2], 0.15);
             cn.CreateSynapse(otherMatchingSegment, cn.GetCell(81), 0.15);
 
+
+            stopwatch.Start();
+            tmParallel.Compute(activeColumns, true);
+            stopwatch.Stop();
+            TimeSpan elapsed_6 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for compute tmParallel(Single_Threaded_Optimized_Init): {elapsed_6.TotalMilliseconds} milliseconds");
+            double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
+
+            stopwatch.Start();
+            tm.Compute(activeColumns, true);
+            stopwatch.Stop();
+            TimeSpan elapsed_10 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed_10.TotalMilliseconds} milliseconds for compute");
+            double initTimeCompute = elapsed_10.TotalMilliseconds;
+
+            LogPerformance(nameof(TestWhichCellsBecomeActive), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
+
+
+
             // It then calls the Compute method of the TemporalMemory object twice, with learn set to true, to reinforce the activeSegment.
             tm.Compute(previousActiveColumns, true);
-            tm.Compute(activeColumns, true);
+            //tm.Compute(activeColumns, true);
 
             // Finally, it uses several Assert statements to check that the permanence values of the Synapses are set correctly.
             Assert.AreEqual(0.15, as1.Permanence, 0.01);
@@ -2651,9 +3332,28 @@ namespace UnitTestsProject
         {
             TemporalMemory tm = new TemporalMemory();
             Connections cn = new Connections();
+            TemporalMemoryParallelProcessing tmParallel = new TemporalMemoryParallelProcessing();
+            Stopwatch stopwatch = new Stopwatch();
             Parameters p = getDefaultParameters1(null, KEY.PERMANENCE_DECREMENT, 0.06);
             p.apply(cn);
+            //tm.Init(cn);
+
+            stopwatch.Start();
+            tmParallel.Single_Threaded_Optimized_Init(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_1 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            double initParallelTime = elapsed_1.TotalMilliseconds;
+
+
+            stopwatch.Start();
             tm.Init(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_5 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed_5.TotalMilliseconds} milliseconds");
+            double initTime = elapsed_5.TotalMilliseconds;
+
+
             int[] previousActiveColumns = { 0 };
             int[] activeColumns = { 1 };
             Cell[] previousActiveCells = { cn.GetCell(0), cn.GetCell(1), cn.GetCell(2), cn.GetCell(3), cn.GetCell(4) };
@@ -2673,8 +3373,28 @@ namespace UnitTestsProject
             cn.CreateSynapse(otherMatchingSegment, previousActiveCells[2], 0.3);
             cn.CreateSynapse(otherMatchingSegment, cn.GetCell(81), 0.3);
 
-            tm.Compute(previousActiveColumns, true);
+
+
+            stopwatch.Start();
+            tmParallel.Compute(activeColumns, true);
+            stopwatch.Stop();
+            TimeSpan elapsed_6 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for compute tmParallel(Single_Threaded_Optimized_Init): {elapsed_6.TotalMilliseconds} milliseconds");
+            double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
+
+            stopwatch.Start();
             tm.Compute(activeColumns, true);
+            stopwatch.Stop();
+            TimeSpan elapsed_10 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed_10.TotalMilliseconds} milliseconds for compute");
+            double initTimeCompute = elapsed_10.TotalMilliseconds;
+
+            LogPerformance(nameof(TestWhichCellsBecomeActive), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
+
+
+
+            tm.Compute(previousActiveColumns, true);
+            //tm.Compute(activeColumns, true);
 
             Assert.AreEqual(0.3, as1.Permanence, 0.01);
             Assert.AreEqual(0.3, as2.Permanence, 0.01);
@@ -2690,22 +3410,56 @@ namespace UnitTestsProject
         {
             TemporalMemory tm = new TemporalMemory();
             Connections cn = new Connections();
+            TemporalMemoryParallelProcessing tmParallel = new TemporalMemoryParallelProcessing();
+            Stopwatch stopwatch = new Stopwatch();
             Parameters p = getDefaultParameters1(null, KEY.MAX_NEW_SYNAPSE_COUNT, 5);
             p.apply(cn);
+            //tm.Init(cn);
+
+
+            stopwatch.Start();
+            tmParallel.Single_Threaded_Optimized_Init(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_1 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            double initParallelTime = elapsed_1.TotalMilliseconds;
+
+
+            stopwatch.Start();
             tm.Init(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_5 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed_5.TotalMilliseconds} milliseconds");
+            double initTime = elapsed_5.TotalMilliseconds;
+
 
             int[] zeroColumns = { };
             int[] activeColumns = { 0 };
 
-            tm.Compute(zeroColumns, true);
+
+            stopwatch.Start();
+            tmParallel.Compute(activeColumns, true);
+            stopwatch.Stop();
+            TimeSpan elapsed_6 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for compute tmParallel(Single_Threaded_Optimized_Init): {elapsed_6.TotalMilliseconds} milliseconds");
+            double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
+
+            stopwatch.Start();
             tm.Compute(activeColumns, true);
+            stopwatch.Stop();
+            TimeSpan elapsed_10 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed_10.TotalMilliseconds} milliseconds for compute");
+            double initTimeCompute = elapsed_10.TotalMilliseconds;
+
+            LogPerformance(nameof(TestWhichCellsBecomeActive), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
+
+
+
+            tm.Compute(zeroColumns, true);
+            //tm.Compute(activeColumns, true);
 
             Assert.AreEqual(0, cn.NumSegments(), 0);
         }
-
-
-
-
 
 
 
@@ -2715,13 +3469,49 @@ namespace UnitTestsProject
         public void TestNewSegmentAddSynapsesToSubsetOfWinnerCells()
         {
             TemporalMemory tm = new TemporalMemory();
+            TemporalMemoryParallelProcessing tmParallel = new TemporalMemoryParallelProcessing();
+            Stopwatch stopwatch = new Stopwatch();
             Connections cn = new Connections();
             Parameters p = getDefaultParameters1(null, KEY.MAX_NEW_SYNAPSE_COUNT, 2);
             p.apply(cn);
+            //tm.Init(cn);
+
+            stopwatch.Start();
+            tmParallel.Single_Threaded_Optimized_Init(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_1 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            double initParallelTime = elapsed_1.TotalMilliseconds;
+
+
+            stopwatch.Start();
             tm.Init(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_5 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed_5.TotalMilliseconds} milliseconds");
+            double initTime = elapsed_5.TotalMilliseconds;
 
             int[] previousActiveColumns = { 0, 1, 2, 3, 4 };
             int[] activeColumns = { 8 };
+
+
+            stopwatch.Start();
+            tmParallel.Compute(activeColumns, true);
+            stopwatch.Stop();
+            TimeSpan elapsed_6 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for compute tmParallel(Single_Threaded_Optimized_Init): {elapsed_6.TotalMilliseconds} milliseconds");
+            double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
+
+            stopwatch.Start();
+            tm.Compute(activeColumns, true);
+            stopwatch.Stop();
+            TimeSpan elapsed_10 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed_10.TotalMilliseconds} milliseconds for compute");
+            double initTimeCompute = elapsed_10.TotalMilliseconds;
+
+            LogPerformance(nameof(TestWhichCellsBecomeActive), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
+
+
 
             ComputeCycle cc = tm.Compute(previousActiveColumns, true) as ComputeCycle;
 
@@ -2756,10 +3546,29 @@ namespace UnitTestsProject
         {
             // Arrange
             var tm = new TemporalMemory();
+            TemporalMemoryParallelProcessing tmParallel = new TemporalMemoryParallelProcessing();
+            Stopwatch stopwatch = new Stopwatch();
             var cn = new Connections();
             var p = getDefaultParameters1(null, KEY.MAX_NEW_SYNAPSE_COUNT, 2);
             p.apply(cn);
+            //tm.Init(cn);
+
+
+            stopwatch.Start();
+            tmParallel.Single_Threaded_Optimized_Init(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_1 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            double initParallelTime = elapsed_1.TotalMilliseconds;
+
+
+            stopwatch.Start();
             tm.Init(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_5 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed_5.TotalMilliseconds} milliseconds");
+            double initTime = elapsed_5.TotalMilliseconds;
+
 
             var previousActiveColumns = new[] { 0, 1, 2, 3, 4 };
             var activeColumns = new[] { 6 };
@@ -2770,6 +3579,24 @@ namespace UnitTestsProject
 
             cc = tm.Compute(activeColumns, true) as ComputeCycle;
             var winnerCells = new List<Cell>(cc.WinnerCells);
+
+
+
+            stopwatch.Start();
+            tmParallel.Compute(activeColumns, true);
+            stopwatch.Stop();
+            TimeSpan elapsed_6 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for compute tmParallel(Single_Threaded_Optimized_Init): {elapsed_6.TotalMilliseconds} milliseconds");
+            double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
+
+            stopwatch.Start();
+            tm.Compute(activeColumns, true);
+            stopwatch.Stop();
+            TimeSpan elapsed_10 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed_10.TotalMilliseconds} milliseconds for compute");
+            double initTimeCompute = elapsed_10.TotalMilliseconds;
+
+            LogPerformance(nameof(TestWhichCellsBecomeActive), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
 
             // Assert
             Assert.AreEqual(5, prevWinnerCells.Count);
@@ -2794,12 +3621,31 @@ namespace UnitTestsProject
         public void TestMatchingSegmentAddSynapsesToSubsetOfWinnerCells1()
         {
             // Arrange
+            TemporalMemoryParallelProcessing tmParallel = new TemporalMemoryParallelProcessing();
+            Stopwatch stopwatch = new Stopwatch();
             var tm = new TemporalMemory();
             var cn = new Connections();
             var p = getDefaultParameters1(null, KEY.CELLS_PER_COLUMN, 1);
             p = getDefaultParameters1(p, KEY.MIN_THRESHOLD, 1);
             p.apply(cn);
+            //tm.Init(cn);
+
+
+            stopwatch.Start();
+            tmParallel.Single_Threaded_Optimized_Init(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_1 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            double initParallelTime = elapsed_1.TotalMilliseconds;
+
+
+            stopwatch.Start();
             tm.Init(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_5 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed_5.TotalMilliseconds} milliseconds");
+            double initTime = elapsed_5.TotalMilliseconds;
+
 
             var previousActiveColumns = new[] { 0, 1, 2, 3, 4 };
             var prevWinnerCells = cn.GetCells(previousActiveColumns);
@@ -2811,6 +3657,26 @@ namespace UnitTestsProject
             // Act
             var cc = tm.Compute(previousActiveColumns, true) as ComputeCycle;
             cc = tm.Compute(activeColumns, true) as ComputeCycle;
+
+
+            stopwatch.Start();
+            tmParallel.Compute(activeColumns, true);
+            stopwatch.Stop();
+            TimeSpan elapsed_6 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for compute tmParallel(Single_Threaded_Optimized_Init): {elapsed_6.TotalMilliseconds} milliseconds");
+            double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
+
+            stopwatch.Start();
+            tm.Compute(activeColumns, true);
+            stopwatch.Stop();
+            TimeSpan elapsed_10 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed_10.TotalMilliseconds} milliseconds for compute");
+            double initTimeCompute = elapsed_10.TotalMilliseconds;
+
+            LogPerformance(nameof(TestWhichCellsBecomeActive), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
+
+
+
 
             // Assert
             var synapses = matchingSegment.Synapses;
@@ -2880,14 +3746,30 @@ namespace UnitTestsProject
         public void TestActivateCorrectlyPredictiveCells(int tmImplementation)
         {
             // The TemporalMemory object is initialized with either the default implementation or a multithreaded implementation based on the input parameter.
-
+            TemporalMemoryParallelProcessing tmParallel = new TemporalMemoryParallelProcessing();
+            Stopwatch stopwatch = new Stopwatch();
             TemporalMemory tm = tmImplementation == 0 ? new TemporalMemory() : new TemporalMemoryMT();
             // The Connections object is created and the default parameters are applied to it.
             // The TemporalMemory is initialized with the Connections object.
             Connections cn = new Connections();
             Parameters p = getDefaultParameters2();
             p.apply(cn);
+            //tm.Init(cn);
+
+            stopwatch.Start();
+            tmParallel.Single_Threaded_Optimized_Init(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_1 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            double initParallelTime = elapsed_1.TotalMilliseconds;
+
+
+            stopwatch.Start();
             tm.Init(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_5 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed_5.TotalMilliseconds} milliseconds");
+            double initTime = elapsed_5.TotalMilliseconds;
 
             int[] previousActiveColumns = { 0 };
             int[] activeColumns = { 1 };
@@ -2910,6 +3792,28 @@ namespace UnitTestsProject
             cn.CreateSynapse(activeSegment, cn.GetCell(4), 0.20);
             cn.CreateSynapse(activeSegment, cn.GetCell(5), 0.20);
 
+
+
+
+            stopwatch.Start();
+            tmParallel.Compute(activeColumns, true);
+            stopwatch.Stop();
+            TimeSpan elapsed_6 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for compute tmParallel(Single_Threaded_Optimized_Init): {elapsed_6.TotalMilliseconds} milliseconds");
+            double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
+
+            stopwatch.Start();
+            tm.Compute(activeColumns, true);
+            stopwatch.Stop();
+            TimeSpan elapsed_10 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed_10.TotalMilliseconds} milliseconds for compute");
+            double initTimeCompute = elapsed_10.TotalMilliseconds;
+
+            LogPerformance(nameof(TestWhichCellsBecomeActive), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
+
+
+
+
             ComputeCycle cc = tm.Compute(previousActiveColumns, true) as ComputeCycle;
             // The ActiveCells property of the ComputeCycle object returned by the second Compute method call is compared to the expectedActiveCells set.
             Assert.IsTrue(cc.PredictiveCells.SequenceEqual(expectedActiveCells));
@@ -2929,11 +3833,30 @@ namespace UnitTestsProject
             // The method creates a new TemporalMemory object, a Connections object and sets the column dimensions to 62x62 and cells per column to 30 using parameters
             var tm = new TemporalMemory();
             var cn = new Connections();
+            TemporalMemoryParallelProcessing tmParallel = new TemporalMemoryParallelProcessing();
+            Stopwatch stopwatch = new Stopwatch();
             var p = Parameters.getAllDefaultParameters();
             p.Set(KEY.COLUMN_DIMENSIONS, new int[] { 62, 62 });
             p.Set(KEY.CELLS_PER_COLUMN, 30);
             p.apply(cn);
+            //tm.Init(cn);
+
+            stopwatch.Start();
+            tmParallel.Single_Threaded_Optimized_Init(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_1 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            double initParallelTime = elapsed_1.TotalMilliseconds;
+
+
+            stopwatch.Start();
             tm.Init(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_5 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed_5.TotalMilliseconds} milliseconds");
+            double initTime = elapsed_5.TotalMilliseconds;
+
+
             // The number of columns is verified by comparing the actual number of columns in the connections object with the expected number of columns
 
             var actualNumColumns = cn.HtmConfig.NumColumns;
@@ -2950,10 +3873,27 @@ namespace UnitTestsProject
         {
             // The test creates a TemporalMemory object, a Connections object, and sets the default parameters.
             TemporalMemory tm = new TemporalMemory();
+            TemporalMemoryParallelProcessing tmParallel = new TemporalMemoryParallelProcessing();
+            Stopwatch stopwatch = new Stopwatch();
             Connections cn = new Connections();
             Parameters p = getDefaultParameters2();
             p.apply(cn);
+            //tm.Init(cn);
+
+            stopwatch.Start();
+            tmParallel.Single_Threaded_Optimized_Init(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_1 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            double initParallelTime = elapsed_1.TotalMilliseconds;
+
+
+            stopwatch.Start();
             tm.Init(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_5 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed_5.TotalMilliseconds} milliseconds");
+            double initTime = elapsed_5.TotalMilliseconds;
 
             // It then initializes the TemporalMemory object with the Connections object and sets two columns, 4 and 5, as active in the previous time step.
             int[] previousActiveColumns = { 4, 5 };
@@ -2972,7 +3912,26 @@ namespace UnitTestsProject
 
 
             // The test then computes the next time step with the previously active columns and verifies that there are active and winner cells but no predictive cells.
+
+            stopwatch.Start();
+            tmParallel.Compute(previousActiveColumns, true);
+            stopwatch.Stop();
+            TimeSpan elapsed_6 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for compute tmParallel(Single_Threaded_Optimized_Init): {elapsed_6.TotalMilliseconds} milliseconds");
+            double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
+
+            stopwatch.Start();
+            tm.Compute(previousActiveColumns, true);
+            stopwatch.Stop();
+            TimeSpan elapsed_10 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed_10.TotalMilliseconds} milliseconds for compute");
+            double initTimeCompute = elapsed_10.TotalMilliseconds;
+
+            LogPerformance(nameof(TestWhichCellsBecomeActive), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
+            
             ComputeCycle cc = tm.Compute(previousActiveColumns, true) as ComputeCycle;
+
+            
             Assert.IsFalse(cc.ActiveCells.Count == 0);
             Assert.IsFalse(cc.WinnerCells.Count == 0);
             Assert.IsTrue(cc.PredictiveCells.Count == 0);
@@ -2991,8 +3950,26 @@ namespace UnitTestsProject
             var tm = new TemporalMemory();
             var cn = new Connections();
             var p = getDefaultParameters2();
+            TemporalMemoryParallelProcessing tmParallel = new TemporalMemoryParallelProcessing();
+            Stopwatch stopwatch = new Stopwatch();
             p.apply(cn);
+            //tm.Init(cn);
+
+            stopwatch.Start();
+            tmParallel.Single_Threaded_Optimized_Init(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_1 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            double initParallelTime = elapsed_1.TotalMilliseconds;
+
+
+            stopwatch.Start();
             tm.Init(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_5 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed_5.TotalMilliseconds} milliseconds");
+            double initTime = elapsed_5.TotalMilliseconds;
+
             // Setting an array with a single active column (column 0)
             var activeColumns = new[] { 0 };
             // Retrieving an array of cells with indices 0-5 (six cells).
@@ -3000,6 +3977,25 @@ namespace UnitTestsProject
 
             // Calling the Compute method of TemporalMemory with activeColumns and true as arguments,
             // which returns the result of a compute cycle.
+
+            stopwatch.Start();
+            tmParallel.Compute(activeColumns, true);
+            stopwatch.Stop();
+            TimeSpan elapsed_6 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for compute tmParallel(Single_Threaded_Optimized_Init): {elapsed_6.TotalMilliseconds} milliseconds");
+            double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
+
+            stopwatch.Start();
+            tm.Compute(activeColumns, true);
+            stopwatch.Stop();
+            TimeSpan elapsed_10 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed_10.TotalMilliseconds} milliseconds for compute");
+            double initTimeCompute = elapsed_10.TotalMilliseconds;
+
+            LogPerformance(nameof(TestWhichCellsBecomeActive), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
+
+
+
             var result = tm.Compute(activeColumns, true);
 
             // Casting the result to ComputeCycle and verifying that the set of active cells in the ComputeCycle
@@ -3015,11 +4011,28 @@ namespace UnitTestsProject
             // It creates a temporal memory and connections object and initializes them with default parameters
             TemporalMemory tm = new TemporalMemory();
             Connections cn = new Connections();
+            TemporalMemoryParallelProcessing tmParallel = new TemporalMemoryParallelProcessing();
+            Stopwatch stopwatch = new Stopwatch();
             Parameters p = GetDefaultParameters2(null, KEY.INITIAL_PERMANENCE, 0.3);
             p = GetDefaultParameters2(p, KEY.MAX_NEW_SYNAPSE_COUNT, 4);
             p = GetDefaultParameters2(p, KEY.PREDICTED_SEGMENT_DECREMENT, 0.02);
             p.apply(cn);
+            //tm.Init(cn);
+
+            stopwatch.Start();
+            tmParallel.Single_Threaded_Optimized_Init(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_1 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            double initParallelTime = elapsed_1.TotalMilliseconds;
+
+
+            stopwatch.Start();
             tm.Init(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_5 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed_5.TotalMilliseconds} milliseconds");
+            double initTime = elapsed_5.TotalMilliseconds;
 
             // It sets the active and previous active columns and cells and creates an active segment with synapses to previous active cells
             int[] previousActiveColumns = { 0 };
@@ -3035,7 +4048,26 @@ namespace UnitTestsProject
             // Weak Synapse
             // One of the synapses is a weak synapse with a low permanence value
             Synapse weakSynapse = cn.CreateSynapse(activeSegment, previousActiveCells[4], 0.006);
+
             // The test simulates two cycles of activity and reinforces the active synapse
+            stopwatch.Start();
+            tmParallel.Compute(activeColumns, true);
+            stopwatch.Stop();
+            TimeSpan elapsed_6 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for compute tmParallel(Single_Threaded_Optimized_Init): {elapsed_6.TotalMilliseconds} milliseconds");
+            double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
+
+            stopwatch.Start();
+            tm.Compute(activeColumns, true);
+            stopwatch.Stop();
+            TimeSpan elapsed_10 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed_10.TotalMilliseconds} milliseconds for compute");
+            double initTimeCompute = elapsed_10.TotalMilliseconds;
+
+            LogPerformance(nameof(TestWhichCellsBecomeActive), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
+
+
+
             tm.Compute(previousActiveColumns, true);
             tm.Compute(activeColumns, true);
             // The test checks that the weak synapse has been destroyed and is no longer present in the active segment.
@@ -3050,14 +4082,50 @@ namespace UnitTestsProject
             // Arrange
             var tm = new TemporalMemory();
             var cn = new Connections();
+            TemporalMemoryParallelProcessing tmParallel = new TemporalMemoryParallelProcessing();
+            Stopwatch stopwatch = new Stopwatch();
             var p = GetDefaultParameters2(null, KEY.MAX_NEW_SYNAPSE_COUNT, 5);
             p.apply(cn);
+            //tm.Init(cn);
+
+            stopwatch.Start();
+            tmParallel.Single_Threaded_Optimized_Init(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_1 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            double initParallelTime = elapsed_1.TotalMilliseconds;
+
+
+            stopwatch.Start();
             tm.Init(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_5 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed_5.TotalMilliseconds} milliseconds");
+            double initTime = elapsed_5.TotalMilliseconds;
 
             var zeroColumns = new int[0];
             var activeColumns = new[] { 0 };
 
             // Act
+
+            stopwatch.Start();
+            tmParallel.Compute(activeColumns, true);
+            stopwatch.Stop();
+            TimeSpan elapsed_6 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for compute tmParallel(Single_Threaded_Optimized_Init): {elapsed_6.TotalMilliseconds} milliseconds");
+            double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
+
+            stopwatch.Start();
+            tm.Compute(activeColumns, true);
+            stopwatch.Stop();
+            TimeSpan elapsed_10 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed_10.TotalMilliseconds} milliseconds for compute");
+            double initTimeCompute = elapsed_10.TotalMilliseconds;
+
+            LogPerformance(nameof(TestWhichCellsBecomeActive), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
+
+
+
             tm.Compute(zeroColumns, true);
             tm.Compute(activeColumns, true);
 
@@ -3072,9 +4140,27 @@ namespace UnitTestsProject
         {
             TemporalMemory tm = new TemporalMemory();
             Connections cn = new Connections();
+            TemporalMemoryParallelProcessing tmParallel = new TemporalMemoryParallelProcessing();
+            Stopwatch stopwatch = new Stopwatch();
+
             Parameters p = GetDefaultParameters2(null, KEY.MAX_NEW_SYNAPSE_COUNT, 2);
             p.apply(cn);
+            //tm.Init(cn);
+
+            stopwatch.Start();
+            tmParallel.Single_Threaded_Optimized_Init(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_1 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            double initParallelTime = elapsed_1.TotalMilliseconds;
+
+
+            stopwatch.Start();
             tm.Init(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_5 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed_5.TotalMilliseconds} milliseconds");
+            double initTime = elapsed_5.TotalMilliseconds;
 
             int[] previousActiveColumns = { 0, 1, 2, 3, 4 };
             int[] activeColumns = { 4 };
@@ -3085,6 +4171,23 @@ namespace UnitTestsProject
             Assert.AreEqual(5, prevWinnerCells.Count);
 
             cc = tm.Compute(activeColumns, true) as ComputeCycle;
+
+            stopwatch.Start();
+            tmParallel.Compute(activeColumns, true);
+            stopwatch.Stop();
+            TimeSpan elapsed_6 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for compute tmParallel(Single_Threaded_Optimized_Init): {elapsed_6.TotalMilliseconds} milliseconds");
+            double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
+
+            stopwatch.Start();
+            tm.Compute(activeColumns, true);
+            stopwatch.Stop();
+            TimeSpan elapsed_10 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed_10.TotalMilliseconds} milliseconds for compute");
+            double initTimeCompute = elapsed_10.TotalMilliseconds;
+
+            LogPerformance(nameof(TestWhichCellsBecomeActive), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
+
 
             List<Cell> winnerCells = new List<Cell>(cc.WinnerCells);
             Assert.AreEqual(1, winnerCells.Count);
@@ -3113,9 +4216,26 @@ namespace UnitTestsProject
         {
             TemporalMemory tm = new TemporalMemory();
             Connections cn = new Connections();
+            TemporalMemoryParallelProcessing tmParallel = new TemporalMemoryParallelProcessing();
+            Stopwatch stopwatch = new Stopwatch();
             Parameters p = GetDefaultParameters2(null, KEY.MAX_NEW_SYNAPSE_COUNT, 5);
             p.apply(cn);
+            //tm.Init(cn);
+
+            stopwatch.Start();
+            tmParallel.Single_Threaded_Optimized_Init(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_1 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            double initParallelTime = elapsed_1.TotalMilliseconds;
+
+
+            stopwatch.Start();
             tm.Init(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_5 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed_5.TotalMilliseconds} milliseconds");
+            double initTime = elapsed_5.TotalMilliseconds;
 
             int[] previousActiveColumns = { 0, 1, 2, 3, 4 };
             int[] activeColumns = { 5 };
@@ -3125,6 +4245,27 @@ namespace UnitTestsProject
             Assert.AreEqual(5, prevWinnerCells.Count);
 
             cc = tm.Compute(activeColumns, true) as ComputeCycle;
+
+
+
+            stopwatch.Start();
+            tmParallel.Compute(activeColumns, true);
+            stopwatch.Stop();
+            TimeSpan elapsed_6 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for compute tmParallel(Single_Threaded_Optimized_Init): {elapsed_6.TotalMilliseconds} milliseconds");
+            double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
+
+            stopwatch.Start();
+            tm.Compute(activeColumns, true);
+            stopwatch.Stop();
+            TimeSpan elapsed_10 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed_10.TotalMilliseconds} milliseconds for compute");
+            double initTimeCompute = elapsed_10.TotalMilliseconds;
+
+            LogPerformance(nameof(TestWhichCellsBecomeActive), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
+
+
+
 
             List<Cell> winnerCells = new List<Cell>(cc.WinnerCells);
             Assert.AreEqual(1, winnerCells.Count);
@@ -3156,10 +4297,27 @@ namespace UnitTestsProject
         {
             TemporalMemory tm = new TemporalMemory();
             Connections cn = new Connections();
+            TemporalMemoryParallelProcessing tmParallel = new TemporalMemoryParallelProcessing();
+            Stopwatch stopwatch = new Stopwatch();
             Parameters p = GetDefaultParameters2(null, KEY.CELLS_PER_COLUMN, 1);
             p = GetDefaultParameters2(p, KEY.MIN_THRESHOLD, 1);
             p.apply(cn);
+            //tm.Init(cn);
+
+            stopwatch.Start();
+            tmParallel.Single_Threaded_Optimized_Init(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_1 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            double initParallelTime = elapsed_1.TotalMilliseconds;
+
+
+            stopwatch.Start();
             tm.Init(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_5 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed_5.TotalMilliseconds} milliseconds");
+            double initTime = elapsed_5.TotalMilliseconds;
 
             int[] previousActiveColumns = { 0, 1 };
             IList<Cell> prevWinnerCells = cn.GetCells(new int[] { 0, 1 });
@@ -3172,6 +4330,25 @@ namespace UnitTestsProject
             Assert.IsTrue(cc.WinnerCells.SequenceEqual(prevWinnerCells));
 
             cc = tm.Compute(activeColumns, true) as ComputeCycle;
+
+
+            stopwatch.Start();
+            tmParallel.Compute(activeColumns, true);
+            stopwatch.Stop();
+            TimeSpan elapsed_6 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for compute tmParallel(Single_Threaded_Optimized_Init): {elapsed_6.TotalMilliseconds} milliseconds");
+            double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
+
+            stopwatch.Start();
+            tm.Compute(activeColumns, true);
+            stopwatch.Stop();
+            TimeSpan elapsed_10 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed_10.TotalMilliseconds} milliseconds for compute");
+            double initTimeCompute = elapsed_10.TotalMilliseconds;
+
+            LogPerformance(nameof(TestWhichCellsBecomeActive), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
+
+
 
             //DD List<Synapse> synapses = cn.GetSynapses(matchingSegment);
             List<Synapse> synapses = matchingSegment.Synapses;
@@ -3195,11 +4372,30 @@ namespace UnitTestsProject
             TemporalMemory tm = new TemporalMemory();
             Connections cn = new Connections();
             Parameters p = GetDefaultParameters2(null, KEY.CELLS_PER_COLUMN, 1);
+            TemporalMemoryParallelProcessing tmParallel = new TemporalMemoryParallelProcessing();
+            Stopwatch stopwatch = new Stopwatch();
             p = GetDefaultParameters2(p, KEY.MIN_THRESHOLD, 1);
             p = GetDefaultParameters2(p, KEY.ACTIVATION_THRESHOLD, 2);
             p = GetDefaultParameters2(p, KEY.MAX_NEW_SYNAPSE_COUNT, 4);
             p.apply(cn);
+            //tm.Init(cn);
+            stopwatch.Start();
+            tmParallel.Single_Threaded_Optimized_Init(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_1 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            double initParallelTime = elapsed_1.TotalMilliseconds;
+
+
+            stopwatch.Start();
             tm.Init(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_5 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed_5.TotalMilliseconds} milliseconds");
+            double initTime = elapsed_5.TotalMilliseconds;
+
+
+
 
             // Use 1 cell per column so that we have easy control over the winner cells.
             int[] previousActiveColumns = { 0, 1, 2, 3, 4 };
@@ -3215,6 +4411,23 @@ namespace UnitTestsProject
             ComputeCycle cc = tm.Compute(previousActiveColumns, true) as ComputeCycle;
             Assert.IsTrue(prevWinnerCells.SequenceEqual(cc.WinnerCells));
             cc = tm.Compute(activeColumns, true) as ComputeCycle;
+
+            stopwatch.Start();
+            tmParallel.Compute(activeColumns, true);
+            stopwatch.Stop();
+            TimeSpan elapsed_6 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for compute tmParallel(Single_Threaded_Optimized_Init): {elapsed_6.TotalMilliseconds} milliseconds");
+            double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
+
+            stopwatch.Start();
+            tm.Compute(activeColumns, true);
+            stopwatch.Stop();
+            TimeSpan elapsed_10 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed_10.TotalMilliseconds} milliseconds for compute");
+            double initTimeCompute = elapsed_10.TotalMilliseconds;
+
+            LogPerformance(nameof(TestWhichCellsBecomeActive), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
+
 
             List<Cell> presynapticCells = new List<Cell>();
             foreach (var syn in activeSegment.Synapses)
@@ -3235,11 +4448,30 @@ namespace UnitTestsProject
         {
             TemporalMemory tm = new TemporalMemory();
             Connections cn = new Connections();
+            TemporalMemoryParallelProcessing tmParallel = new TemporalMemoryParallelProcessing();
+            Stopwatch stopwatch = new Stopwatch();
             Parameters p = GetDefaultParameters2(null, KEY.INITIAL_PERMANENCE, 0.3);
             p = GetDefaultParameters2(p, KEY.MAX_NEW_SYNAPSE_COUNT, 4);
             p = GetDefaultParameters2(p, KEY.PREDICTED_SEGMENT_DECREMENT, 0.02);
             p.apply(cn);
+            //tm.Init(cn);
+
+
+            stopwatch.Start();
+            tmParallel.Single_Threaded_Optimized_Init(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_1 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            double initParallelTime = elapsed_1.TotalMilliseconds;
+
+
+            stopwatch.Start();
             tm.Init(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_5 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed_5.TotalMilliseconds} milliseconds");
+            double initTime = elapsed_5.TotalMilliseconds;
+
 
             int[] previousActiveColumns = { 0 };
             Cell[] previousActiveCells = { cn.GetCell(0), cn.GetCell(1), cn.GetCell(2), cn.GetCell(3) };
@@ -3253,8 +4485,26 @@ namespace UnitTestsProject
             // Weak Synapse
             cn.CreateSynapse(activeSegment, previousActiveCells[3], 0.017);
 
-            tm.Compute(previousActiveColumns, true);
+            stopwatch.Start();
+            tmParallel.Compute(activeColumns, true);
+            stopwatch.Stop();
+            TimeSpan elapsed_6 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for compute tmParallel(Single_Threaded_Optimized_Init): {elapsed_6.TotalMilliseconds} milliseconds");
+            double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
+
+            stopwatch.Start();
             tm.Compute(activeColumns, true);
+            stopwatch.Stop();
+            TimeSpan elapsed_10 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed_10.TotalMilliseconds} milliseconds for compute");
+            double initTimeCompute = elapsed_10.TotalMilliseconds;
+
+            LogPerformance(nameof(TestWhichCellsBecomeActive), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
+
+
+
+            tm.Compute(previousActiveColumns, true);
+            //tm.Compute(activeColumns, true);
 
             Assert.AreEqual(3, activeSegment.Synapses.Count);
         }
@@ -3268,8 +4518,27 @@ namespace UnitTestsProject
             // The method tests if there are no active columns in the temporal memory, by creating a distal segment on a cell and adding synapses to it
             var tm = new TemporalMemory();
             var cn = new Connections();
+            TemporalMemoryParallelProcessing tmParallel = new TemporalMemoryParallelProcessing();
+            Stopwatch stopwatch = new Stopwatch();
             getDefaultParameters2().apply(cn);
+            //tm.Init(cn);
+
+            stopwatch.Start();
+            tmParallel.Single_Threaded_Optimized_Init(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_1 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            double initParallelTime = elapsed_1.TotalMilliseconds;
+
+
+            stopwatch.Start();
             tm.Init(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_5 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed_5.TotalMilliseconds} milliseconds");
+            double initTime = elapsed_5.TotalMilliseconds;
+
+
             var cell6 = cn.GetCell(6);
             var activeSegment = cn.CreateDistalSegment(cell6);
             var synapses = new[] { 0, 1, 2, 3, 4, 5 }
@@ -3302,9 +4571,29 @@ namespace UnitTestsProject
             // The method initializes a TemporalMemory object, Connections object and Parameters object with default values and creates a DistalDendrite and Synapse.
             TemporalMemory tm = new TemporalMemory();
             Connections cn = new Connections();
+            TemporalMemoryParallelProcessing tmParallel = new TemporalMemoryParallelProcessing();
+            Stopwatch stopwatch = new Stopwatch();
             Parameters p = getDefaultParameters2();
             p.apply(cn);
+            //tm.Init(cn);
+
+            stopwatch.Start();
+            tmParallel.Single_Threaded_Optimized_Init(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_1 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            double initParallelTime = elapsed_1.TotalMilliseconds;
+
+
+            stopwatch.Start();
             tm.Init(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_5 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed_5.TotalMilliseconds} milliseconds");
+            double initTime = elapsed_5.TotalMilliseconds;
+
+
+
             // The AdaptSegment method is then called on the TemporalMemory object to adjust the permanence of the Synapse.
             DistalDendrite dd = cn.CreateDistalSegment(cn.GetCell(0));
             Synapse s1 = cn.CreateSynapse(dd, cn.GetCell(6), 0.8); // set initial permanence to 0.8
@@ -3329,7 +4618,25 @@ namespace UnitTestsProject
             HtmConfig htmConfig = GetDefaultTMParameters2();
             Connections cn = new Connections(htmConfig);
             TemporalMemory tm = new TemporalMemory();
+            TemporalMemoryParallelProcessing tmParallel = new TemporalMemoryParallelProcessing();
+            Stopwatch stopwatch = new Stopwatch();
+            //tm.Init(cn);
+
+            stopwatch.Start();
+            tmParallel.Single_Threaded_Optimized_Init(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_1 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            double initParallelTime = elapsed_1.TotalMilliseconds;
+
+
+            stopwatch.Start();
             tm.Init(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_5 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed_5.TotalMilliseconds} milliseconds");
+            double initTime = elapsed_5.TotalMilliseconds;
+
 
             // An array of active columns is defined, as well as an array of cells to be used as bursting cells.
             int[] activeColumns = { 4, 5 };
@@ -3337,6 +4644,25 @@ namespace UnitTestsProject
 
             // Act
             // The Act section calls the Compute method on the TemporalMemory object, passing in the active columns array and setting the "learn" parameter to true.
+
+            stopwatch.Start();
+            tmParallel.Compute(activeColumns, true);
+            stopwatch.Stop();
+            TimeSpan elapsed_6 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for compute tmParallel(Single_Threaded_Optimized_Init): {elapsed_6.TotalMilliseconds} milliseconds");
+            double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
+
+            stopwatch.Start();
+            tm.Compute(activeColumns, true);
+            stopwatch.Stop();
+            TimeSpan elapsed_10 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed_10.TotalMilliseconds} milliseconds for compute");
+            double initTimeCompute = elapsed_10.TotalMilliseconds;
+
+            LogPerformance(nameof(TestWhichCellsBecomeActive), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
+
+
+
             ComputeCycle cc = tm.Compute(activeColumns, true) as ComputeCycle;
 
             // Assert
@@ -3356,6 +4682,8 @@ namespace UnitTestsProject
             // Create TemporalMemory and Connections objects
             TemporalMemory tm = new TemporalMemory();
             Connections cn = new Connections();
+            TemporalMemoryParallelProcessing tmParallel = new TemporalMemoryParallelProcessing();
+            Stopwatch stopwatch = new Stopwatch();
             // Set Parameters for Connections
             Parameters p = GetDefaultParameters2(null, KEY.INITIAL_PERMANENCE, .2);
             p = GetDefaultParameters2(p, KEY.MAX_NEW_SYNAPSE_COUNT, 4);
@@ -3363,7 +4691,24 @@ namespace UnitTestsProject
             p.apply(cn);
 
             // Initialize TemporalMemory with Connections object
+            //tm.Init(cn);
+
+            stopwatch.Start();
+            tmParallel.Single_Threaded_Optimized_Init(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_1 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            double initParallelTime = elapsed_1.TotalMilliseconds;
+
+
+            stopwatch.Start();
             tm.Init(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_5 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed_5.TotalMilliseconds} milliseconds");
+            double initTime = elapsed_5.TotalMilliseconds;
+
+
 
             // Set previous and current active columns
             int[] prevActiveColumns = { 0 };
@@ -3384,8 +4729,29 @@ namespace UnitTestsProject
             cn.CreateSynapse(matchingSegment, prevActiveCells[4], .015);
 
             // Compute previous and current cycles
-            tm.Compute(prevActiveColumns, true);
+
+            stopwatch.Start();
+            tmParallel.Compute(activeColumns, true);
+            stopwatch.Stop();
+            TimeSpan elapsed_6 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for compute tmParallel(Single_Threaded_Optimized_Init): {elapsed_6.TotalMilliseconds} milliseconds");
+            double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
+
+            stopwatch.Start();
             tm.Compute(activeColumns, true);
+            stopwatch.Stop();
+            TimeSpan elapsed_10 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed_10.TotalMilliseconds} milliseconds for compute");
+            double initTimeCompute = elapsed_10.TotalMilliseconds;
+
+            LogPerformance(nameof(TestWhichCellsBecomeActive), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
+
+
+
+
+
+            tm.Compute(prevActiveColumns, true);
+            //tm.Compute(activeColumns, true);
 
             // Assert that the expected active cell has no segments
             Assert.AreEqual(0, cn.NumSegments(expectedActiveCell));
@@ -3400,17 +4766,55 @@ namespace UnitTestsProject
             // Create a new TemporalMemory and Connections object
             TemporalMemory tm = new TemporalMemory();
             Connections cn = new Connections();
+            TemporalMemoryParallelProcessing tmParallel = new TemporalMemoryParallelProcessing();
+            Stopwatch stopwatch = new Stopwatch();
 
             // Set parameters for the connections
             Parameters p = GetDefaultParameters2(null, KEY.MAX_NEW_SYNAPSE_COUNT, 6);
             p.apply(cn);
 
             // Initialize the TemporalMemory object with the Connections object
+            //tm.Init(cn);
+
+            stopwatch.Start();
+            tmParallel.Single_Threaded_Optimized_Init(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_1 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            double initParallelTime = elapsed_1.TotalMilliseconds;
+
+
+            stopwatch.Start();
             tm.Init(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_5 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed_5.TotalMilliseconds} milliseconds");
+            double initTime = elapsed_5.TotalMilliseconds;
+
 
             // Set up the previous active and current active columns
             int[] previousActiveColumns = { 0, 1, 2, 3, 4, 5 };
             int[] activeColumns = { 6 };
+
+
+            stopwatch.Start();
+            tmParallel.Compute(activeColumns, true);
+            stopwatch.Stop();
+            TimeSpan elapsed_6 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for compute tmParallel(Single_Threaded_Optimized_Init): {elapsed_6.TotalMilliseconds} milliseconds");
+            double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
+
+            stopwatch.Start();
+            tm.Compute(activeColumns, true);
+            stopwatch.Stop();
+            TimeSpan elapsed_10 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed_10.TotalMilliseconds} milliseconds for compute");
+            double initTimeCompute = elapsed_10.TotalMilliseconds;
+
+            LogPerformance(nameof(TestWhichCellsBecomeActive), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
+
+
+
 
             // Compute the previous active columns and get the winner cells
             ComputeCycle cc = tm.Compute(previousActiveColumns, true) as ComputeCycle;
@@ -3458,8 +4862,25 @@ namespace UnitTestsProject
             TemporalMemory tm = tmImplementation == 0 ? new TemporalMemory() : new TemporalMemoryMT();
             Connections cn = new Connections();
             Parameters p = getDefaultParameters2();
+            TemporalMemoryParallelProcessing tmParallel = new TemporalMemoryParallelProcessing();
+            Stopwatch stopwatch = new Stopwatch();
             p.apply(cn);
+            //tm.Init(cn);
+
+            stopwatch.Start();
+            tmParallel.Single_Threaded_Optimized_Init(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_1 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            double initParallelTime = elapsed_1.TotalMilliseconds;
+
+
+            stopwatch.Start();
             tm.Init(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_5 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed_5.TotalMilliseconds} milliseconds");
+            double initTime = elapsed_5.TotalMilliseconds;
 
             int[] previousActiveColumns = { 0 };
             int[] activeColumns = { 1 };
@@ -3477,6 +4898,24 @@ namespace UnitTestsProject
             ISet<Cell> expectedActiveCells = new HashSet<Cell>(new Cell[] { cell6 });
 
             // Act
+            stopwatch.Start();
+            tmParallel.Compute(activeColumns, true);
+            stopwatch.Stop();
+            TimeSpan elapsed_6 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for compute tmParallel(Single_Threaded_Optimized_Init): {elapsed_6.TotalMilliseconds} milliseconds");
+            double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
+
+            stopwatch.Start();
+            tm.Compute(activeColumns, true);
+            stopwatch.Stop();
+            TimeSpan elapsed_10 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed_10.TotalMilliseconds} milliseconds for compute");
+            double initTimeCompute = elapsed_10.TotalMilliseconds;
+
+            LogPerformance(nameof(TestWhichCellsBecomeActive), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
+
+
+
             ComputeCycle cc1 = tm.Compute(previousActiveColumns, true) as ComputeCycle;
             ComputeCycle cc2 = tm.Compute(activeColumns, true) as ComputeCycle;
 
@@ -3491,15 +4930,51 @@ namespace UnitTestsProject
         {
             TemporalMemory tm = new TemporalMemory();
             Connections cn = new Connections();
+            TemporalMemoryParallelProcessing tmParallel = new TemporalMemoryParallelProcessing();
+            Stopwatch stopwatch = new Stopwatch();
             Parameters p = GetDefaultParameters2(null, KEY.MAX_NEW_SYNAPSE_COUNT, 6);
             p.apply(cn);
+            //tm.Init(cn);
+
+            stopwatch.Start();
+            tmParallel.Single_Threaded_Optimized_Init(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_1 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            double initParallelTime = elapsed_1.TotalMilliseconds;
+
+
+            stopwatch.Start();
             tm.Init(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_5 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed_5.TotalMilliseconds} milliseconds");
+            double initTime = elapsed_5.TotalMilliseconds;
 
             int[] zeroColumns = { };
             int[] activeColumns = { 0 };
 
-            tm.Compute(zeroColumns, true);
+
+            stopwatch.Start();
+            tmParallel.Compute(activeColumns, true);
+            stopwatch.Stop();
+            TimeSpan elapsed_6 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for compute tmParallel(Single_Threaded_Optimized_Init): {elapsed_6.TotalMilliseconds} milliseconds");
+            double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
+
+            stopwatch.Start();
             tm.Compute(activeColumns, true);
+            stopwatch.Stop();
+            TimeSpan elapsed_10 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed_10.TotalMilliseconds} milliseconds for compute");
+            double initTimeCompute = elapsed_10.TotalMilliseconds;
+
+            LogPerformance(nameof(TestWhichCellsBecomeActive), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
+
+
+
+            tm.Compute(zeroColumns, true);
+            //tm.Compute(activeColumns, true);
 
             Assert.AreEqual(0, cn.NumSegments(), 0);
         }
@@ -3510,11 +4985,30 @@ namespace UnitTestsProject
         {
             TemporalMemory tm = new TemporalMemory();
             Connections cn = new Connections();
+            TemporalMemoryParallelProcessing tmParallel = new TemporalMemoryParallelProcessing();
+            Stopwatch stopwatch = new Stopwatch();
             Parameters p = GetDefaultParameters2(null, KEY.INITIAL_PERMANENCE, 0.3);
             p = GetDefaultParameters2(p, KEY.MAX_NEW_SYNAPSE_COUNT, 6);
             p = GetDefaultParameters2(p, KEY.PREDICTED_SEGMENT_DECREMENT, 0.04);
             p.apply(cn);
+            //tm.Init(cn);
+
+
+            stopwatch.Start();
+            tmParallel.Single_Threaded_Optimized_Init(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_1 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            double initParallelTime = elapsed_1.TotalMilliseconds;
+
+
+            stopwatch.Start();
             tm.Init(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_5 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed_5.TotalMilliseconds} milliseconds");
+            double initTime = elapsed_5.TotalMilliseconds;
+
 
             int[] previousActiveColumns = { 0 };
             Cell[] previousActiveCells = { cn.GetCell(0), cn.GetCell(1), cn.GetCell(2), cn.GetCell(3), cn.GetCell(4), cn.GetCell(5) };
@@ -3530,23 +5024,80 @@ namespace UnitTestsProject
             // Weak Synapse
             cn.CreateSynapse(activeSegment, previousActiveCells[5], 0.009);
 
-            tm.Compute(previousActiveColumns, true);
+
+            stopwatch.Start();
+            tmParallel.Compute(activeColumns, true);
+            stopwatch.Stop();
+            TimeSpan elapsed_6 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for compute tmParallel(Single_Threaded_Optimized_Init): {elapsed_6.TotalMilliseconds} milliseconds");
+            double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
+
+            stopwatch.Start();
             tm.Compute(activeColumns, true);
+            stopwatch.Stop();
+            TimeSpan elapsed_10 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed_10.TotalMilliseconds} milliseconds for compute");
+            double initTimeCompute = elapsed_10.TotalMilliseconds;
+
+            LogPerformance(nameof(TestWhichCellsBecomeActive), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
+
+
+
+            tm.Compute(previousActiveColumns, true);
+            //tm.Compute(activeColumns, true);
 
             Assert.AreEqual(5, activeSegment.Synapses.Count);
         }
+
+
         [TestMethod]
         [TestCategory("Prod")]
         public void TestBurstNotpredictedColumns()
         {
             TemporalMemory tm = new TemporalMemory();
             Connections cn = new Connections();
+            TemporalMemoryParallelProcessing tmParallel = new TemporalMemoryParallelProcessing();
+            Stopwatch stopwatch = new Stopwatch();
             Parameters p = getDefaultParameters2();
             p.apply(cn);
+            //tm.Init(cn);
+
+            stopwatch.Start();
+            tmParallel.Single_Threaded_Optimized_Init(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_1 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            double initParallelTime = elapsed_1.TotalMilliseconds;
+
+
+            stopwatch.Start();
             tm.Init(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_5 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed_5.TotalMilliseconds} milliseconds");
+            double initTime = elapsed_5.TotalMilliseconds;
 
             int[] activeColumns = { 1, 2, 3 }; //Cureently Active column
             IList<Cell> burstingCells = cn.GetCells(new int[] { 0, 1, 2, 3, 4, 5 }); //Number of Cell Indexs
+
+
+            stopwatch.Start();
+            tmParallel.Compute(activeColumns, true);
+            stopwatch.Stop();
+            TimeSpan elapsed_6 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for compute tmParallel(Single_Threaded_Optimized_Init): {elapsed_6.TotalMilliseconds} milliseconds");
+            double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
+
+            stopwatch.Start();
+            tm.Compute(activeColumns, true);
+            stopwatch.Stop();
+            TimeSpan elapsed_10 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed_10.TotalMilliseconds} milliseconds for compute");
+            double initTimeCompute = elapsed_10.TotalMilliseconds;
+
+            LogPerformance(nameof(TestWhichCellsBecomeActive), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
+
+
 
             ComputeCycle cc = tm.Compute(activeColumns, true) as ComputeCycle; //COmpute class object 
 
