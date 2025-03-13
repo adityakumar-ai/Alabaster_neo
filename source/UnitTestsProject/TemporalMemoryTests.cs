@@ -176,7 +176,7 @@ namespace UnitTestsProject
             Console.WriteLine($"Time taken: {elapsed_10.TotalMilliseconds} milliseconds for compute");
             double initTimeCompute = elapsed_10.TotalMilliseconds;
 
-            LogPerformance(nameof(TestHighSparsitySequenceLearningAndRecallParallel), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
+            LogPerformance(nameof(TestNewSegmentGrowthWhenMultipleMatchingSegmentsFound), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
 
 
 
@@ -256,7 +256,7 @@ namespace UnitTestsProject
             Console.WriteLine($"Time taken: {elapsed_10.TotalMilliseconds} milliseconds for compute");
             double initTimeCompute = elapsed_10.TotalMilliseconds;
 
-            LogPerformance(nameof(TestHighSparsitySequenceLearningAndRecallParallel), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
+            LogPerformance(nameof(TestSynapsePermanenceUpdateWhenMatchingSegmentsFound), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
 
 
 
@@ -479,7 +479,7 @@ namespace UnitTestsProject
             Console.WriteLine($"Time taken: {elapsed_10.TotalMilliseconds} milliseconds for compute");
             double initTimeCompute = elapsed_10.TotalMilliseconds;
 
-            LogPerformance(nameof(TestHighSparsitySequenceLearningAndRecallParallel), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
+            LogPerformance(nameof(TestRecycleLeastRecentlyActiveSegmentToMakeRoomForNewSegment), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
 
 
 
@@ -549,7 +549,7 @@ namespace UnitTestsProject
             Console.WriteLine($"Time taken: {elapsed_10.TotalMilliseconds} milliseconds for compute");
             double initTimeCompute = elapsed_10.TotalMilliseconds;
 
-            LogPerformance(nameof(TestHighSparsitySequenceLearningAndRecallParallel), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
+            LogPerformance(nameof(TestNewSegmentAddSynapsesToAllWinnerCells), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
 
 
 
@@ -655,7 +655,7 @@ namespace UnitTestsProject
             Console.WriteLine($"Time taken: {elapsed_10.TotalMilliseconds} milliseconds for compute");
             double initTimeCompute = elapsed_10.TotalMilliseconds;
 
-            LogPerformance(nameof(TestHighSparsitySequenceLearningAndRecallParallel), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
+            LogPerformance(nameof(TestDestroyWeakSynapseOnWrongPrediction), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
 
 
 
@@ -738,7 +738,7 @@ namespace UnitTestsProject
                 Console.WriteLine($"Time taken: {elapsed_10.TotalMilliseconds} milliseconds for compute");
                 double initTimeCompute = elapsed_10.TotalMilliseconds;
 
-                LogPerformance(nameof(TestHighSparsitySequenceLearningAndRecallParallel), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
+                LogPerformance(nameof(TestAddSegmentToCellWithFewestSegments), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
 
 
                 //tm.Compute(prevActiveColumns, true);
@@ -890,7 +890,7 @@ namespace UnitTestsProject
             Console.WriteLine($"Time taken: {elapsed_10.TotalMilliseconds} milliseconds for compute");
             double initTimeCompute = elapsed_10.TotalMilliseconds;
 
-            LogPerformance(nameof(TestHighSparsitySequenceLearningAndRecallParallel), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
+            LogPerformance(nameof(TestDestroySegmentsWithTooFewSynapsesToBeMatching), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
 
 
 
@@ -991,7 +991,7 @@ namespace UnitTestsProject
             Console.WriteLine($"Time taken: {elapsed_10.TotalMilliseconds} milliseconds for compute");
             double initTimeCompute = elapsed_10.TotalMilliseconds;
 
-            LogPerformance(nameof(TestHighSparsitySequenceLearningAndRecallParallel), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
+            LogPerformance(nameof(TestPunishMatchingSegmentsInInactiveColumns), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
 
             //tm.Compute(prevActiveColumns, true);
             tm.Compute(activeColumns, true);
@@ -1803,7 +1803,7 @@ namespace UnitTestsProject
             Console.WriteLine($"Time taken: {elapsed_10.TotalMilliseconds} milliseconds for compute");
             double initTimeCompute = elapsed_10.TotalMilliseconds;
 
-            LogPerformance(nameof(TestWhichCellsBecomeActive), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
+            LogPerformance(nameof(TestCalculateActiveSegments), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
  
 
             // Compute the current cycle
@@ -1885,7 +1885,7 @@ namespace UnitTestsProject
             Console.WriteLine($"Time taken: {elapsed_10.TotalMilliseconds} milliseconds for compute");
             double initTimeCompute = elapsed_10.TotalMilliseconds;
 
-            LogPerformance(nameof(TestWhichCellsBecomeActive), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
+            LogPerformance(nameof(TestActiveSegmentGrowSynapsesAccordingToPotentialOverlap), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
 
 
 
@@ -1978,7 +1978,7 @@ namespace UnitTestsProject
             Console.WriteLine($"Time taken: {elapsed_10.TotalMilliseconds} milliseconds for compute");
             double initTimeCompute = elapsed_10.TotalMilliseconds;
 
-            LogPerformance(nameof(TestWhichCellsBecomeActive), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
+            LogPerformance(nameof(TestDestroyWeakSynapseOnActiveReinforce), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
 
             
 
@@ -2304,7 +2304,7 @@ namespace UnitTestsProject
             Console.WriteLine($"Time taken: {elapsed_10.TotalMilliseconds} milliseconds for compute");
             double initTimeCompute = elapsed_10.TotalMilliseconds;
 
-            LogPerformance(nameof(TestWhichCellsBecomeActive), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
+            LogPerformance(nameof(TestIncreasePermanenceOfActiveSynapses), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
 
 
 
@@ -2514,7 +2514,7 @@ namespace UnitTestsProject
             Console.WriteLine($"Time taken: {elapsed_10.TotalMilliseconds} milliseconds for compute");
             double initTimeCompute = elapsed_10.TotalMilliseconds;
 
-            LogPerformance(nameof(TestWhichCellsBecomeActive), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
+            LogPerformance(nameof(TestArrayNotContainingCells), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
 
 
             // Act
@@ -2571,7 +2571,7 @@ namespace UnitTestsProject
             Console.WriteLine($"Time taken: {elapsed_10.TotalMilliseconds} milliseconds for compute");
             double initTimeCompute = elapsed_10.TotalMilliseconds;
 
-            LogPerformance(nameof(TestWhichCellsBecomeActive), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
+            LogPerformance(nameof(TestBurstNotpredictedColumns), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
 
 
             ComputeCycle cc = tm.Compute(activeColumns, true) as ComputeCycle; //Compute class object 
@@ -2641,7 +2641,7 @@ namespace UnitTestsProject
             Console.WriteLine($"Time taken: {elapsed_10.TotalMilliseconds} milliseconds for compute");
             double initTimeCompute = elapsed_10.TotalMilliseconds;
 
-            LogPerformance(nameof(TestWhichCellsBecomeActive), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
+            LogPerformance(nameof(TestNoChangeToNoTSelectedMatchingSegmentsInBurstingColumn), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
 
 
             tm.Compute(previousActiveColumns, true);
@@ -2785,7 +2785,7 @@ namespace UnitTestsProject
             Console.WriteLine($"Time taken: {elapsed_10.TotalMilliseconds} milliseconds for compute");
             double initTimeCompute = elapsed_10.TotalMilliseconds;
 
-            LogPerformance(nameof(TestWhichCellsBecomeActive), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
+            LogPerformance(nameof(TestBurstUnpredictedColumnsforFiveCells2), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
 
 
 
@@ -2856,7 +2856,7 @@ namespace UnitTestsProject
             Console.WriteLine($"Time taken: {elapsed_10.TotalMilliseconds} milliseconds for compute");
             double initTimeCompute = elapsed_10.TotalMilliseconds;
 
-            LogPerformance(nameof(TestWhichCellsBecomeActive), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
+            LogPerformance(nameof(TestSegmentCreationIfNotEnoughWinnerCells2), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
 
 
 
@@ -2927,7 +2927,7 @@ namespace UnitTestsProject
             Console.WriteLine($"Time taken: {elapsed_10.TotalMilliseconds} milliseconds for compute");
             double initTimeCompute = elapsed_10.TotalMilliseconds;
 
-            LogPerformance(nameof(TestWhichCellsBecomeActive), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
+            LogPerformance(nameof(TestMatchingSegmentAddSynapsesToSubsetOfWinnerCells), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
 
 
 
@@ -3011,7 +3011,7 @@ namespace UnitTestsProject
             Console.WriteLine($"Time taken: {elapsed_10.TotalMilliseconds} milliseconds for compute");
             double initTimeCompute = elapsed_10.TotalMilliseconds;
 
-            LogPerformance(nameof(TestWhichCellsBecomeActive), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
+            LogPerformance(nameof(TestActivateCorrectlyPredictiveCells1), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
 
 
 
@@ -3086,7 +3086,7 @@ namespace UnitTestsProject
             Console.WriteLine($"Time taken: {elapsed_10.TotalMilliseconds} milliseconds for compute");
             double initTimeCompute = elapsed_10.TotalMilliseconds;
 
-            LogPerformance(nameof(TestWhichCellsBecomeActive), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
+            LogPerformance(nameof(TestBurstUnpredictedColumnsforFiveCells1), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
 
 
 
@@ -3159,7 +3159,7 @@ namespace UnitTestsProject
             Console.WriteLine($"Time taken: {elapsed_10.TotalMilliseconds} milliseconds for compute");
             double initTimeCompute = elapsed_10.TotalMilliseconds;
 
-            LogPerformance(nameof(TestWhichCellsBecomeActive), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
+            LogPerformance(nameof(TestNoneActiveColumns), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
 
 
             ComputeCycle cc2 = tm.Compute(zeroColumns, true) as ComputeCycle;
@@ -3233,7 +3233,7 @@ namespace UnitTestsProject
             Console.WriteLine($"Time taken: {elapsed_10.TotalMilliseconds} milliseconds for compute");
             double initTimeCompute = elapsed_10.TotalMilliseconds;
 
-            LogPerformance(nameof(TestWhichCellsBecomeActive), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
+            LogPerformance(nameof(TestPredictedActiveCellsAreCorrect), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
 
 
             //The test finally checks if the expected winner cells match the actual winner cells.
@@ -3309,7 +3309,7 @@ namespace UnitTestsProject
             Console.WriteLine($"Time taken: {elapsed_10.TotalMilliseconds} milliseconds for compute");
             double initTimeCompute = elapsed_10.TotalMilliseconds;
 
-            LogPerformance(nameof(TestWhichCellsBecomeActive), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
+            LogPerformance(nameof(TestReinforcedSelectedMatchingSegmentInBurstingColumn1), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
 
 
 
@@ -3389,7 +3389,7 @@ namespace UnitTestsProject
             Console.WriteLine($"Time taken: {elapsed_10.TotalMilliseconds} milliseconds for compute");
             double initTimeCompute = elapsed_10.TotalMilliseconds;
 
-            LogPerformance(nameof(TestWhichCellsBecomeActive), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
+            LogPerformance(nameof(TestReinforcedSelectedMatchingSegmentInBurstingColumn), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
 
 
 
@@ -3451,7 +3451,7 @@ namespace UnitTestsProject
             Console.WriteLine($"Time taken: {elapsed_10.TotalMilliseconds} milliseconds for compute");
             double initTimeCompute = elapsed_10.TotalMilliseconds;
 
-            LogPerformance(nameof(TestWhichCellsBecomeActive), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
+            LogPerformance(nameof(TestNoNewSegmentIfNotEnoughWinnerCells1), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
 
 
 
@@ -3509,7 +3509,7 @@ namespace UnitTestsProject
             Console.WriteLine($"Time taken: {elapsed_10.TotalMilliseconds} milliseconds for compute");
             double initTimeCompute = elapsed_10.TotalMilliseconds;
 
-            LogPerformance(nameof(TestWhichCellsBecomeActive), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
+            LogPerformance(nameof(TestNewSegmentAddSynapsesToSubsetOfWinnerCells), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
 
 
 
@@ -3596,7 +3596,7 @@ namespace UnitTestsProject
             Console.WriteLine($"Time taken: {elapsed_10.TotalMilliseconds} milliseconds for compute");
             double initTimeCompute = elapsed_10.TotalMilliseconds;
 
-            LogPerformance(nameof(TestWhichCellsBecomeActive), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
+            LogPerformance(nameof(TestNewSegmentAddSynapsesToSubsetOfWinnerCells1), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
 
             // Assert
             Assert.AreEqual(5, prevWinnerCells.Count);
@@ -3673,7 +3673,7 @@ namespace UnitTestsProject
             Console.WriteLine($"Time taken: {elapsed_10.TotalMilliseconds} milliseconds for compute");
             double initTimeCompute = elapsed_10.TotalMilliseconds;
 
-            LogPerformance(nameof(TestWhichCellsBecomeActive), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
+            LogPerformance(nameof(TestMatchingSegmentAddSynapsesToSubsetOfWinnerCells1), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
 
 
 
@@ -3809,7 +3809,7 @@ namespace UnitTestsProject
             Console.WriteLine($"Time taken: {elapsed_10.TotalMilliseconds} milliseconds for compute");
             double initTimeCompute = elapsed_10.TotalMilliseconds;
 
-            LogPerformance(nameof(TestWhichCellsBecomeActive), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
+            LogPerformance(nameof(TestActivateCorrectlyPredictiveCells), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
 
 
 
@@ -3927,7 +3927,7 @@ namespace UnitTestsProject
             Console.WriteLine($"Time taken: {elapsed_10.TotalMilliseconds} milliseconds for compute");
             double initTimeCompute = elapsed_10.TotalMilliseconds;
 
-            LogPerformance(nameof(TestWhichCellsBecomeActive), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
+            LogPerformance(nameof(TestWithTwoActiveColumns), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
             
             ComputeCycle cc = tm.Compute(previousActiveColumns, true) as ComputeCycle;
 
@@ -3992,7 +3992,7 @@ namespace UnitTestsProject
             Console.WriteLine($"Time taken: {elapsed_10.TotalMilliseconds} milliseconds for compute");
             double initTimeCompute = elapsed_10.TotalMilliseconds;
 
-            LogPerformance(nameof(TestWhichCellsBecomeActive), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
+            LogPerformance(nameof(TestBurstUnpredictedColumnsforSixCells), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
 
 
 
@@ -4064,7 +4064,7 @@ namespace UnitTestsProject
             Console.WriteLine($"Time taken: {elapsed_10.TotalMilliseconds} milliseconds for compute");
             double initTimeCompute = elapsed_10.TotalMilliseconds;
 
-            LogPerformance(nameof(TestWhichCellsBecomeActive), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
+            LogPerformance(nameof(TestDestroyWeakSynapseOnActiveReinforce), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
 
 
 
@@ -4122,7 +4122,7 @@ namespace UnitTestsProject
             Console.WriteLine($"Time taken: {elapsed_10.TotalMilliseconds} milliseconds for compute");
             double initTimeCompute = elapsed_10.TotalMilliseconds;
 
-            LogPerformance(nameof(TestWhichCellsBecomeActive), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
+            LogPerformance(nameof(TestNoNewSegmentIfNotEnoughWinnerCells), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
 
 
 
@@ -4186,7 +4186,7 @@ namespace UnitTestsProject
             Console.WriteLine($"Time taken: {elapsed_10.TotalMilliseconds} milliseconds for compute");
             double initTimeCompute = elapsed_10.TotalMilliseconds;
 
-            LogPerformance(nameof(TestWhichCellsBecomeActive), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
+            LogPerformance(nameof(TestNewSegmentAddSynapsesToSubsetOfWinnerCells2), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
 
 
             List<Cell> winnerCells = new List<Cell>(cc.WinnerCells);
@@ -4262,7 +4262,7 @@ namespace UnitTestsProject
             Console.WriteLine($"Time taken: {elapsed_10.TotalMilliseconds} milliseconds for compute");
             double initTimeCompute = elapsed_10.TotalMilliseconds;
 
-            LogPerformance(nameof(TestWhichCellsBecomeActive), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
+            LogPerformance(nameof(TestNewSegmentAddSynapsesToAllWinnerCells), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
 
 
 
@@ -4346,7 +4346,7 @@ namespace UnitTestsProject
             Console.WriteLine($"Time taken: {elapsed_10.TotalMilliseconds} milliseconds for compute");
             double initTimeCompute = elapsed_10.TotalMilliseconds;
 
-            LogPerformance(nameof(TestWhichCellsBecomeActive), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
+            LogPerformance(nameof(TestMatchingSegmentAddSynapsesToAllWinnerCells), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
 
 
 
@@ -4426,7 +4426,7 @@ namespace UnitTestsProject
             Console.WriteLine($"Time taken: {elapsed_10.TotalMilliseconds} milliseconds for compute");
             double initTimeCompute = elapsed_10.TotalMilliseconds;
 
-            LogPerformance(nameof(TestWhichCellsBecomeActive), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
+            LogPerformance(nameof(TestActiveSegmentGrowSynapsesAccordingToPotentialOverlap), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
 
 
             List<Cell> presynapticCells = new List<Cell>();
@@ -4499,7 +4499,7 @@ namespace UnitTestsProject
             Console.WriteLine($"Time taken: {elapsed_10.TotalMilliseconds} milliseconds for compute");
             double initTimeCompute = elapsed_10.TotalMilliseconds;
 
-            LogPerformance(nameof(TestWhichCellsBecomeActive), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
+            LogPerformance(nameof(TestDestroyWeakSynapseOnWrongPrediction), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
 
 
 
@@ -4659,7 +4659,7 @@ namespace UnitTestsProject
             Console.WriteLine($"Time taken: {elapsed_10.TotalMilliseconds} milliseconds for compute");
             double initTimeCompute = elapsed_10.TotalMilliseconds;
 
-            LogPerformance(nameof(TestWhichCellsBecomeActive), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
+            LogPerformance(nameof(TestArrayNotContainingCells), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
 
 
 
@@ -4744,7 +4744,7 @@ namespace UnitTestsProject
             Console.WriteLine($"Time taken: {elapsed_10.TotalMilliseconds} milliseconds for compute");
             double initTimeCompute = elapsed_10.TotalMilliseconds;
 
-            LogPerformance(nameof(TestWhichCellsBecomeActive), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
+            LogPerformance(nameof(TestDestroySegmentsWithTooFewSynapsesToBeMatching), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
 
 
 
@@ -4811,7 +4811,7 @@ namespace UnitTestsProject
             Console.WriteLine($"Time taken: {elapsed_10.TotalMilliseconds} milliseconds for compute");
             double initTimeCompute = elapsed_10.TotalMilliseconds;
 
-            LogPerformance(nameof(TestWhichCellsBecomeActive), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
+            LogPerformance(nameof(TestNewSegmentAddSynapsesToAllWinnerCells1), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
 
 
 
@@ -4912,7 +4912,7 @@ namespace UnitTestsProject
             Console.WriteLine($"Time taken: {elapsed_10.TotalMilliseconds} milliseconds for compute");
             double initTimeCompute = elapsed_10.TotalMilliseconds;
 
-            LogPerformance(nameof(TestWhichCellsBecomeActive), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
+            LogPerformance(nameof(TestActivateCorrectlyPredictiveCells1), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
 
 
 
@@ -4969,7 +4969,7 @@ namespace UnitTestsProject
             Console.WriteLine($"Time taken: {elapsed_10.TotalMilliseconds} milliseconds for compute");
             double initTimeCompute = elapsed_10.TotalMilliseconds;
 
-            LogPerformance(nameof(TestWhichCellsBecomeActive), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
+            LogPerformance(nameof(TestNoNewSegmentIfNotEnoughWinnerCells3), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
 
 
 
@@ -5039,7 +5039,7 @@ namespace UnitTestsProject
             Console.WriteLine($"Time taken: {elapsed_10.TotalMilliseconds} milliseconds for compute");
             double initTimeCompute = elapsed_10.TotalMilliseconds;
 
-            LogPerformance(nameof(TestWhichCellsBecomeActive), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
+            LogPerformance(nameof(TestDestroyWeakSynapseOnActiveReinforce1), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
 
 
 
@@ -5095,7 +5095,7 @@ namespace UnitTestsProject
             Console.WriteLine($"Time taken: {elapsed_10.TotalMilliseconds} milliseconds for compute");
             double initTimeCompute = elapsed_10.TotalMilliseconds;
 
-            LogPerformance(nameof(TestWhichCellsBecomeActive), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
+            LogPerformance(nameof(TestBurstNotpredictedColumns), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
 
 
 
