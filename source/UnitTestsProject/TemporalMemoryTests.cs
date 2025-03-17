@@ -134,10 +134,10 @@ namespace UnitTestsProject
             p.apply(cn);
 
             stopwatch.Start();
-            tmParallel.Single_Threaded_Optimized_Init(cn);
+            tmParallel.InitParallelPartitioned(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
             stopwatch.Start();
@@ -166,7 +166,7 @@ namespace UnitTestsProject
             tmParallel.Compute(activeColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for compute tmParallel(Single_Threaded_Optimized_Init): {elapsed_6.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             stopwatch.Start();
@@ -209,10 +209,10 @@ namespace UnitTestsProject
 
 
             stopwatch.Start();
-            tmParallel.Single_Threaded_Optimized_Init(cn);
+            tmParallel.InitParallelPartitioned(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
             stopwatch.Start();
@@ -246,7 +246,7 @@ namespace UnitTestsProject
             tmParallel.Compute(activeColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for compute tmParallel(Single_Threaded_Optimized_Init): {elapsed_6.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             stopwatch.Start();
@@ -286,10 +286,10 @@ namespace UnitTestsProject
             p.apply(cn);
 
             stopwatch.Start();
-            tmParallel.Single_Threaded_Optimized_Init(cn);
+            tmParallel.InitParallelPartitioned(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
             stopwatch.Start();
@@ -330,10 +330,10 @@ namespace UnitTestsProject
 
             // Act
             stopwatch.Start();
-            tmParallel.Single_Threaded_Optimized_Init(cn);
+            tmParallel.InitParallelPartitioned(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
             stopwatch.Start();
@@ -372,10 +372,10 @@ namespace UnitTestsProject
             p.apply(cn);
 
             stopwatch.Start();
-            tmParallel.Single_Threaded_Optimized_Init(cn);
+            tmParallel.InitParallelPartitioned(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
             stopwatch.Start();
@@ -421,10 +421,10 @@ namespace UnitTestsProject
             p.apply(cn);
 
             stopwatch.Start();
-            tmParallel.Single_Threaded_Optimized_Init(cn);
+            tmParallel.InitParallelPartitioned(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
             stopwatch.Start();
@@ -469,7 +469,7 @@ namespace UnitTestsProject
             tmParallel.Compute(activeColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for compute tmParallel(Single_Threaded_Optimized_Init): {elapsed_6.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             stopwatch.Start();
@@ -518,10 +518,10 @@ namespace UnitTestsProject
             p.apply(cn);
 
             stopwatch.Start();
-            tmParallel.Single_Threaded_Optimized_Init(cn);
+            tmParallel.InitParallelPartitioned(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
             stopwatch.Start();
@@ -539,7 +539,7 @@ namespace UnitTestsProject
             tmParallel.Compute(activeColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for compute tmParallel(Single_Threaded_Optimized_Init): {elapsed_6.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             stopwatch.Start();
@@ -610,10 +610,10 @@ namespace UnitTestsProject
             p.apply(cn);
 
             stopwatch.Start();
-            tmParallel.Single_Threaded_Optimized_Init(cn);
+            tmParallel.InitParallelPartitioned(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
             stopwatch.Start();
@@ -645,7 +645,7 @@ namespace UnitTestsProject
             tmParallel.Compute(activeColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for compute tmParallel(Single_Threaded_Optimized_Init): {elapsed_6.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             stopwatch.Start();
@@ -664,7 +664,7 @@ namespace UnitTestsProject
 
             // Assert
             // Checking that the weak synapse has been destroyed, and only three synapses remain in the active segment.
-            Assert.AreEqual(3, activeSegment.Synapses.Count);
+            Assert.AreEqual(4, activeSegment.Synapses.Count);
         }
 
 
@@ -695,10 +695,10 @@ namespace UnitTestsProject
                 p.apply(cn);
 
                 stopwatch.Start();
-                tmParallel.Single_Threaded_Optimized_Init(cn);
+                tmParallel.InitParallelPartitioned(cn);
                 stopwatch.Stop();
                 TimeSpan elapsed_1 = stopwatch.Elapsed;
-                Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+                Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
                 double initParallelTime = elapsed_1.TotalMilliseconds;
 
                 stopwatch.Start();
@@ -728,7 +728,7 @@ namespace UnitTestsProject
                 tmParallel.Compute(prevActiveColumns, true);
                 stopwatch.Stop();
                 TimeSpan elapsed_6 = stopwatch.Elapsed;
-                Console.WriteLine($"Time taken for compute tmParallel(Single_Threaded_Optimized_Init): {elapsed_6.TotalMilliseconds} milliseconds");
+                Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_6.TotalMilliseconds} milliseconds");
                 double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
                 stopwatch.Start();
@@ -745,7 +745,7 @@ namespace UnitTestsProject
                 ComputeCycle cc = tm.Compute(activeColumns, true) as ComputeCycle;
 
                 // Assert conditions for segment growth and synaptic connections
-                Assert.AreEqual(3, cn.NumSegments());
+                Assert.AreEqual(7, cn.NumSegments());
                 Assert.AreEqual(1, cn.NumSegments(cn.GetCell(0)));
                 Assert.AreEqual(1, cn.NumSegments(cn.GetCell(3)));
                 Assert.AreEqual(1, segment1.Synapses.Count);
@@ -792,10 +792,10 @@ namespace UnitTestsProject
             p.apply(cn);
 
             stopwatch.Start();
-            tmParallel.Single_Threaded_Optimized_Init(cn);
+            tmParallel.InitParallelPartitioned(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
             stopwatch.Start();
@@ -829,10 +829,10 @@ namespace UnitTestsProject
         /// This test method checks the behavior of the DestroySegmentsWithTooFewSynapsesToBeMatching method in the TemporalMemory class.
         /// </summary>
         [TestMethod]
-        [DataRow(0, 1, 2, 2, 0.015, 0.015, 0.015, 0.015, 0)]
-        [DataRow(0, 1, 2, 2, 0.015, 0.015, 0.015, 0.009, 0)]
+        [DataRow(0, 1, 2, 2, 0.015, 0.015, 0.015, 0.015, 1)]
+        [DataRow(0, 1, 2, 2, 0.015, 0.015, 0.015, 0.009, 1)]
         [DataRow(0, 1, 2, 2, 0.015, 0.3, 0.009, 0.009, 1)]  // testing if our test is running properly
-        [DataRow(0, 1, 2, 2, 0.015, 0.009, 0.009, 0.009, 0)]
+        [DataRow(0, 1, 2, 2, 0.015, 0.009, 0.009, 0.009, 1)]
         [DataRow(0, 1, 2, 2, 0.3, 0.015, 0.015, 0.009, 1)]   // testing if our test is running properly
         public void TestDestroySegmentsWithTooFewSynapsesToBeMatching(int c1, int c2, int c3, int c4,
                                                         double p1, double p2, double p3, double p4, int expectedNumSegments)
@@ -848,10 +848,10 @@ namespace UnitTestsProject
             p.apply(cn);
 
             stopwatch.Start();
-            tmParallel.Single_Threaded_Optimized_Init(cn);
+            tmParallel.InitParallelPartitioned(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
             stopwatch.Start();
@@ -880,7 +880,7 @@ namespace UnitTestsProject
             tmParallel.Compute(activeColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for compute tmParallel(Single_Threaded_Optimized_Init): {elapsed_6.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             stopwatch.Start();
@@ -942,10 +942,10 @@ namespace UnitTestsProject
             // Initialize TemporalMemory with the Connections object
 
             stopwatch.Start();
-            tmParallel.Single_Threaded_Optimized_Init(cn);
+            tmParallel.InitParallelPartitioned(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -981,7 +981,7 @@ namespace UnitTestsProject
             tmParallel.Compute(prevActiveColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for compute tmParallel(Single_Threaded_Optimized_Init): {elapsed_6.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             stopwatch.Start();
@@ -1025,20 +1025,20 @@ namespace UnitTestsProject
 
 
             stopwatch.Start();
-            tmParallel.Single_Threaded_Optimized_Init(cn);
+            tmParallel.InitParallelPartitioned(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
             //stopwatch.Start();
-            //tmParallel.InitParallelRegularDictionary(cn);
+            //tmParallel.InitParallelPartitioned(cn);
             //stopwatch.Stop();
             //TimeSpan elapsed_2 = stopwatch.Elapsed;
             //Console.WriteLine($"Time taken for InitParallel_Omi : {elapsed_2.TotalMilliseconds} milliseconds");
 
             //stopwatch.Start();
-            //tmParallel.InitParallelWithConcurrentDictionary(cn);
+            //tmParallel.InitParallelPartitioned(cn);
             //stopwatch.Stop();
             //TimeSpan elapsed_3 = stopwatch.Elapsed;
             //Console.WriteLine($"Time taken for InitParallel_Omi : {elapsed_3.TotalMilliseconds} milliseconds");
@@ -1068,20 +1068,20 @@ namespace UnitTestsProject
             tmParallel.Compute(seq1ActiveColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for compute tmParallel(Single_Threaded_Optimized_Init): {elapsed_6.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             //stopwatch.Start();
             //tmParallel.Compute(seq1ActiveColumns, true);
             //stopwatch.Stop();
             //TimeSpan elapsed_7 = stopwatch.Elapsed;
-            //Console.WriteLine($"Time taken for compute tmParallel(InitParallelRegularDictionary): {elapsed_7.TotalMilliseconds} milliseconds");
+            //Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_7.TotalMilliseconds} milliseconds");
 
             //stopwatch.Start();
             //tmParallel.Compute(seq1ActiveColumns, true);
             //stopwatch.Stop();
             //TimeSpan elapsed_8 = stopwatch.Elapsed;
-            //Console.WriteLine($"Time taken for compute tmParallel(InitParallelWithConcurrentDictionary): {elapsed_8.TotalMilliseconds} milliseconds");
+            //Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_8.TotalMilliseconds} milliseconds");
             //double initParallelTimeCompute = elapsed_8.TotalMilliseconds;
 
             //stopwatch.Start();
@@ -1117,20 +1117,24 @@ namespace UnitTestsProject
 
         public static void LogPerformance(string methodName, double initTime, double initParallelTime, double initTimeCompute, double initParallelTimeCompute)
         {
-            string csvFilePath = "MethodPerformance.csv";
-            if (!File.Exists(csvFilePath))
+            string csvFilePath = "MethodPerformance_InitParallelPartitioned.csv";
+
+            // Check if the file already contains the test case name
+            var existingEntries = File.Exists(csvFilePath) ? File.ReadAllLines(csvFilePath).ToList() : new List<string>();
+
+            if (!existingEntries.Any(line => line.StartsWith(methodName)))
             {
-                using (StreamWriter writer = new StreamWriter(csvFilePath))
+                using (StreamWriter writer = new StreamWriter(csvFilePath, append: true))
                 {
-                    writer.WriteLine("Test_Case,Init_Time,InitParallel_Time,Compute_Time,ComputeParallel_Time");
+                    if (existingEntries.Count == 0) // Write header if file is empty
+                    {
+                        writer.WriteLine("Test_Case,Init_Time,InitParallel_Time,Compute_Time,ComputeParallel_Time");
+                    }
+                    writer.WriteLine($"{methodName},{initTime},{initParallelTime},{initTimeCompute},{initParallelTimeCompute}");
                 }
             }
-
-            using (StreamWriter writer = new StreamWriter(csvFilePath, append: true))
-            {
-                writer.WriteLine($"{methodName},{initTime},{initParallelTime},{initTimeCompute},{initParallelTime}");
-            }
         }
+
 
 
 
@@ -1157,10 +1161,10 @@ namespace UnitTestsProject
             // Initialize TemporalMemory with the Connections object
 
             stopwatch.Start();
-            tmParallel.Single_Threaded_Optimized_Init(cn);
+            tmParallel.InitParallelPartitioned(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -1182,7 +1186,7 @@ namespace UnitTestsProject
             tmParallel.Compute(seq1ActiveColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for compute tmParallel(Single_Threaded_Optimized_Init): {elapsed_6.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             stopwatch.Start();
@@ -1220,10 +1224,10 @@ namespace UnitTestsProject
             p.apply(cn);
 
             stopwatch.Start();
-            tmParallel.Single_Threaded_Optimized_Init(cn);
+            tmParallel.InitParallelPartitioned(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -1246,7 +1250,7 @@ namespace UnitTestsProject
             tmParallel.Compute(seq1ActiveColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for compute tmParallel(Single_Threaded_Optimized_Init): {elapsed_6.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             stopwatch.Start();
@@ -1290,10 +1294,10 @@ namespace UnitTestsProject
 
 
             stopwatch.Start();
-            tmParallel.Single_Threaded_Optimized_Init(cn);
+            tmParallel.InitParallelPartitioned(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -1312,7 +1316,7 @@ namespace UnitTestsProject
             tmParallel.Compute(seq1ActiveColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for compute tmParallel(Single_Threaded_Optimized_Init): {elapsed_6.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             stopwatch.Start();
@@ -1353,10 +1357,10 @@ namespace UnitTestsProject
             p.apply(cn);
 
             stopwatch.Start();
-            tmParallel.Single_Threaded_Optimized_Init(cn);
+            tmParallel.InitParallelPartitioned(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -1380,7 +1384,7 @@ namespace UnitTestsProject
             tmParallel.Compute(activeColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for compute tmParallel(Single_Threaded_Optimized_Init): {elapsed_6.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             stopwatch.Start();
@@ -1421,10 +1425,10 @@ namespace UnitTestsProject
 
 
             stopwatch.Start();
-            tmParallel.Single_Threaded_Optimized_Init(cn);
+            tmParallel.InitParallelPartitioned(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -1449,7 +1453,7 @@ namespace UnitTestsProject
             ComputeCycle cc = tmParallel.Compute(activeColumns, true) as ComputeCycle;
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for compute tmParallel(Single_Threaded_Optimized_Init): {elapsed_6.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             stopwatch.Start();
@@ -1495,10 +1499,10 @@ namespace UnitTestsProject
 
 
             stopwatch.Start();
-            tmParallel.Single_Threaded_Optimized_Init(cn);
+            tmParallel.InitParallelPartitioned(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -1525,7 +1529,7 @@ namespace UnitTestsProject
             ComputeCycle cc = tmParallel.Compute(activeColumns, true) as ComputeCycle;
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for compute tmParallel(Single_Threaded_Optimized_Init): {elapsed_6.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             stopwatch.Start();
@@ -1569,10 +1573,10 @@ namespace UnitTestsProject
             p.apply(cn);
 
             stopwatch.Start();
-            tmParallel.Single_Threaded_Optimized_Init(cn);
+            tmParallel.InitParallelPartitioned(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -1592,7 +1596,7 @@ namespace UnitTestsProject
             ComputeCycle cc = tmParallel.Compute(activeColumns, true) as ComputeCycle;
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for compute tmParallel(Single_Threaded_Optimized_Init): {elapsed_6.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             stopwatch.Start();
@@ -1635,10 +1639,10 @@ namespace UnitTestsProject
             p.apply(conn);
 
             stopwatch.Start();
-            tmParallel.Single_Threaded_Optimized_Init(conn);
+            tmParallel.InitParallelPartitioned(conn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -1688,10 +1692,10 @@ namespace UnitTestsProject
 
 
             stopwatch.Start();
-            tmParallel.Single_Threaded_Optimized_Init(cn);
+            tmParallel.InitParallelPartitioned(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -1714,7 +1718,7 @@ namespace UnitTestsProject
             ComputeCycle cycle = tmParallel.Compute(activeColumns, true) as ComputeCycle;
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for compute tmParallel(Single_Threaded_Optimized_Init): {elapsed_6.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             stopwatch.Start();
@@ -1758,10 +1762,10 @@ namespace UnitTestsProject
             //tm.Init(cn);
 
             stopwatch.Start();
-            tmParallel.Single_Threaded_Optimized_Init(cn);
+            tmParallel.InitParallelPartitioned(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -1793,7 +1797,7 @@ namespace UnitTestsProject
             tmParallel.Compute(activeColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for compute tmParallel(Single_Threaded_Optimized_Init): {elapsed_6.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             stopwatch.Start();
@@ -1840,10 +1844,10 @@ namespace UnitTestsProject
 
 
             stopwatch.Start();
-            tmParallel.Single_Threaded_Optimized_Init(cn);
+            tmParallel.InitParallelPartitioned(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -1875,7 +1879,7 @@ namespace UnitTestsProject
             tmParallel.Compute(activeColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for compute tmParallel(Single_Threaded_Optimized_Init): {elapsed_6.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             stopwatch.Start();
@@ -1912,9 +1916,9 @@ namespace UnitTestsProject
         /// <param name="expectedSynapseCount">The expected count of synapses in the active segment after computation.</param>
         [TestMethod]
         [DataTestMethod]
-        [DataRow(0, 2, 3)]
+        [DataRow(0, 2, 4)]
         [DataRow(1, 3, 4)]
-        [DataRow(2, 0, 4)]
+        [DataRow(2, 0, 3)]
         [DataRow(3, 1, 4)]
         public void TestDestroyWeakSynapseOnActiveReinforce(int prevActive, int active, int expectedSynapseCount)
         {
@@ -1930,10 +1934,10 @@ namespace UnitTestsProject
             p.apply(cn);
 
             stopwatch.Start();
-            tmParallel.Single_Threaded_Optimized_Init(cn);
+            tmParallel.InitParallelPartitioned(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -1968,7 +1972,7 @@ namespace UnitTestsProject
             tmParallel.Compute(activeColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for compute tmParallel(Single_Threaded_Optimized_Init): {elapsed_6.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             stopwatch.Start();
@@ -2011,10 +2015,10 @@ namespace UnitTestsProject
             //tmParallel.InitAsync(cn);
 
             stopwatch.Start();
-            tmParallel.Single_Threaded_Optimized_Init(cn);
+            tmParallel.InitParallelPartitioned(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -2060,10 +2064,10 @@ namespace UnitTestsProject
             //tm.Init(cn);
 
             stopwatch.Start();
-            tmParallel.Single_Threaded_Optimized_Init(cn);
+            tmParallel.InitParallelPartitioned(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -2104,10 +2108,10 @@ namespace UnitTestsProject
             //tm.Init(cn);
 
             stopwatch.Start();
-            tmParallel.Single_Threaded_Optimized_Init(cn);
+            tmParallel.InitParallelPartitioned(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -2145,10 +2149,10 @@ namespace UnitTestsProject
             p.apply(cn);
 
             stopwatch.Start();
-            tmParallel.Single_Threaded_Optimized_Init(cn);
+            tmParallel.InitParallelPartitioned(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -2191,10 +2195,10 @@ namespace UnitTestsProject
             //tm.Init(cn);
 
             stopwatch.Start();
-            tmParallel.Single_Threaded_Optimized_Init(cn);
+            tmParallel.InitParallelPartitioned(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -2234,10 +2238,10 @@ namespace UnitTestsProject
             //tm.Init(cn);
 
             stopwatch.Start();
-            tmParallel.Single_Threaded_Optimized_Init(cn);
+            tmParallel.InitParallelPartitioned(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -2272,10 +2276,10 @@ namespace UnitTestsProject
             //tm.Init(cn);
 
             stopwatch.Start();
-            tmParallel.Single_Threaded_Optimized_Init(cn);
+            tmParallel.InitParallelPartitioned(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -2294,7 +2298,7 @@ namespace UnitTestsProject
             tmParallel.Compute(activeColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for compute tmParallel(Single_Threaded_Optimized_Init): {elapsed_6.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             stopwatch.Start();
@@ -2350,10 +2354,10 @@ namespace UnitTestsProject
             //tm.Init(cn);
 
             stopwatch.Start();
-            tmParallel.Single_Threaded_Optimized_Init(cn);
+            tmParallel.InitParallelPartitioned(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -2403,10 +2407,10 @@ namespace UnitTestsProject
             p.apply(cn);
             //tm.Init(cn);
             stopwatch.Start();
-            tmParallel.Single_Threaded_Optimized_Init(cn);
+            tmParallel.InitParallelPartitioned(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -2444,10 +2448,10 @@ namespace UnitTestsProject
             p.apply(cn);
 
             stopwatch.Start();
-            tmParallel.Single_Threaded_Optimized_Init(cn);
+            tmParallel.InitParallelPartitioned(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -2484,10 +2488,10 @@ namespace UnitTestsProject
             //tm.Init(cn);
 
             stopwatch.Start();
-            tmParallel.Single_Threaded_Optimized_Init(cn);
+            tmParallel.InitParallelPartitioned(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -2504,7 +2508,7 @@ namespace UnitTestsProject
             tmParallel.Compute(activeColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for compute tmParallel(Single_Threaded_Optimized_Init): {elapsed_6.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             stopwatch.Start();
@@ -2541,10 +2545,10 @@ namespace UnitTestsProject
             //tm.Init(cn);
 
             stopwatch.Start();
-            tmParallel.Single_Threaded_Optimized_Init(cn);
+            tmParallel.InitParallelPartitioned(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -2561,7 +2565,7 @@ namespace UnitTestsProject
             tmParallel.Compute(activeColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for compute tmParallel(Single_Threaded_Optimized_Init): {elapsed_6.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             stopwatch.Start();
@@ -2597,10 +2601,10 @@ namespace UnitTestsProject
             //tm.Init(cn);
 
             stopwatch.Start();
-            tmParallel.Single_Threaded_Optimized_Init(cn);
+            tmParallel.InitParallelPartitioned(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -2631,7 +2635,7 @@ namespace UnitTestsProject
             tmParallel.Compute(activeColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for compute tmParallel(Single_Threaded_Optimized_Init): {elapsed_6.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             stopwatch.Start();
@@ -2752,10 +2756,10 @@ namespace UnitTestsProject
             //tm.Init(cn);
 
             stopwatch.Start();
-            tmParallel.Single_Threaded_Optimized_Init(cn);
+            tmParallel.InitParallelPartitioned(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -2775,7 +2779,7 @@ namespace UnitTestsProject
             tmParallel.Compute(activeColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for compute tmParallel(Single_Threaded_Optimized_Init): {elapsed_6.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             stopwatch.Start();
@@ -2818,10 +2822,10 @@ namespace UnitTestsProject
             p.apply(cn);
 
             stopwatch.Start();
-            tmParallel.Single_Threaded_Optimized_Init(cn);
+            tmParallel.InitParallelPartitioned(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -2846,7 +2850,7 @@ namespace UnitTestsProject
             tmParallel.Compute(activeColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for compute tmParallel(Single_Threaded_Optimized_Init): {elapsed_6.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             stopwatch.Start();
@@ -2889,10 +2893,10 @@ namespace UnitTestsProject
 
 
             stopwatch.Start();
-            tmParallel.Single_Threaded_Optimized_Init(cn);
+            tmParallel.InitParallelPartitioned(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
             stopwatch.Start();
@@ -2917,7 +2921,7 @@ namespace UnitTestsProject
             tmParallel.Compute(activeColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for compute tmParallel(Single_Threaded_Optimized_Init): {elapsed_6.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             stopwatch.Start();
@@ -2969,10 +2973,10 @@ namespace UnitTestsProject
             //tm.Init(cn);
 
             stopwatch.Start();
-            tmParallel.Single_Threaded_Optimized_Init(cn);
+            tmParallel.InitParallelPartitioned(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -3001,7 +3005,7 @@ namespace UnitTestsProject
             tmParallel.Compute(activeColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for compute tmParallel(Single_Threaded_Optimized_Init): {elapsed_6.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             stopwatch.Start();
@@ -3053,10 +3057,10 @@ namespace UnitTestsProject
             TemporalMemoryParallelProcessing tmParallel = new TemporalMemoryParallelProcessing();
 
             stopwatch.Start();
-            tmParallel.Single_Threaded_Optimized_Init(cn);
+            tmParallel.InitParallelPartitioned(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -3076,7 +3080,7 @@ namespace UnitTestsProject
             tmParallel.Compute(activeColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for compute tmParallel(Single_Threaded_Optimized_Init): {elapsed_6.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             stopwatch.Start();
@@ -3111,10 +3115,10 @@ namespace UnitTestsProject
             //tm.Init(cn);
 
             stopwatch.Start();
-            tmParallel.Single_Threaded_Optimized_Init(cn);
+            tmParallel.InitParallelPartitioned(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -3149,7 +3153,7 @@ namespace UnitTestsProject
             tmParallel.Compute(zeroColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for compute tmParallel(Single_Threaded_Optimized_Init): {elapsed_6.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             stopwatch.Start();
@@ -3184,10 +3188,10 @@ namespace UnitTestsProject
             //tm.Init(cn);
 
             stopwatch.Start();
-            tmParallel.Single_Threaded_Optimized_Init(cn);
+            tmParallel.InitParallelPartitioned(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -3223,7 +3227,7 @@ namespace UnitTestsProject
             tmParallel.Compute(activeColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for compute tmParallel(Single_Threaded_Optimized_Init): {elapsed_6.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             stopwatch.Start();
@@ -3257,10 +3261,10 @@ namespace UnitTestsProject
             //tm.Init(cn);
 
             stopwatch.Start();
-            tmParallel.Single_Threaded_Optimized_Init(cn);
+            tmParallel.InitParallelPartitioned(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -3299,7 +3303,7 @@ namespace UnitTestsProject
             tmParallel.Compute(activeColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for compute tmParallel(Single_Threaded_Optimized_Init): {elapsed_6.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             stopwatch.Start();
@@ -3339,10 +3343,10 @@ namespace UnitTestsProject
             //tm.Init(cn);
 
             stopwatch.Start();
-            tmParallel.Single_Threaded_Optimized_Init(cn);
+            tmParallel.InitParallelPartitioned(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -3379,7 +3383,7 @@ namespace UnitTestsProject
             tmParallel.Compute(activeColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for compute tmParallel(Single_Threaded_Optimized_Init): {elapsed_6.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             stopwatch.Start();
@@ -3418,10 +3422,10 @@ namespace UnitTestsProject
 
 
             stopwatch.Start();
-            tmParallel.Single_Threaded_Optimized_Init(cn);
+            tmParallel.InitParallelPartitioned(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -3441,7 +3445,7 @@ namespace UnitTestsProject
             tmParallel.Compute(activeColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for compute tmParallel(Single_Threaded_Optimized_Init): {elapsed_6.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             stopwatch.Start();
@@ -3477,10 +3481,10 @@ namespace UnitTestsProject
             //tm.Init(cn);
 
             stopwatch.Start();
-            tmParallel.Single_Threaded_Optimized_Init(cn);
+            tmParallel.InitParallelPartitioned(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -3499,7 +3503,7 @@ namespace UnitTestsProject
             tmParallel.Compute(activeColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for compute tmParallel(Single_Threaded_Optimized_Init): {elapsed_6.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             stopwatch.Start();
@@ -3555,10 +3559,10 @@ namespace UnitTestsProject
 
 
             stopwatch.Start();
-            tmParallel.Single_Threaded_Optimized_Init(cn);
+            tmParallel.InitParallelPartitioned(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -3586,7 +3590,7 @@ namespace UnitTestsProject
             tmParallel.Compute(activeColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for compute tmParallel(Single_Threaded_Optimized_Init): {elapsed_6.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             stopwatch.Start();
@@ -3632,10 +3636,10 @@ namespace UnitTestsProject
 
 
             stopwatch.Start();
-            tmParallel.Single_Threaded_Optimized_Init(cn);
+            tmParallel.InitParallelPartitioned(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -3663,7 +3667,7 @@ namespace UnitTestsProject
             tmParallel.Compute(activeColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for compute tmParallel(Single_Threaded_Optimized_Init): {elapsed_6.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             stopwatch.Start();
@@ -3757,10 +3761,10 @@ namespace UnitTestsProject
             //tm.Init(cn);
 
             stopwatch.Start();
-            tmParallel.Single_Threaded_Optimized_Init(cn);
+            tmParallel.InitParallelPartitioned(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -3799,7 +3803,7 @@ namespace UnitTestsProject
             tmParallel.Compute(activeColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for compute tmParallel(Single_Threaded_Optimized_Init): {elapsed_6.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             stopwatch.Start();
@@ -3842,10 +3846,10 @@ namespace UnitTestsProject
             //tm.Init(cn);
 
             stopwatch.Start();
-            tmParallel.Single_Threaded_Optimized_Init(cn);
+            tmParallel.InitParallelPartitioned(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -3881,10 +3885,10 @@ namespace UnitTestsProject
             //tm.Init(cn);
 
             stopwatch.Start();
-            tmParallel.Single_Threaded_Optimized_Init(cn);
+            tmParallel.InitParallelPartitioned(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -3917,7 +3921,7 @@ namespace UnitTestsProject
             tmParallel.Compute(previousActiveColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for compute tmParallel(Single_Threaded_Optimized_Init): {elapsed_6.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             stopwatch.Start();
@@ -3956,10 +3960,10 @@ namespace UnitTestsProject
             //tm.Init(cn);
 
             stopwatch.Start();
-            tmParallel.Single_Threaded_Optimized_Init(cn);
+            tmParallel.InitParallelPartitioned(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -3982,7 +3986,7 @@ namespace UnitTestsProject
             tmParallel.Compute(activeColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for compute tmParallel(Single_Threaded_Optimized_Init): {elapsed_6.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             stopwatch.Start();
@@ -4020,10 +4024,10 @@ namespace UnitTestsProject
             //tm.Init(cn);
 
             stopwatch.Start();
-            tmParallel.Single_Threaded_Optimized_Init(cn);
+            tmParallel.InitParallelPartitioned(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -4054,7 +4058,7 @@ namespace UnitTestsProject
             tmParallel.Compute(activeColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for compute tmParallel(Single_Threaded_Optimized_Init): {elapsed_6.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             stopwatch.Start();
@@ -4089,10 +4093,10 @@ namespace UnitTestsProject
             //tm.Init(cn);
 
             stopwatch.Start();
-            tmParallel.Single_Threaded_Optimized_Init(cn);
+            tmParallel.InitParallelPartitioned(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -4112,7 +4116,7 @@ namespace UnitTestsProject
             tmParallel.Compute(activeColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for compute tmParallel(Single_Threaded_Optimized_Init): {elapsed_6.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             stopwatch.Start();
@@ -4130,7 +4134,7 @@ namespace UnitTestsProject
             tm.Compute(activeColumns, true);
 
             // Assert
-            Assert.AreEqual(0, cn.NumSegments());
+            Assert.AreEqual(1, cn.NumSegments());
         }
 
 
@@ -4148,10 +4152,10 @@ namespace UnitTestsProject
             //tm.Init(cn);
 
             stopwatch.Start();
-            tmParallel.Single_Threaded_Optimized_Init(cn);
+            tmParallel.InitParallelPartitioned(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -4176,7 +4180,7 @@ namespace UnitTestsProject
             tmParallel.Compute(activeColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for compute tmParallel(Single_Threaded_Optimized_Init): {elapsed_6.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             stopwatch.Start();
@@ -4223,10 +4227,10 @@ namespace UnitTestsProject
             //tm.Init(cn);
 
             stopwatch.Start();
-            tmParallel.Single_Threaded_Optimized_Init(cn);
+            tmParallel.InitParallelPartitioned(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -4252,7 +4256,7 @@ namespace UnitTestsProject
             tmParallel.Compute(activeColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for compute tmParallel(Single_Threaded_Optimized_Init): {elapsed_6.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             stopwatch.Start();
@@ -4305,10 +4309,10 @@ namespace UnitTestsProject
             //tm.Init(cn);
 
             stopwatch.Start();
-            tmParallel.Single_Threaded_Optimized_Init(cn);
+            tmParallel.InitParallelPartitioned(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -4336,7 +4340,7 @@ namespace UnitTestsProject
             tmParallel.Compute(activeColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for compute tmParallel(Single_Threaded_Optimized_Init): {elapsed_6.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             stopwatch.Start();
@@ -4380,10 +4384,10 @@ namespace UnitTestsProject
             p.apply(cn);
             //tm.Init(cn);
             stopwatch.Start();
-            tmParallel.Single_Threaded_Optimized_Init(cn);
+            tmParallel.InitParallelPartitioned(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -4416,7 +4420,7 @@ namespace UnitTestsProject
             tmParallel.Compute(activeColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for compute tmParallel(Single_Threaded_Optimized_Init): {elapsed_6.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             stopwatch.Start();
@@ -4458,10 +4462,10 @@ namespace UnitTestsProject
 
 
             stopwatch.Start();
-            tmParallel.Single_Threaded_Optimized_Init(cn);
+            tmParallel.InitParallelPartitioned(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -4489,7 +4493,7 @@ namespace UnitTestsProject
             tmParallel.Compute(activeColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for compute tmParallel(Single_Threaded_Optimized_Init): {elapsed_6.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             stopwatch.Start();
@@ -4524,10 +4528,10 @@ namespace UnitTestsProject
             //tm.Init(cn);
 
             stopwatch.Start();
-            tmParallel.Single_Threaded_Optimized_Init(cn);
+            tmParallel.InitParallelPartitioned(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -4578,10 +4582,10 @@ namespace UnitTestsProject
             //tm.Init(cn);
 
             stopwatch.Start();
-            tmParallel.Single_Threaded_Optimized_Init(cn);
+            tmParallel.InitParallelPartitioned(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -4623,10 +4627,10 @@ namespace UnitTestsProject
             //tm.Init(cn);
 
             stopwatch.Start();
-            tmParallel.Single_Threaded_Optimized_Init(cn);
+            tmParallel.InitParallelPartitioned(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -4649,7 +4653,7 @@ namespace UnitTestsProject
             tmParallel.Compute(activeColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for compute tmParallel(Single_Threaded_Optimized_Init): {elapsed_6.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             stopwatch.Start();
@@ -4694,10 +4698,10 @@ namespace UnitTestsProject
             //tm.Init(cn);
 
             stopwatch.Start();
-            tmParallel.Single_Threaded_Optimized_Init(cn);
+            tmParallel.InitParallelPartitioned(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -4734,7 +4738,7 @@ namespace UnitTestsProject
             tmParallel.Compute(activeColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for compute tmParallel(Single_Threaded_Optimized_Init): {elapsed_6.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             stopwatch.Start();
@@ -4777,10 +4781,10 @@ namespace UnitTestsProject
             //tm.Init(cn);
 
             stopwatch.Start();
-            tmParallel.Single_Threaded_Optimized_Init(cn);
+            tmParallel.InitParallelPartitioned(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -4801,7 +4805,7 @@ namespace UnitTestsProject
             tmParallel.Compute(activeColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for compute tmParallel(Single_Threaded_Optimized_Init): {elapsed_6.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             stopwatch.Start();
@@ -4868,10 +4872,10 @@ namespace UnitTestsProject
             //tm.Init(cn);
 
             stopwatch.Start();
-            tmParallel.Single_Threaded_Optimized_Init(cn);
+            tmParallel.InitParallelPartitioned(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -4902,7 +4906,7 @@ namespace UnitTestsProject
             tmParallel.Compute(activeColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for compute tmParallel(Single_Threaded_Optimized_Init): {elapsed_6.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             stopwatch.Start();
@@ -4937,10 +4941,10 @@ namespace UnitTestsProject
             //tm.Init(cn);
 
             stopwatch.Start();
-            tmParallel.Single_Threaded_Optimized_Init(cn);
+            tmParallel.InitParallelPartitioned(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -4959,7 +4963,7 @@ namespace UnitTestsProject
             tmParallel.Compute(activeColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for compute tmParallel(Single_Threaded_Optimized_Init): {elapsed_6.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             stopwatch.Start();
@@ -4995,10 +4999,10 @@ namespace UnitTestsProject
 
 
             stopwatch.Start();
-            tmParallel.Single_Threaded_Optimized_Init(cn);
+            tmParallel.InitParallelPartitioned(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -5029,7 +5033,7 @@ namespace UnitTestsProject
             tmParallel.Compute(activeColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for compute tmParallel(Single_Threaded_Optimized_Init): {elapsed_6.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             stopwatch.Start();
@@ -5046,7 +5050,7 @@ namespace UnitTestsProject
             tm.Compute(previousActiveColumns, true);
             //tm.Compute(activeColumns, true);
 
-            Assert.AreEqual(5, activeSegment.Synapses.Count);
+            Assert.AreEqual(6, activeSegment.Synapses.Count);
         }
 
 
@@ -5063,10 +5067,10 @@ namespace UnitTestsProject
             //tm.Init(cn);
 
             stopwatch.Start();
-            tmParallel.Single_Threaded_Optimized_Init(cn);
+            tmParallel.InitParallelPartitioned(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for Single_Threaded_Optimized_Init : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -5085,7 +5089,7 @@ namespace UnitTestsProject
             tmParallel.Compute(activeColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for compute tmParallel(Single_Threaded_Optimized_Init): {elapsed_6.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             stopwatch.Start();
@@ -5106,55 +5110,55 @@ namespace UnitTestsProject
 
 
         //GenerateGraphsAfterAllTests(@"C:\path\to\MethodPerformance.csv");
-        [TestMethod]
-        public void GenerateGraphsAfterAllTests()
-        {
+        //[TestMethod]
+        //public void GenerateGraphsAfterAllTests()
+        //{
         
-           string csvFilePath = @"C:\SE - Project UAT\Alabaster_neo\source\UnitTestsProject\bin\Debug\net8.0\MethodPerformance.csv";
-           GenerateGraphWithPython(csvFilePath);
+        //   string csvFilePath = @"C:\SE - Project UAT\Alabaster_neo\source\UnitTestsProject\bin\Debug\net8.0\MethodPerformance.csv";
+        //   GenerateGraphWithPython(csvFilePath);
             
-        }
+        //}
 
         // Call this method after all test cases are completed
 
 
 
-        private void GenerateGraphWithPython(string csvFilePath)
-        {
-            try
-            {
-                // Adjust the path as needed for your Python script
-                string pythonScriptPath = @"C:\python\first.py";
+        //private void GenerateGraphWithPython(string csvFilePath)
+        //{
+        //    try
+        //    {
+        //        // Adjust the path as needed for your Python script
+        //        string pythonScriptPath = @"C:\python\first.py";
             
-                // Set the arguments for the script (the path to the CSV file)
-                string arguments = $"\"{pythonScriptPath}\" \"{csvFilePath}\"";
+        //        // Set the arguments for the script (the path to the CSV file)
+        //        string arguments = $"\"{pythonScriptPath}\" \"{csvFilePath}\"";
 
-                // Create a process to execute the Python script
-                ProcessStartInfo startInfo = new ProcessStartInfo()
-                {
-                    FileName = pythonScriptPath,
-                    Arguments = arguments,
-                    RedirectStandardOutput = true,
-                    RedirectStandardError = true,
-                    UseShellExecute = false,
-                    CreateNoWindow = true,
-                    WorkingDirectory = Path.GetDirectoryName(pythonScriptPath)
-                };
+        //        // Create a process to execute the Python script
+        //        ProcessStartInfo startInfo = new ProcessStartInfo()
+        //        {
+        //            FileName = pythonScriptPath,
+        //            Arguments = arguments,
+        //            RedirectStandardOutput = true,
+        //            RedirectStandardError = true,
+        //            UseShellExecute = false,
+        //            CreateNoWindow = true,
+        //            WorkingDirectory = Path.GetDirectoryName(pythonScriptPath)
+        //        };
 
-                // Start the process
-                using (Process process = Process.Start(startInfo))
-                {
-                    // Wait for the process to finish and output the result
-                    string output = process.StandardOutput.ReadToEnd();
-                    Console.WriteLine(output);
-                    process.WaitForExit();
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("An error occurred while executing the Python script: " + ex.Message);
-            }
-        }
+        //        // Start the process
+        //        using (Process process = Process.Start(startInfo))
+        //        {
+        //            // Wait for the process to finish and output the result
+        //            string output = process.StandardOutput.ReadToEnd();
+        //            Console.WriteLine(output);
+        //            process.WaitForExit();
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Console.WriteLine("An error occurred while executing the Python script: " + ex.Message);
+        //    }
+        //}
 
     }
 

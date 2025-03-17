@@ -396,21 +396,33 @@ namespace NeoCortexApi
             int cellsPerColumn = this.connections.HtmConfig.CellsPerColumn;
             Cell[] cells = new Cell[numColumns * cellsPerColumn];
 
-            // Flag to check if columns are already created
+            if (numColumns <= 0)
+            {
+                throw new System.Exception("Error: numColumns must be greater than zero.");
+            }
+
             bool createNewColumns = matrix.GetObject(0) == null;
 
-            // Parallel initialization of columns if needed
             if (createNewColumns)
             {
+                // Parallel initialization of columns if needed
                 Parallel.For(0, numColumns, i =>
                 {
-                    // Create and assign columns to the matrix in parallel
-                    Column column = new Column(cellsPerColumn, i, this.connections.HtmConfig.SynPermConnected, this.connections.HtmConfig.NumInputs);
-                    matrix.set(i, column);  // Set column at index i
-                                            // Copy cells for each column
-                    for (int j = 0; j < cellsPerColumn; j++)
+                    var column = new Column(cellsPerColumn, i, this.connections.HtmConfig.SynPermConnected, this.connections.HtmConfig.NumInputs);
+
+                    // Lock around matrix modification to ensure thread safety
+                    lock (matrix)
                     {
-                        cells[i * cellsPerColumn + j] = column.Cells[j];
+                        matrix.set(i, column);
+                    }
+
+                    // Lock around the cells array to ensure thread safety while filling it
+                    lock (cells)
+                    {
+                        for (int j = 0; j < cellsPerColumn; j++)
+                        {
+                            cells[i * cellsPerColumn + j] = column.Cells[j];
+                        }
                     }
                 });
             }
@@ -420,9 +432,18 @@ namespace NeoCortexApi
                 for (int i = 0; i < numColumns; i++)
                 {
                     Column column = matrix.GetObject(i);
-                    for (int j = 0; j < cellsPerColumn; j++)
+                    if (column == null)
                     {
-                        cells[i * cellsPerColumn + j] = column.Cells[j];
+                        Console.WriteLine($"Warning: Column at index {i} is unexpectedly null.");
+                        throw new System.Exception($"Column at index {i} is null.");
+                    }
+
+                    lock (cells) // Lock cells array when accessing to avoid thread conflicts
+                    {
+                        for (int j = 0; j < cellsPerColumn; j++)
+                        {
+                            cells[i * cellsPerColumn + j] = column.Cells[j];
+                        }
                     }
                 }
             }
