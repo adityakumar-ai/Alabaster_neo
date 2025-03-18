@@ -125,7 +125,7 @@ namespace UnitTestsProject
         [TestMethod]
         public void TestNewSegmentGrowthWhenMultipleMatchingSegmentsFound()
         {
-            // Initialization
+            // Initialize Temporal Memory, Parallel Processing, Connections, and Stopwatch 
             TemporalMemory tm = new TemporalMemory();
             TemporalMemoryParallelProcessing tmParallel = new TemporalMemoryParallelProcessing();
             Connections cn = new Connections();
@@ -134,19 +134,21 @@ namespace UnitTestsProject
             Parameters p = Parameters.getAllDefaultParameters();
             p.apply(cn);
 
-            stopwatch.Start();
-            tmParallel.InitParallelWithConcurrentDictionary(cn);
-            stopwatch.Stop();
-            TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for InitParallelWithConcurrentDictionary : {elapsed_1.TotalMilliseconds} milliseconds");
-            double initParallelTime = elapsed_1.TotalMilliseconds;
-
+            // Measure and store execution time for single-threaded (tm.Init) method
             stopwatch.Start();
             tm.Init(cn);
             stopwatch.Stop();
             TimeSpan elapsed_2 = stopwatch.Elapsed;
             Console.WriteLine($"Time taken: {elapsed_2.TotalMilliseconds} milliseconds");
             double initTime = elapsed_2.TotalMilliseconds;
+
+            // Measure and store execution time for multi-threaded (tmParallel.InitParallelWithConcurrentDictionary) method 
+            stopwatch.Start();
+            tmParallel.InitParallelWithConcurrentDictionary(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_1 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for InitParallelWithConcurrentDictionary : {elapsed_1.TotalMilliseconds} milliseconds");
+            double initParallelTime = elapsed_1.TotalMilliseconds;
 
             // Define active columns and corresponding active cells
             int[] activeColumns = { 0 };
@@ -161,15 +163,7 @@ namespace UnitTestsProject
             cn.CreateSynapse(dd2, cn.GetCell(6), 0.3);
             cn.CreateSynapse(dd2, cn.GetCell(7), 0.3);
 
-            // Execute computation cycle
-
-            stopwatch.Start();
-            tmParallel.Compute(activeColumns, true);
-            stopwatch.Stop();
-            TimeSpan elapsed_3 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for compute tmParallel(InitParallelWithConcurrentDictionary): {elapsed_3.TotalMilliseconds} milliseconds");
-            double initParallelTimeCompute = elapsed_3.TotalMilliseconds;
-
+            // Measure and store execution time for single-threaded computation (tm.Compute)  
             stopwatch.Start();
             tm.Compute(activeColumns, true);
             stopwatch.Stop();
@@ -177,6 +171,15 @@ namespace UnitTestsProject
             Console.WriteLine($"Time taken: {elapsed_4.TotalMilliseconds} milliseconds for compute");
             double initTimeCompute = elapsed_4.TotalMilliseconds;
 
+            // Measure and store execution time for multi-threaded computation (tmParallel.Compute)  
+            stopwatch.Start();
+            tmParallel.Compute(activeColumns, true);
+            stopwatch.Stop();
+            TimeSpan elapsed_3 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelWithConcurrentDictionary): {elapsed_3.TotalMilliseconds} milliseconds");
+            double initParallelTimeCompute = elapsed_3.TotalMilliseconds;
+
+            // Log performance metrics and store them as a CSV entry  
             LogPerformance(nameof(TestNewSegmentGrowthWhenMultipleMatchingSegmentsFound), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
 
             // Verify that a new segment has been grown
