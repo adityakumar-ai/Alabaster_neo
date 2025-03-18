@@ -1064,6 +1064,7 @@ namespace UnitTestsProject
         }
 
 
+        // Log performance metrics to a CSV file, including method name, initialization times, and computation times
         public static void LogPerformance(string methodName, double initTime, double initParallelTime, double initTimeCompute, double initParallelTimeCompute)
         {
             string csvFilePath = "MethodPerformance_InitParallelWithConcurrentDictionary.csv";
@@ -1071,21 +1072,21 @@ namespace UnitTestsProject
             // Check if the file already contains the test case name
             var existingEntries = File.Exists(csvFilePath) ? File.ReadAllLines(csvFilePath).ToList() : new List<string>();
 
+            // If the method name is not already in the file, log the performance metrics
             if (!existingEntries.Any(line => line.StartsWith(methodName)))
             {
                 using (StreamWriter writer = new StreamWriter(csvFilePath, append: true))
                 {
-                    if (existingEntries.Count == 0) // Write header if file is empty
+                    // Write the header if the file is empty
+                    if (existingEntries.Count == 0)
                     {
                         writer.WriteLine("Test_Case,Init_Time,InitParallel_Time,Compute_Time,ComputeParallel_Time");
                     }
+                    // Log the performance data for the method
                     writer.WriteLine($"{methodName},{initTime},{initParallelTime},{initTimeCompute},{initParallelTimeCompute}");
                 }
             }
         }
-
-
-
 
 
         /// <summary>
