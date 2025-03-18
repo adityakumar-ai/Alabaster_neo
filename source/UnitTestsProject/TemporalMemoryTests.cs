@@ -134,10 +134,10 @@ namespace UnitTestsProject
             p.apply(cn);
 
             stopwatch.Start();
-            tmParallel.InitParallelPartitioned(cn);
+            tmParallel.InitParallelWithConcurrentDictionary(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelWithConcurrentDictionary : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
             stopwatch.Start();
@@ -166,7 +166,7 @@ namespace UnitTestsProject
             tmParallel.Compute(activeColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_6.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelWithConcurrentDictionary): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             stopwatch.Start();
@@ -209,10 +209,10 @@ namespace UnitTestsProject
 
 
             stopwatch.Start();
-            tmParallel.InitParallelPartitioned(cn);
+            tmParallel.InitParallelWithConcurrentDictionary(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelWithConcurrentDictionary : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
             stopwatch.Start();
@@ -246,7 +246,7 @@ namespace UnitTestsProject
             tmParallel.Compute(activeColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_6.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelWithConcurrentDictionary): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             stopwatch.Start();
@@ -286,10 +286,10 @@ namespace UnitTestsProject
             p.apply(cn);
 
             stopwatch.Start();
-            tmParallel.InitParallelPartitioned(cn);
+            tmParallel.InitParallelWithConcurrentDictionary(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelWithConcurrentDictionary : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
             stopwatch.Start();
@@ -330,10 +330,10 @@ namespace UnitTestsProject
 
             // Act
             stopwatch.Start();
-            tmParallel.InitParallelPartitioned(cn);
+            tmParallel.InitParallelWithConcurrentDictionary(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelWithConcurrentDictionary : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
             stopwatch.Start();
@@ -372,10 +372,10 @@ namespace UnitTestsProject
             p.apply(cn);
 
             stopwatch.Start();
-            tmParallel.InitParallelPartitioned(cn);
+            tmParallel.InitParallelWithConcurrentDictionary(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelWithConcurrentDictionary : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
             stopwatch.Start();
@@ -421,10 +421,10 @@ namespace UnitTestsProject
             p.apply(cn);
 
             stopwatch.Start();
-            tmParallel.InitParallelPartitioned(cn);
+            tmParallel.InitParallelWithConcurrentDictionary(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelWithConcurrentDictionary : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
             stopwatch.Start();
@@ -469,7 +469,7 @@ namespace UnitTestsProject
             tmParallel.Compute(activeColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_6.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelWithConcurrentDictionary): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             stopwatch.Start();
@@ -518,10 +518,10 @@ namespace UnitTestsProject
             p.apply(cn);
 
             stopwatch.Start();
-            tmParallel.InitParallelPartitioned(cn);
+            tmParallel.InitParallelWithConcurrentDictionary(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelWithConcurrentDictionary : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
             stopwatch.Start();
@@ -539,7 +539,7 @@ namespace UnitTestsProject
             tmParallel.Compute(activeColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_6.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelWithConcurrentDictionary): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             stopwatch.Start();
@@ -610,10 +610,10 @@ namespace UnitTestsProject
             p.apply(cn);
 
             stopwatch.Start();
-            tmParallel.InitParallelPartitioned(cn);
+            tmParallel.InitParallelWithConcurrentDictionary(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelWithConcurrentDictionary : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
             stopwatch.Start();
@@ -645,7 +645,7 @@ namespace UnitTestsProject
             tmParallel.Compute(activeColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_6.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelWithConcurrentDictionary): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             stopwatch.Start();
@@ -695,10 +695,10 @@ namespace UnitTestsProject
                 p.apply(cn);
 
                 stopwatch.Start();
-                tmParallel.InitParallelPartitioned(cn);
+                tmParallel.InitParallelWithConcurrentDictionary(cn);
                 stopwatch.Stop();
                 TimeSpan elapsed_1 = stopwatch.Elapsed;
-                Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
+                Console.WriteLine($"Time taken for InitParallelWithConcurrentDictionary : {elapsed_1.TotalMilliseconds} milliseconds");
                 double initParallelTime = elapsed_1.TotalMilliseconds;
 
                 stopwatch.Start();
@@ -728,7 +728,7 @@ namespace UnitTestsProject
                 tmParallel.Compute(prevActiveColumns, true);
                 stopwatch.Stop();
                 TimeSpan elapsed_6 = stopwatch.Elapsed;
-                Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_6.TotalMilliseconds} milliseconds");
+                Console.WriteLine($"Time taken for compute tmParallel(InitParallelWithConcurrentDictionary): {elapsed_6.TotalMilliseconds} milliseconds");
                 double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
                 stopwatch.Start();
@@ -792,10 +792,10 @@ namespace UnitTestsProject
             p.apply(cn);
 
             stopwatch.Start();
-            tmParallel.InitParallelPartitioned(cn);
+            tmParallel.InitParallelWithConcurrentDictionary(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelWithConcurrentDictionary : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
             stopwatch.Start();
@@ -848,10 +848,10 @@ namespace UnitTestsProject
             p.apply(cn);
 
             stopwatch.Start();
-            tmParallel.InitParallelPartitioned(cn);
+            tmParallel.InitParallelWithConcurrentDictionary(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelWithConcurrentDictionary : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
             stopwatch.Start();
@@ -880,7 +880,7 @@ namespace UnitTestsProject
             tmParallel.Compute(activeColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_6.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelWithConcurrentDictionary): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             stopwatch.Start();
@@ -942,10 +942,10 @@ namespace UnitTestsProject
             // Initialize TemporalMemory with the Connections object
 
             stopwatch.Start();
-            tmParallel.InitParallelPartitioned(cn);
+            tmParallel.InitParallelWithConcurrentDictionary(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelWithConcurrentDictionary : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -981,7 +981,7 @@ namespace UnitTestsProject
             tmParallel.Compute(prevActiveColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_6.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelWithConcurrentDictionary): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             stopwatch.Start();
@@ -1025,27 +1025,27 @@ namespace UnitTestsProject
 
 
             stopwatch.Start();
-            tmParallel.InitParallelPartitioned(cn);
+            tmParallel.InitParallelWithConcurrentDictionary(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelWithConcurrentDictionary : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
             //stopwatch.Start();
-            //tmParallel.InitParallelPartitioned(cn);
+            //tmParallel.InitParallelWithConcurrentDictionary(cn);
             //stopwatch.Stop();
             //TimeSpan elapsed_2 = stopwatch.Elapsed;
             //Console.WriteLine($"Time taken for InitParallel_Omi : {elapsed_2.TotalMilliseconds} milliseconds");
 
             //stopwatch.Start();
-            //tmParallel.InitParallelPartitioned(cn);
+            //tmParallel.InitParallelWithConcurrentDictionary(cn);
             //stopwatch.Stop();
             //TimeSpan elapsed_3 = stopwatch.Elapsed;
             //Console.WriteLine($"Time taken for InitParallel_Omi : {elapsed_3.TotalMilliseconds} milliseconds");
             //double initParallelTime = elapsed_3.TotalMilliseconds;
 
             //stopwatch.Start();
-            //tmParallel.InitParallelPartitioned(cn);
+            //tmParallel.InitParallelWithConcurrentDictionary(cn);
             //stopwatch.Stop();
             //TimeSpan elapsed_4 = stopwatch.Elapsed;
             //Console.WriteLine($"Time taken for InitParallel_Omi : {elapsed_4.TotalMilliseconds} milliseconds");
@@ -1068,27 +1068,27 @@ namespace UnitTestsProject
             tmParallel.Compute(seq1ActiveColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_6.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelWithConcurrentDictionary): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             //stopwatch.Start();
             //tmParallel.Compute(seq1ActiveColumns, true);
             //stopwatch.Stop();
             //TimeSpan elapsed_7 = stopwatch.Elapsed;
-            //Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_7.TotalMilliseconds} milliseconds");
+            //Console.WriteLine($"Time taken for compute tmParallel(InitParallelWithConcurrentDictionary): {elapsed_7.TotalMilliseconds} milliseconds");
 
             //stopwatch.Start();
             //tmParallel.Compute(seq1ActiveColumns, true);
             //stopwatch.Stop();
             //TimeSpan elapsed_8 = stopwatch.Elapsed;
-            //Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_8.TotalMilliseconds} milliseconds");
+            //Console.WriteLine($"Time taken for compute tmParallel(InitParallelWithConcurrentDictionary): {elapsed_8.TotalMilliseconds} milliseconds");
             //double initParallelTimeCompute = elapsed_8.TotalMilliseconds;
 
             //stopwatch.Start();
             //tmParallel.Compute(seq1ActiveColumns, true);
             //stopwatch.Stop();
             //TimeSpan elapsed_9 = stopwatch.Elapsed;
-            //Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_9.TotalMilliseconds} milliseconds");
+            //Console.WriteLine($"Time taken for compute tmParallel(InitParallelWithConcurrentDictionary): {elapsed_9.TotalMilliseconds} milliseconds");
 
 
 
@@ -1117,7 +1117,7 @@ namespace UnitTestsProject
 
         public static void LogPerformance(string methodName, double initTime, double initParallelTime, double initTimeCompute, double initParallelTimeCompute)
         {
-            string csvFilePath = "MethodPerformance_InitParallelPartitioned.csv";
+            string csvFilePath = "MethodPerformance_InitParallelWithConcurrentDictionary.csv";
 
             // Check if the file already contains the test case name
             var existingEntries = File.Exists(csvFilePath) ? File.ReadAllLines(csvFilePath).ToList() : new List<string>();
@@ -1161,10 +1161,10 @@ namespace UnitTestsProject
             // Initialize TemporalMemory with the Connections object
 
             stopwatch.Start();
-            tmParallel.InitParallelPartitioned(cn);
+            tmParallel.InitParallelWithConcurrentDictionary(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelWithConcurrentDictionary : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -1186,7 +1186,7 @@ namespace UnitTestsProject
             tmParallel.Compute(seq1ActiveColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_6.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelWithConcurrentDictionary): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             stopwatch.Start();
@@ -1224,10 +1224,10 @@ namespace UnitTestsProject
             p.apply(cn);
 
             stopwatch.Start();
-            tmParallel.InitParallelPartitioned(cn);
+            tmParallel.InitParallelWithConcurrentDictionary(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelWithConcurrentDictionary : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -1250,7 +1250,7 @@ namespace UnitTestsProject
             tmParallel.Compute(seq1ActiveColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_6.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelWithConcurrentDictionary): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             stopwatch.Start();
@@ -1294,10 +1294,10 @@ namespace UnitTestsProject
 
 
             stopwatch.Start();
-            tmParallel.InitParallelPartitioned(cn);
+            tmParallel.InitParallelWithConcurrentDictionary(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelWithConcurrentDictionary : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -1316,7 +1316,7 @@ namespace UnitTestsProject
             tmParallel.Compute(seq1ActiveColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_6.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelWithConcurrentDictionary): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             stopwatch.Start();
@@ -1357,10 +1357,10 @@ namespace UnitTestsProject
             p.apply(cn);
 
             stopwatch.Start();
-            tmParallel.InitParallelPartitioned(cn);
+            tmParallel.InitParallelWithConcurrentDictionary(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelWithConcurrentDictionary : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -1384,7 +1384,7 @@ namespace UnitTestsProject
             tmParallel.Compute(activeColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_6.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelWithConcurrentDictionary): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             stopwatch.Start();
@@ -1425,10 +1425,10 @@ namespace UnitTestsProject
 
 
             stopwatch.Start();
-            tmParallel.InitParallelPartitioned(cn);
+            tmParallel.InitParallelWithConcurrentDictionary(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelWithConcurrentDictionary : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -1453,7 +1453,7 @@ namespace UnitTestsProject
             ComputeCycle cc = tmParallel.Compute(activeColumns, true) as ComputeCycle;
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_6.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelWithConcurrentDictionary): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             stopwatch.Start();
@@ -1499,10 +1499,10 @@ namespace UnitTestsProject
 
 
             stopwatch.Start();
-            tmParallel.InitParallelPartitioned(cn);
+            tmParallel.InitParallelWithConcurrentDictionary(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelWithConcurrentDictionary : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -1529,7 +1529,7 @@ namespace UnitTestsProject
             ComputeCycle cc = tmParallel.Compute(activeColumns, true) as ComputeCycle;
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_6.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelWithConcurrentDictionary): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             stopwatch.Start();
@@ -1573,10 +1573,10 @@ namespace UnitTestsProject
             p.apply(cn);
 
             stopwatch.Start();
-            tmParallel.InitParallelPartitioned(cn);
+            tmParallel.InitParallelWithConcurrentDictionary(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelWithConcurrentDictionary : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -1596,7 +1596,7 @@ namespace UnitTestsProject
             ComputeCycle cc = tmParallel.Compute(activeColumns, true) as ComputeCycle;
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_6.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelWithConcurrentDictionary): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             stopwatch.Start();
@@ -1639,10 +1639,10 @@ namespace UnitTestsProject
             p.apply(conn);
 
             stopwatch.Start();
-            tmParallel.InitParallelPartitioned(conn);
+            tmParallel.InitParallelWithConcurrentDictionary(conn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelWithConcurrentDictionary : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -1692,10 +1692,10 @@ namespace UnitTestsProject
 
 
             stopwatch.Start();
-            tmParallel.InitParallelPartitioned(cn);
+            tmParallel.InitParallelWithConcurrentDictionary(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelWithConcurrentDictionary : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -1718,7 +1718,7 @@ namespace UnitTestsProject
             ComputeCycle cycle = tmParallel.Compute(activeColumns, true) as ComputeCycle;
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_6.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelWithConcurrentDictionary): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             stopwatch.Start();
@@ -1762,10 +1762,10 @@ namespace UnitTestsProject
             //tm.Init(cn);
 
             stopwatch.Start();
-            tmParallel.InitParallelPartitioned(cn);
+            tmParallel.InitParallelWithConcurrentDictionary(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelWithConcurrentDictionary : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -1797,7 +1797,7 @@ namespace UnitTestsProject
             tmParallel.Compute(activeColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_6.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelWithConcurrentDictionary): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             stopwatch.Start();
@@ -1844,10 +1844,10 @@ namespace UnitTestsProject
 
 
             stopwatch.Start();
-            tmParallel.InitParallelPartitioned(cn);
+            tmParallel.InitParallelWithConcurrentDictionary(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelWithConcurrentDictionary : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -1879,7 +1879,7 @@ namespace UnitTestsProject
             tmParallel.Compute(activeColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_6.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelWithConcurrentDictionary): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             stopwatch.Start();
@@ -1934,10 +1934,10 @@ namespace UnitTestsProject
             p.apply(cn);
 
             stopwatch.Start();
-            tmParallel.InitParallelPartitioned(cn);
+            tmParallel.InitParallelWithConcurrentDictionary(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelWithConcurrentDictionary : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -1972,7 +1972,7 @@ namespace UnitTestsProject
             tmParallel.Compute(activeColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_6.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelWithConcurrentDictionary): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             stopwatch.Start();
@@ -2015,10 +2015,10 @@ namespace UnitTestsProject
             //tmParallel.InitAsync(cn);
 
             stopwatch.Start();
-            tmParallel.InitParallelPartitioned(cn);
+            tmParallel.InitParallelWithConcurrentDictionary(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelWithConcurrentDictionary : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -2064,10 +2064,10 @@ namespace UnitTestsProject
             //tm.Init(cn);
 
             stopwatch.Start();
-            tmParallel.InitParallelPartitioned(cn);
+            tmParallel.InitParallelWithConcurrentDictionary(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelWithConcurrentDictionary : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -2108,10 +2108,10 @@ namespace UnitTestsProject
             //tm.Init(cn);
 
             stopwatch.Start();
-            tmParallel.InitParallelPartitioned(cn);
+            tmParallel.InitParallelWithConcurrentDictionary(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelWithConcurrentDictionary : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -2149,10 +2149,10 @@ namespace UnitTestsProject
             p.apply(cn);
 
             stopwatch.Start();
-            tmParallel.InitParallelPartitioned(cn);
+            tmParallel.InitParallelWithConcurrentDictionary(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelWithConcurrentDictionary : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -2195,10 +2195,10 @@ namespace UnitTestsProject
             //tm.Init(cn);
 
             stopwatch.Start();
-            tmParallel.InitParallelPartitioned(cn);
+            tmParallel.InitParallelWithConcurrentDictionary(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelWithConcurrentDictionary : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -2238,10 +2238,10 @@ namespace UnitTestsProject
             //tm.Init(cn);
 
             stopwatch.Start();
-            tmParallel.InitParallelPartitioned(cn);
+            tmParallel.InitParallelWithConcurrentDictionary(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelWithConcurrentDictionary : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -2276,10 +2276,10 @@ namespace UnitTestsProject
             //tm.Init(cn);
 
             stopwatch.Start();
-            tmParallel.InitParallelPartitioned(cn);
+            tmParallel.InitParallelWithConcurrentDictionary(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelWithConcurrentDictionary : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -2298,7 +2298,7 @@ namespace UnitTestsProject
             tmParallel.Compute(activeColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_6.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelWithConcurrentDictionary): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             stopwatch.Start();
@@ -2354,10 +2354,10 @@ namespace UnitTestsProject
             //tm.Init(cn);
 
             stopwatch.Start();
-            tmParallel.InitParallelPartitioned(cn);
+            tmParallel.InitParallelWithConcurrentDictionary(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelWithConcurrentDictionary : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -2407,10 +2407,10 @@ namespace UnitTestsProject
             p.apply(cn);
             //tm.Init(cn);
             stopwatch.Start();
-            tmParallel.InitParallelPartitioned(cn);
+            tmParallel.InitParallelWithConcurrentDictionary(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelWithConcurrentDictionary : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -2448,10 +2448,10 @@ namespace UnitTestsProject
             p.apply(cn);
 
             stopwatch.Start();
-            tmParallel.InitParallelPartitioned(cn);
+            tmParallel.InitParallelWithConcurrentDictionary(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelWithConcurrentDictionary : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -2488,10 +2488,10 @@ namespace UnitTestsProject
             //tm.Init(cn);
 
             stopwatch.Start();
-            tmParallel.InitParallelPartitioned(cn);
+            tmParallel.InitParallelWithConcurrentDictionary(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelWithConcurrentDictionary : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -2508,7 +2508,7 @@ namespace UnitTestsProject
             tmParallel.Compute(activeColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_6.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelWithConcurrentDictionary): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             stopwatch.Start();
@@ -2545,10 +2545,10 @@ namespace UnitTestsProject
             //tm.Init(cn);
 
             stopwatch.Start();
-            tmParallel.InitParallelPartitioned(cn);
+            tmParallel.InitParallelWithConcurrentDictionary(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelWithConcurrentDictionary : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -2565,7 +2565,7 @@ namespace UnitTestsProject
             tmParallel.Compute(activeColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_6.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelWithConcurrentDictionary): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             stopwatch.Start();
@@ -2601,10 +2601,10 @@ namespace UnitTestsProject
             //tm.Init(cn);
 
             stopwatch.Start();
-            tmParallel.InitParallelPartitioned(cn);
+            tmParallel.InitParallelWithConcurrentDictionary(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelWithConcurrentDictionary : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -2635,7 +2635,7 @@ namespace UnitTestsProject
             tmParallel.Compute(activeColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_6.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelWithConcurrentDictionary): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             stopwatch.Start();
@@ -2756,10 +2756,10 @@ namespace UnitTestsProject
             //tm.Init(cn);
 
             stopwatch.Start();
-            tmParallel.InitParallelPartitioned(cn);
+            tmParallel.InitParallelWithConcurrentDictionary(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelWithConcurrentDictionary : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -2779,7 +2779,7 @@ namespace UnitTestsProject
             tmParallel.Compute(activeColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_6.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelWithConcurrentDictionary): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             stopwatch.Start();
@@ -2822,10 +2822,10 @@ namespace UnitTestsProject
             p.apply(cn);
 
             stopwatch.Start();
-            tmParallel.InitParallelPartitioned(cn);
+            tmParallel.InitParallelWithConcurrentDictionary(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelWithConcurrentDictionary : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -2850,7 +2850,7 @@ namespace UnitTestsProject
             tmParallel.Compute(activeColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_6.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelWithConcurrentDictionary): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             stopwatch.Start();
@@ -2893,10 +2893,10 @@ namespace UnitTestsProject
 
 
             stopwatch.Start();
-            tmParallel.InitParallelPartitioned(cn);
+            tmParallel.InitParallelWithConcurrentDictionary(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelWithConcurrentDictionary : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
             stopwatch.Start();
@@ -2921,7 +2921,7 @@ namespace UnitTestsProject
             tmParallel.Compute(activeColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_6.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelWithConcurrentDictionary): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             stopwatch.Start();
@@ -2973,10 +2973,10 @@ namespace UnitTestsProject
             //tm.Init(cn);
 
             stopwatch.Start();
-            tmParallel.InitParallelPartitioned(cn);
+            tmParallel.InitParallelWithConcurrentDictionary(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelWithConcurrentDictionary : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -3005,7 +3005,7 @@ namespace UnitTestsProject
             tmParallel.Compute(activeColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_6.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelWithConcurrentDictionary): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             stopwatch.Start();
@@ -3057,10 +3057,10 @@ namespace UnitTestsProject
             TemporalMemoryParallelProcessing tmParallel = new TemporalMemoryParallelProcessing();
 
             stopwatch.Start();
-            tmParallel.InitParallelPartitioned(cn);
+            tmParallel.InitParallelWithConcurrentDictionary(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelWithConcurrentDictionary : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -3080,7 +3080,7 @@ namespace UnitTestsProject
             tmParallel.Compute(activeColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_6.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelWithConcurrentDictionary): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             stopwatch.Start();
@@ -3115,10 +3115,10 @@ namespace UnitTestsProject
             //tm.Init(cn);
 
             stopwatch.Start();
-            tmParallel.InitParallelPartitioned(cn);
+            tmParallel.InitParallelWithConcurrentDictionary(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelWithConcurrentDictionary : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -3153,7 +3153,7 @@ namespace UnitTestsProject
             tmParallel.Compute(zeroColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_6.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelWithConcurrentDictionary): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             stopwatch.Start();
@@ -3188,10 +3188,10 @@ namespace UnitTestsProject
             //tm.Init(cn);
 
             stopwatch.Start();
-            tmParallel.InitParallelPartitioned(cn);
+            tmParallel.InitParallelWithConcurrentDictionary(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelWithConcurrentDictionary : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -3227,7 +3227,7 @@ namespace UnitTestsProject
             tmParallel.Compute(activeColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_6.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelWithConcurrentDictionary): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             stopwatch.Start();
@@ -3261,10 +3261,10 @@ namespace UnitTestsProject
             //tm.Init(cn);
 
             stopwatch.Start();
-            tmParallel.InitParallelPartitioned(cn);
+            tmParallel.InitParallelWithConcurrentDictionary(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelWithConcurrentDictionary : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -3303,7 +3303,7 @@ namespace UnitTestsProject
             tmParallel.Compute(activeColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_6.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelWithConcurrentDictionary): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             stopwatch.Start();
@@ -3343,10 +3343,10 @@ namespace UnitTestsProject
             //tm.Init(cn);
 
             stopwatch.Start();
-            tmParallel.InitParallelPartitioned(cn);
+            tmParallel.InitParallelWithConcurrentDictionary(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelWithConcurrentDictionary : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -3383,7 +3383,7 @@ namespace UnitTestsProject
             tmParallel.Compute(activeColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_6.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelWithConcurrentDictionary): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             stopwatch.Start();
@@ -3422,10 +3422,10 @@ namespace UnitTestsProject
 
 
             stopwatch.Start();
-            tmParallel.InitParallelPartitioned(cn);
+            tmParallel.InitParallelWithConcurrentDictionary(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelWithConcurrentDictionary : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -3445,7 +3445,7 @@ namespace UnitTestsProject
             tmParallel.Compute(activeColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_6.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelWithConcurrentDictionary): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             stopwatch.Start();
@@ -3481,10 +3481,10 @@ namespace UnitTestsProject
             //tm.Init(cn);
 
             stopwatch.Start();
-            tmParallel.InitParallelPartitioned(cn);
+            tmParallel.InitParallelWithConcurrentDictionary(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelWithConcurrentDictionary : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -3503,7 +3503,7 @@ namespace UnitTestsProject
             tmParallel.Compute(activeColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_6.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelWithConcurrentDictionary): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             stopwatch.Start();
@@ -3559,10 +3559,10 @@ namespace UnitTestsProject
 
 
             stopwatch.Start();
-            tmParallel.InitParallelPartitioned(cn);
+            tmParallel.InitParallelWithConcurrentDictionary(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelWithConcurrentDictionary : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -3590,7 +3590,7 @@ namespace UnitTestsProject
             tmParallel.Compute(activeColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_6.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelWithConcurrentDictionary): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             stopwatch.Start();
@@ -3636,10 +3636,10 @@ namespace UnitTestsProject
 
 
             stopwatch.Start();
-            tmParallel.InitParallelPartitioned(cn);
+            tmParallel.InitParallelWithConcurrentDictionary(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelWithConcurrentDictionary : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -3667,7 +3667,7 @@ namespace UnitTestsProject
             tmParallel.Compute(activeColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_6.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelWithConcurrentDictionary): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             stopwatch.Start();
@@ -3761,10 +3761,10 @@ namespace UnitTestsProject
             //tm.Init(cn);
 
             stopwatch.Start();
-            tmParallel.InitParallelPartitioned(cn);
+            tmParallel.InitParallelWithConcurrentDictionary(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelWithConcurrentDictionary : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -3803,7 +3803,7 @@ namespace UnitTestsProject
             tmParallel.Compute(activeColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_6.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelWithConcurrentDictionary): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             stopwatch.Start();
@@ -3846,10 +3846,10 @@ namespace UnitTestsProject
             //tm.Init(cn);
 
             stopwatch.Start();
-            tmParallel.InitParallelPartitioned(cn);
+            tmParallel.InitParallelWithConcurrentDictionary(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelWithConcurrentDictionary : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -3885,10 +3885,10 @@ namespace UnitTestsProject
             //tm.Init(cn);
 
             stopwatch.Start();
-            tmParallel.InitParallelPartitioned(cn);
+            tmParallel.InitParallelWithConcurrentDictionary(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelWithConcurrentDictionary : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -3921,7 +3921,7 @@ namespace UnitTestsProject
             tmParallel.Compute(previousActiveColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_6.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelWithConcurrentDictionary): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             stopwatch.Start();
@@ -3960,10 +3960,10 @@ namespace UnitTestsProject
             //tm.Init(cn);
 
             stopwatch.Start();
-            tmParallel.InitParallelPartitioned(cn);
+            tmParallel.InitParallelWithConcurrentDictionary(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelWithConcurrentDictionary : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -3986,7 +3986,7 @@ namespace UnitTestsProject
             tmParallel.Compute(activeColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_6.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelWithConcurrentDictionary): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             stopwatch.Start();
@@ -4024,10 +4024,10 @@ namespace UnitTestsProject
             //tm.Init(cn);
 
             stopwatch.Start();
-            tmParallel.InitParallelPartitioned(cn);
+            tmParallel.InitParallelWithConcurrentDictionary(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelWithConcurrentDictionary : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -4058,7 +4058,7 @@ namespace UnitTestsProject
             tmParallel.Compute(activeColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_6.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelWithConcurrentDictionary): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             stopwatch.Start();
@@ -4093,10 +4093,10 @@ namespace UnitTestsProject
             //tm.Init(cn);
 
             stopwatch.Start();
-            tmParallel.InitParallelPartitioned(cn);
+            tmParallel.InitParallelWithConcurrentDictionary(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelWithConcurrentDictionary : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -4116,7 +4116,7 @@ namespace UnitTestsProject
             tmParallel.Compute(activeColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_6.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelWithConcurrentDictionary): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             stopwatch.Start();
@@ -4152,10 +4152,10 @@ namespace UnitTestsProject
             //tm.Init(cn);
 
             stopwatch.Start();
-            tmParallel.InitParallelPartitioned(cn);
+            tmParallel.InitParallelWithConcurrentDictionary(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelWithConcurrentDictionary : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -4180,7 +4180,7 @@ namespace UnitTestsProject
             tmParallel.Compute(activeColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_6.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelWithConcurrentDictionary): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             stopwatch.Start();
@@ -4227,10 +4227,10 @@ namespace UnitTestsProject
             //tm.Init(cn);
 
             stopwatch.Start();
-            tmParallel.InitParallelPartitioned(cn);
+            tmParallel.InitParallelWithConcurrentDictionary(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelWithConcurrentDictionary : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -4256,7 +4256,7 @@ namespace UnitTestsProject
             tmParallel.Compute(activeColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_6.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelWithConcurrentDictionary): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             stopwatch.Start();
@@ -4309,10 +4309,10 @@ namespace UnitTestsProject
             //tm.Init(cn);
 
             stopwatch.Start();
-            tmParallel.InitParallelPartitioned(cn);
+            tmParallel.InitParallelWithConcurrentDictionary(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelWithConcurrentDictionary : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -4340,7 +4340,7 @@ namespace UnitTestsProject
             tmParallel.Compute(activeColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_6.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelWithConcurrentDictionary): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             stopwatch.Start();
@@ -4384,10 +4384,10 @@ namespace UnitTestsProject
             p.apply(cn);
             //tm.Init(cn);
             stopwatch.Start();
-            tmParallel.InitParallelPartitioned(cn);
+            tmParallel.InitParallelWithConcurrentDictionary(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelWithConcurrentDictionary : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -4420,7 +4420,7 @@ namespace UnitTestsProject
             tmParallel.Compute(activeColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_6.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelWithConcurrentDictionary): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             stopwatch.Start();
@@ -4462,10 +4462,10 @@ namespace UnitTestsProject
 
 
             stopwatch.Start();
-            tmParallel.InitParallelPartitioned(cn);
+            tmParallel.InitParallelWithConcurrentDictionary(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelWithConcurrentDictionary : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -4493,7 +4493,7 @@ namespace UnitTestsProject
             tmParallel.Compute(activeColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_6.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelWithConcurrentDictionary): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             stopwatch.Start();
@@ -4528,10 +4528,10 @@ namespace UnitTestsProject
             //tm.Init(cn);
 
             stopwatch.Start();
-            tmParallel.InitParallelPartitioned(cn);
+            tmParallel.InitParallelWithConcurrentDictionary(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelWithConcurrentDictionary : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -4582,10 +4582,10 @@ namespace UnitTestsProject
             //tm.Init(cn);
 
             stopwatch.Start();
-            tmParallel.InitParallelPartitioned(cn);
+            tmParallel.InitParallelWithConcurrentDictionary(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelWithConcurrentDictionary : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -4627,10 +4627,10 @@ namespace UnitTestsProject
             //tm.Init(cn);
 
             stopwatch.Start();
-            tmParallel.InitParallelPartitioned(cn);
+            tmParallel.InitParallelWithConcurrentDictionary(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelWithConcurrentDictionary : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -4653,7 +4653,7 @@ namespace UnitTestsProject
             tmParallel.Compute(activeColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_6.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelWithConcurrentDictionary): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             stopwatch.Start();
@@ -4698,10 +4698,10 @@ namespace UnitTestsProject
             //tm.Init(cn);
 
             stopwatch.Start();
-            tmParallel.InitParallelPartitioned(cn);
+            tmParallel.InitParallelWithConcurrentDictionary(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelWithConcurrentDictionary : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -4738,7 +4738,7 @@ namespace UnitTestsProject
             tmParallel.Compute(activeColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_6.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelWithConcurrentDictionary): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             stopwatch.Start();
@@ -4781,10 +4781,10 @@ namespace UnitTestsProject
             //tm.Init(cn);
 
             stopwatch.Start();
-            tmParallel.InitParallelPartitioned(cn);
+            tmParallel.InitParallelWithConcurrentDictionary(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelWithConcurrentDictionary : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -4805,7 +4805,7 @@ namespace UnitTestsProject
             tmParallel.Compute(activeColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_6.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelWithConcurrentDictionary): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             stopwatch.Start();
@@ -4872,10 +4872,10 @@ namespace UnitTestsProject
             //tm.Init(cn);
 
             stopwatch.Start();
-            tmParallel.InitParallelPartitioned(cn);
+            tmParallel.InitParallelWithConcurrentDictionary(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelWithConcurrentDictionary : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -4906,7 +4906,7 @@ namespace UnitTestsProject
             tmParallel.Compute(activeColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_6.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelWithConcurrentDictionary): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             stopwatch.Start();
@@ -4941,10 +4941,10 @@ namespace UnitTestsProject
             //tm.Init(cn);
 
             stopwatch.Start();
-            tmParallel.InitParallelPartitioned(cn);
+            tmParallel.InitParallelWithConcurrentDictionary(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelWithConcurrentDictionary : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -4963,7 +4963,7 @@ namespace UnitTestsProject
             tmParallel.Compute(activeColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_6.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelWithConcurrentDictionary): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             stopwatch.Start();
@@ -4999,10 +4999,10 @@ namespace UnitTestsProject
 
 
             stopwatch.Start();
-            tmParallel.InitParallelPartitioned(cn);
+            tmParallel.InitParallelWithConcurrentDictionary(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelWithConcurrentDictionary : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -5033,7 +5033,7 @@ namespace UnitTestsProject
             tmParallel.Compute(activeColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_6.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelWithConcurrentDictionary): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             stopwatch.Start();
@@ -5067,10 +5067,10 @@ namespace UnitTestsProject
             //tm.Init(cn);
 
             stopwatch.Start();
-            tmParallel.InitParallelPartitioned(cn);
+            tmParallel.InitParallelWithConcurrentDictionary(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for InitParallelPartitioned : {elapsed_1.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for InitParallelWithConcurrentDictionary : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
 
@@ -5089,7 +5089,7 @@ namespace UnitTestsProject
             tmParallel.Compute(activeColumns, true);
             stopwatch.Stop();
             TimeSpan elapsed_6 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for compute tmParallel(InitParallelPartitioned): {elapsed_6.TotalMilliseconds} milliseconds");
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelWithConcurrentDictionary): {elapsed_6.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_6.TotalMilliseconds;
 
             stopwatch.Start();
