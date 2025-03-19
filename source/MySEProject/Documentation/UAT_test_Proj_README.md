@@ -40,7 +40,10 @@ Temporal Memory (TM) is an essential component of Hierarchical Temporal Memory (
 
 
 ## Performance Comparison
-https://github.com/adityakumar-ai/Alabaster_neo/blob/UAT_Test/source/MySEProject/Time_Comparision_Output/(Init%204)TestDestroySegmentsWithTooFewSynapsesToBeMatching.png
+
+
+![Single-threaded Init Loop](https://github.com/adityakumar-ai/Alabaster_neo/blob/UAT_Test/source/MySEProject/Time_Comparision_Output/(Init%204)TestDestroySegmentsWithTooFewSynapsesToBeMatching.png)
+
 We are comparing the performance of the newly modified method with the old method based on execution time.
 
 ### Approach:
