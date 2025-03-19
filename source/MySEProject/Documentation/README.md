@@ -1,33 +1,72 @@
-# Implementation of Temporal Memory Parallel Version
-## Group name- Alabaster_neo
-
-
-This group project aims to implement the parallel version of Temporal Memory. As this algorithm is currenty implemented as single threaded process, the task is to re-implement specific algorithmic components in order to benefit from multithreading and Enhance performance and efficiency.
-
-Enhancing Temporal Memory Algorithm with Parallelization
-To Implement this, in short:
-
-* We first understand the basic concept of Temporal Memory Algoritm and its working.
-* Replacing the oringal SYNC code, FOR loops and making use of async methods and parallel loops
-* Replaced traditional for loops with Parallel.For loops to take advantage of multi-threading capabilities
-* Creating addional unit tests and making sure the existing unit test are succesful with the parallel TM Implementation
-* Ensured all existing unit tests passed successfully to maintain algorithm integrity and correctness.
-* Comparing Performances/Creating graphs
-* Conducted performance comparisons between the original and parallel implementations.
-* Measured metrics such as execution time, CPU utilization, and memory usage.
+# **ML 24/25-06 Implement Temporal Memory Parallel Version**
 
 
 ## Introduction
 
-Temporal Memory is a foundational algorithm in Hierarchical Temporal Memory (HTM) systems, designed for sequence learning and prediction. While effective, the current implementation operates sequentially, which limits its scalability and performance when processing large datasets or handling real-time applications.
+The Temporal Memory (TM) algorithm is a key component in hierarchical temporal memory (HTM), which is inspired by the human neocortex. This algorithm is responsible for learning and predicting patterns in sequential data, such as time-series or sensor data. While the algorithm performs well in a single-threaded implementation, there is a significant opportunity to improve its performance by leveraging multithreading.
 
-This project seeks to overcome these limitations by introducing parallelization into the Temporal Memory algorithm. Leveraging modern multi-threading techniques, our objective is to enhance efficiency, reduce execution time, and maintain the algorithm's predictive capabilities and correctness.
+Currently, the Temporal Memory algorithm is implemented as a single-threaded process, which means it processes tasks sequentially. However, for applications involving large datasets or real-time data processing, this can become a bottleneck. The task is to reimplement specific parts of the algorithm to make use of multithreading techniques, enabling concurrent execution of independent tasks. By parallelizing the code, we aim to reduce execution time, improve CPU utilization, and enhance overall system efficiency.
 
-Additionally, the project involves comparing and analyzing the performance of both single-threaded and multi-threaded implementations, focusing on key metrics such as execution time, CPU utilization, and scalability. Our aim is to deliver a significant performance improvement while preserving the algorithm's integrity.
+This project focuses on identifying the parts of the Temporal Memory algorithm that can be parallelized, refactoring them to work asynchronously, and measuring the performance improvements. Additionally, we will compare the performance of the original single-threaded implementation with the optimized multithreaded version, using a variety of metrics including execution time and memory usage.
+
+
+## Overview of Temporal Memory Algorithm with Parallelization
+
+The **Temporal Memory (TM) Algorithm** is currently implemented as a single-threaded process, meaning that it processes tasks one by one, which can be slow for larger datasets or real-time applications. The task is to re-implement specific algorithmic components to leverage the power of **multithreading**, thereby enhancing performance and efficiency. By enabling parallel execution, we aim to reduce processing time and allow the algorithm to scale effectively with larger datasets, making it more suitable for real-time or big data applications. The goal is to optimize the underlying processes that can be executed concurrently, ensuring faster and more efficient performance without compromising the integrity of the algorithm.
 
 
 
-Temporal Memory (TM) is an essential component of Hierarchical Temporal Memory (HTM), a theoretical framework inspired by the structure and functionality of the human neocortex. Parallel processing in TM aims to enhance its computational efficiency and scalability, particularly for large-scale implementations.
+## Methodology
+
+### Enhancing Temporal Memory Algorithm with Parallelization:
+
+To implement the parallelization improvement, the following steps were taken:
+
+### 1. **Understanding Temporal Memory Algorithm**:  
+   - First, we thoroughly understood the basic concept of Temporal Memory and how it works in the context of the current implementation.
+
+### 2. **Replacing Original Synchronous Code**:  
+   - The original synchronous code was analyzed, and critical parts that could be parallelized, such as `for` loops, were identified and replaced with **Parallel.For loops** to enable concurrent execution.
+
+### 3. **Parallelizing the Code**:  
+   - Replaced traditional **for loops** with **Parallel.For loops** to leverage multithreading capabilities, ensuring tasks could run concurrently, thus reducing execution time.
+
+### 4. **Creating Four Methods with Different Logic for Optimization**:  
+   - We created four different methods, each implementing a different logic or concept to optimize the execution time:
+     - **Single_Threaded_Optimized_Init()**
+     - **InitParallelRegularDictionary()**
+     - **InitParallelWithConcurrentDictionary()**
+     - **InitParallelPartitioned()**
+     - Each method was designed to test various parallelization strategies, optimizations, and execution patterns.
+     - This allowed us to compare and contrast the performance of the different methods under similar conditions and determine which one provided the best optimization for the Temporal Memory algorithm.
+
+### 5. **Performance Analysis**:  
+   - After implementing the parallelized methods, we analyzed the results by comparing the performance of the original and parallel implementations.
+   - We measured metrics like **execution time**, **CPU utilization**, **memory usage**, and more.
+   - For each method, we calculated performance statistics such as **mean**, **maximum**, **minimum**, **variance**, **standard deviation**, etc., to make an informed decision on which method performed better.
+
+### 6. **Visualization**:  
+   - We visualized the performance improvements using **graphs** and **charts** to clearly highlight key metrics like **execution time** and **initialization time**.
+   - The graphs helped in visually comparing the two implementations and provided insights into the performance difference between the original and parallelized Temporal Memory algorithm.
+
+
+
+## Implementation
+
+### 1. **Single-threaded `Init()` Method**
+
+- The original `Init()` method is implemented in a **single-threaded** fashion.
+- It uses a **single `for` loop** to iterate through all columns and initialize them one at a time.
+- The loop processes each column **sequentially**, meaning each iteration depends on the previous one.
+- Inside this loop, there is another `for` loop to initialize the cells within each column, also processed sequentially.
+  
+This **sequential execution** of tasks can create performance bottlenecks, especially when dealing with a large number of columns or cells. This is the part of the code where parallelization can bring significant performance improvements.
+
+![Single-threaded Init Loop](file:///C:/Users/Omkar/Desktop/Single_thread_init.png)
+
+
+
+
 
 
 ## Technical Details
