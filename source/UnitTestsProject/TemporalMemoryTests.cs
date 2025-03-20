@@ -27,6 +27,7 @@ namespace UnitTestsProject
         /// </summary>
         public TestContext TestContext
         {
+
             get { return TestContextInstance; }
             set { TestContextInstance = value; }
         }
@@ -39,6 +40,7 @@ namespace UnitTestsProject
         /// <returns>Returns true if the collections are disjoint; otherwise, false.</returns>
         private static bool areDisjoined<T>(ICollection<T> arr1, ICollection<T> arr2)
         {
+            
             foreach (var item in arr1)
             {
                 if (arr2.Contains(item))
@@ -4810,5 +4812,51 @@ namespace UnitTestsProject
 
             Assert.IsFalse(cc.ActiveCells.SequenceEqual(burstingCells));
         }
+
+        [TestMethod]
+        public void TestBasicSequenceLearningAndRecallParallel()
+        {
+            // Arrange
+            TemporalMemory tm = new TemporalMemory();
+            TemporalMemoryParallelProcessing tmParallel = new TemporalMemoryParallelProcessing();
+            Connections cn = new Connections();
+            Stopwatch stopwatch = new Stopwatch();
+
+            Parameters p = GetDefaultParameters(null, KEY.COLUMN_DIMENSIONS, new int[] { 64 });
+            p.apply(cn);
+
+            // Initialize single-threaded and parallel versions
+            tm.Init(cn);
+            tmParallel.InitParallelWithConcurrentDictionary(cn);
+
+            // Define a basic sequence of active columns
+            int[] sequenceActiveColumns = { 0, 1, 2, 3, 4, 5, 6 };
+
+            // Act
+            // Learn the sequence in single-threaded mode
+            stopwatch.Start();
+            ComputeCycle singleThreadedCycle = tm.Compute(sequenceActiveColumns, true) as ComputeCycle;
+            stopwatch.Stop();
+            TimeSpan singleThreadedComputeTime = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for single-threaded Compute: {singleThreadedComputeTime.TotalMilliseconds} milliseconds");
+
+            // Learn the sequence in parallel mode
+            stopwatch.Restart();
+            ComputeCycle parallelCycle = tmParallel.Compute(sequenceActiveColumns, true) as ComputeCycle;
+            stopwatch.Stop();
+            TimeSpan parallelComputeTime = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for parallel Compute: {parallelComputeTime.TotalMilliseconds} milliseconds");
+
+            // Recall the sequence in parallel mode
+            ComputeCycle recallCycle = tmParallel.Compute(sequenceActiveColumns, false) as ComputeCycle;
+
+            // Assert
+            Assert.IsTrue(recallCycle.ActiveCells.Count > 0, "No active cells were recalled.");
+        }
+
+        
+
+
+
     }
 }
