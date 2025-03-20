@@ -60,7 +60,7 @@ To implement the parallelization improvement, the following steps were taken:
   
 This **sequential execution** of tasks can create performance bottlenecks, especially when dealing with a large number of columns or cells. This is the part of the code where parallelization can bring significant performance improvements.
 
-![Single-threaded Init Loop](file:///C:/Users/Omkar/Desktop/Single_thread_init.png)
+![Single-threaded Init Loop](https://github.com/adityakumar-ai/Alabaster_neo/blob/UAT_Test/source/MySEProject/All_Images/Single_thread_init.jpg)
 
 ### **2. Implementing Multithreading (Key Changes)**  
 
