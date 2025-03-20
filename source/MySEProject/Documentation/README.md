@@ -25,13 +25,11 @@ To implement the parallelization improvement, the following steps were taken:
 ### 1. **Understanding Temporal Memory Algorithm**:  
    - First, we thoroughly understood the basic concept of Temporal Memory and how it works in the context of the current implementation.
 
-### 2. **Replacing Original Synchronous Code**:  
-   - The original synchronous code was analyzed, and critical parts that could be parallelized, such as `for` loops, were identified and replaced with **Parallel.For loops** to enable concurrent execution.
-
-### 3. **Parallelizing the Code**:  
+### 2. **Replacing Original Synchronous Code**  **Parallelizing the Code**: :  
+   - The original synchronous code was analyzed, and critical parts that could be parallelized, such as `for` loops, were identified and replaced with **Parallel.For loops** to enable concurrent execution. 
    - Replaced traditional **for loops** with **Parallel.For loops** to leverage multithreading capabilities, ensuring tasks could run concurrently, thus reducing execution time.
 
-### 4. **Creating Four Methods with Different Logic for Optimization**:  
+### 3. **Creating Four Methods with Different Logic for Optimization**:  
    - We created four different methods, each implementing a different logic or concept to optimize the execution time:
      - **Single_Threaded_Optimized_Init()**
      - **InitParallelRegularDictionary()**
@@ -40,12 +38,12 @@ To implement the parallelization improvement, the following steps were taken:
      - Each method was designed to test various parallelization strategies, optimizations, and execution patterns.
      - This allowed us to compare and contrast the performance of the different methods under similar conditions and determine which one provided the best optimization for the Temporal Memory algorithm.
 
-### 5. **Performance Analysis**:  
+### 4. **Performance Analysis**:  
    - After implementing the parallelized methods, we analyzed the results by comparing the performance of the original and parallel implementations.
    - We measured metrics like **execution time**, **CPU utilization**, **memory usage**, and more.
    - For each method, we calculated performance statistics such as **mean**, **maximum**, **minimum**, **variance**, **standard deviation**, etc., to make an informed decision on which method performed better.
 
-### 6. **Visualization**:  
+### 5. **Visualization**:  
    - We visualized the performance improvements using **graphs** and **charts** to clearly highlight key metrics like **execution time** and **initialization time**.
    - The graphs helped in visually comparing the two implementations and provided insights into the performance difference between the original and parallelized Temporal Memory algorithm.
 
@@ -64,140 +62,288 @@ This **sequential execution** of tasks can create performance bottlenecks, espec
 
 ![Single-threaded Init Loop](https://github.com/adityakumar-ai/Alabaster_neo/blob/UAT_Test/source/MySEProject/All_Images/Single_thread_init.jpg)
 
+### **2. Implementing Multithreading (Key Changes)**  
+
+After analyzing the single-threaded implementation, we identified opportunities to parallelize specific operations to improve performance. The key changes in the multithreaded implementation include:  
+
+- **Replacing traditional `for` loops with `Parallel.For`** to distribute work across multiple threads.  
+- **Ensuring thread safety** by using appropriate data structures such as `ConcurrentDictionary`.  
+- **Minimizing synchronization overhead** while maintaining correctness.  
+
+#### **Key Code Modification (Parallel Loop)**  
+Instead of sequentially processing columns and cells, we implemented parallel execution:  
+
+![Single-threaded Init Loop](file:///C:/Users/Omkar/Desktop/Single_thread_init.png)
+
+
+## **Key Optimizations for Compute ActivateDendrites():**  
+
+✅ **Implemented Parallel Processing for Faster Execution**  
+- ⚡ **Used `Parallel.ForEach`** – Enables multi-threaded processing of synapses.  
+- 🚀 **Reduces Execution Time** – Processes active and matching segments concurrently.  
+
+✅ **Replaced List with `ConcurrentBag` for Thread Safety**  
+- 🔄 **Ensures Safe Multi-Threaded Access** – Eliminates race conditions when adding segments.  
+- 📈 **Improves Performance** – Allows segments to be processed independently in parallel loops.  
+
+✅ **Sorted Active and Matching Segments Efficiently**  
+- 🔍 **Converted `ConcurrentBag` to List Before Sorting** – Ensures optimal sorting without affecting parallel execution.  
+- ⏩ **Uses `GetComparer(conn.NextSegmentOrdinal)`** – Maintains correct order with minimal overhead.  
+
+✅ **Optimized Learning Process with Parallel Execution**  
+- ⚙ **Processes Segment Activity in Parallel** – Uses `Parallel.ForEach` for recording segment activity.  
+- ⏳ **Reduces Bottleneck in Learning Phase** – Ensures faster updates to segment records.  
+
+✅ **Removed Redundant Code and Simplified Logic**  
+- ❌ **Removed Unnecessary Data Copies** – Avoids redundant operations on `cycle.ActiveSegments` and `cycle.MatchingSegments`.  
+- 🎯 **Optimized Predictive Cell Handling** – Calls `conn.ClearPredictiveCells()` efficiently before processing next iteration.  
+
+
+
+### **3. Implementing Four Optimization Methods**  
+
+To optimize the initialization process further, we developed four different methods, each implementing a unique approach to parallelization. These methods aim to improve execution time and efficiency while maintaining correctness.  
+
+We will describe each method in detail:  
+
+
+#### **3.1 Single_Threaded_Optimized_Init()**  
+
+This method refines the single-threaded initialization process by improving efficiency and reducing unnecessary operations.  
+
+##### **Key Optimizations:**  
+
+✅ **Used Null-Coalescing Operator (`??`) Instead of Ternary Operator (`? :`)**  
+- ⚡ **Faster Execution** – Eliminates unnecessary type casting, improving performance.  
+- 👁 **More Readable** – `??` provides a cleaner approach for checking and assigning a default value.  
+
+✅ **Reduced Redundant Checks with `createNewColumns` Flag**  
+- 🚀 **Avoids Rechecking in Every Loop Iteration** – Previously, `matrix.GetObject(0) == null` was checked multiple times inside the loop.  
+- 🎯 **Stores the Result in a Variable** – The check is performed once before the loop, significantly reducing overhead.  
+
+✅ **Removed Unnecessary Variable (`colZero`)**  
+- ❌ Eliminates the `colZero` Variable – It was redundant and added unnecessary complexity.  
+- ✅ Uses a Boolean Flag (`createNewColumns`) – More efficient than checking the same condition repeatedly.  
+
+
+
+![Single-threaded Init Loop](file:///C:/Users/Omkar/Desktop/Single_thread_init.png)
+
+---
+
+#### **3.2 InitParallelRegularDictionary()**  
+
+This method enhances the initialization process by leveraging multithreading for improved performance and efficiency.  
+
+##### **Key Improvements & Optimizations:**  
+
+✅ **1. Used `Parallel.For` for Parallel Column Initialization**  
+- ⚡ **Faster Execution** – Distributes column creation and cell assignment across multiple threads.  
+- 📈 **Optimized for Large Data Sets** – Improves performance significantly when handling large numbers of columns.  
+
+✅ **2. Reduced Redundant Checks with `createNewColumns` Flag**  
+- 🚀 **Avoids Rechecking in Every Loop Iteration** – The original code checked `matrix.GetObject(0) == null` multiple times inside the loop.  
+- 🎯 **Stored the Result in a Variable** – The condition is checked once before the loop, reducing unnecessary computations.  
+
+✅ **3. Moved Column Creation and Cell Copying Inside Parallel Loop**  
+- 🔄 **Consolidates Operations** – Column creation and the copying of cells are done together in parallel, ensuring better use of resources.  
+- ❌ **Eliminated Sequential Loops** – By merging column creation, matrix assignment, and cell copying, the code reduces overhead.  
+
+✅ **4. Improved Thread Safety with Direct Matrix Set**  
+- 🛡 **Minimized Synchronization Issues** – `Parallel.For` ensures columns are set in parallel, with thread-safe operations using `lock` mechanisms.  
+- ⚡ **Avoids Extra Loops** – The original method had a separate loop for setting the matrix; now it's handled within the parallel execution block.  
+
+
+
+![Single-threaded Init Loop](file:///C:/Users/Omkar/Desktop/Single_thread_init.png)
+
+---
+
+#### 3.3: InitParallelWithConcurrentDictionary()
+
+This method improves the initialization of columns using **`Parallel.For`** and **`ConcurrentDictionary`**, ensuring better synchronization and faster execution.
+
+## ✅ Key Optimizations & Enhancements:
+
+### ✅ 1. Used `Parallel.For` for Parallel Column Initialization
+- ⚡ **Faster Execution** – Distributes column creation and cell assignment across multiple threads.
+- 📈 **Optimized for Large Data Sets** – Enhances performance significantly when handling thousands of columns.
+
+### ✅ 2. Reduced Redundant Checks with `createNewColumns` Flag
+- 🚀 **Avoids Rechecking in Every Loop Iteration** – Prevents unnecessary evaluations inside the loop.
+- 🎯 **Stored the Result in a Variable** – The `matrix.GetObject(0) == null` condition is checked only once before the loop.
+
+### ✅ 3. Utilized `ConcurrentDictionary` for Thread Safety
+- 🛡 **Improved Synchronization** – Ensures thread-safe column storage during parallel execution.
+- ⚡ **Avoids Data Race** – Protects against race conditions by handling dictionary operations atomically.
+
+### ✅ 4. Parallelized Column Creation and Cell Copying
+- 🔄 **Optimized for Performance** – Merges column creation, matrix assignment, and cell copying in parallel, maximizing thread utilization.
+- ❌ **Eliminated Sequential Loops** – Reduces overhead by removing unnecessary separate loops.
+
+---
+
+#### 📌 Why `ConcurrentDictionary`?
+Unlike locking mechanisms that might cause performance bottlenecks, `ConcurrentDictionary` allows safe parallel insertions without blocking other threads. This ensures that multiple threads can update the column dictionary concurrently before committing changes to the matrix.
+
+## 📌 Performance Gains:
+- **Previous Implementation:** Required locking (`lock(matrix)`, `lock(cells)`) for thread safety.
+- **Optimized Implementation:** Uses `ConcurrentDictionary`, reducing contention and improving execution time.
 
 
 
 
+![Single-threaded Init Loop](file:///C:/Users/Omkar/Desktop/Single_thread_init.png)
 
-## Technical Details
-
-### Key Changes
-1. **Replacing Sequential Loops**: Traditional `for` loops were replaced with `Parallel.For` to enable multithreaded execution.
-2. **Async Methods**: Time-intensive operations were refactored to use asynchronous methods for better task concurrency.
-3. **Concurrency Management**: Added locking mechanisms where necessary to ensure thread safety and avoid race conditions.
+---
 
 
+#### 3.4: `InitParallelPartitioned()`
 
-## Performance Comparison
+This method enhances column initialization by using **partitioned parallel execution**, ensuring efficient performance, memory optimization, and thread safety.
 
-We are comparing the performance of the newly modified method with the old method based on execution time.
+---
 
-### Approach:
-- **Old Method**: The execution time of the `Init` method was measured to evaluate its performance.
-- **New Method**: The execution time of the `InitAsync` method in the `TemporalMemoryParallelProcessing` class was measured to compare with the old method.
+### ✅ Key Optimizations & Enhancements:
 
-### Observations:
-- The comparison focuses on the time taken by both methods to complete the same operation.
-- The results provide insights into the performance improvements achieved with the new asynchronous implementation.
+### ⚡ 1. **Partitioned Parallel Initialization**
+- 🚀 **Faster Execution** – Processes columns in smaller partitions, reducing overhead and optimizing performance for large datasets.
+- 📊 **Optimized for Large Data Sets** – Enhances performance when dealing with extensive data by dividing tasks into smaller, manageable chunks.
 
+### 🛡 2. **Thread-Safe Matrix Updates**
+- ✅ **Ensures Safe Updates** – Uses `lock(matrix)` to prevent concurrent access issues while modifying the matrix in parallel.
+- ⚡ **Minimizes Synchronization Overhead** – The locking mechanism ensures safety while reducing performance bottlenecks.
 
+### 🚀 3. **Column and Cell Validation**
+- ✔ **Validates Parameters** – Ensures a valid column count and correct `cellsPerColumn` to maintain data integrity.
+- 🔄 **Prevents Initialization Errors** – Ensures that only valid and appropriate data is processed.
 
-### Difference Between async/await and Synchronous Execution:
+### ⚠ 4. **Index Safety Check**
+- 🔒 **Prevents Out-of-Range Errors** – Ensures `cellIndex` remains within bounds during parallel execution.
+- 💡 **Enhances Reliability** – Protects against runtime exceptions by validating array access.
 
-Synchronous Execution: Tasks are performed one after another, with each task blocking the execution of subsequent tasks until it is completed. This approach can lead to inefficiency in cases where tasks involve significant wait times.
+### 💾 5. **Memory Optimization**
+- 🔄 **Reuses Memory** – Efficiently utilizes allocated memory for better performance.
+- 🚀 **Optimized Resource Usage** – Reduces memory overhead by avoiding unnecessary object creation.
 
-Asynchronous Execution: The async/await pattern allows tasks to run concurrently without blocking the current thread. While waiting for a task to complete, the system can continue executing other tasks or handle other operations, leading to improved responsiveness and potentially faster execution in parallel scenarios.
+---
 
+## 📌 **Why Partitioning?**
+Partitioning the columns into chunks prevents excessive thread contention and overhead, leading to improved scalability and responsiveness.
 
-
-
-### Time Comparision 
-
-eg:- Method Name :- TestNewSegmentGrowthWhenMultipleMatchingSegmentsFound()
-
-
-| Method                                  | Difference (ms) | Percentage Time Increase (Compared to `Init`) |
-|-----------------------------------------|-----------------|-----------------------------------------------|
-| Init                                    | -               | -                                             |
-| InitAsync (Using Parallel.for)          | 3.9923          | 19.24%                                        |
-| async await method (Using Parallel.for) | 4.196           | 20.22%                                        |
-
-### Conclusion:
-This comparison helps determine whether the newly introduced asynchronous method (`InitAsync`) offers better performance and efficiency compared to the old synchronous method (`Init`).
-
+## 📌 **Performance Gains:**
+- 🔥 **Previous Method:** Used direct `Parallel.For`, which may cause overhead when working with large matrices.
+- ⚡ **Optimized Method:** Uses `Partitioner.Create()` to balance workload and maximize efficiency.
 
 
-## Single_Threaded_Optimized_Init()
+![Single-threaded Init Loop](file:///C:/Users/Omkar/Desktop/Single_thread_init.png)
 
-### 1. Used Null-Coalescing Operator (`??`) Instead of Ternary Operator (`? :`)
-- ✅ **Faster Execution** – Eliminates unnecessary type casting.
-- ✅ **More Readable** – `??` is a cleaner approach for checking and assigning a default value.
 
-### 2. Reduced Redundant Checks with `createNewColumns` Flag
-- ✅ **Avoids Rechecking in Every Loop Iteration** – The original code checked `matrix.GetObject(0) == null` multiple times inside the loop.
-- ✅ **Stores the Result in a Variable** – The check is done once before the loop, making it faster.
+---
+### 📊 Method Comparison
 
-### 3. Removed Unnecessary Variable (`colZero`)
-- ✅ **Eliminates the `colZero` Variable** – It was unnecessary and just duplicated the check.
-- ✅ **Uses a Boolean Flag (`createNewColumns`)** – More efficient than checking the same condition repeatedly.
+| **Metric**              | **InitParallel** | **InitCompute** | **InitCount** | **InitParallelPartitioned** |
+|-------------------------|:---------------:|:--------------:|:------------:|:--------------------------:|
+| **Execution Speed**      | **✔** | **✔** | **✔** | **✔** |
+| **Parallel Processing**  | **✔** | **❌** | **✔** | **✔** |
+| **Thread Safety**        | **❌** | **❌** | **✔** | **✔** |
+| **Column Creation**      | **✔** | **❌** | **✔** | **✔** |
+| **Cell Validation**      | **❌** | **❌** | **✔** | **✔** |
 
 
 
-### `InitParallelRegularDictionary()
+## 4. Performance Analysis and Best Method Selection
 
-### 1. Used `Parallel.For` for Parallel Column Initialization**
-   - ✅ **Faster Execution** – Distributes column creation and cell assignment across multiple threads.
-   - ✅ **Optimized for Large Data Sets** – Improves performance significantly when handling large numbers of columns.
+In this section, we analyze the performance of each method by calculating key metrics such as Mean, Max, Min, Standard Deviation, Variance, and worst-case performance comparisons for both **Initialization Time** and **Compute Time**. These calculations will help us determine the best performing method by comparing the efficiency and consistency across different methods.
 
-### 2. Reduced Redundant Checks with `createNewColumns` Flag**
-   - ✅ **Avoids Rechecking in Every Loop Iteration** – The original code checked `matrix.GetObject(0) == null` multiple times inside the loop.
-   - ✅ **Stored the Result in a Variable** – The condition is checked once before the loop, reducing unnecessary computations.
+### 4.1 Key Metrics Calculation for Initialization and Compute Time
 
-### 3. Moved Column Creation and Cell Copying Inside Parallel Loop**
-   - ✅ **Consolidates Operations** – Column creation and the copying of cells are done together in parallel, ensuring better use of resources.
-   - ✅ **Eliminated Sequential Loops** – By merging column creation, matrix assignment, and cell copying, the code reduces overhead.
+We calculated the following key metrics for both **Initialization Time** and **Compute Time** of each method to evaluate their performance:
 
-### 4. Improved Thread Safety with Direct Matrix Set**
-   - ✅ **Minimized Synchronization Issues** – The `Parallel.For` ensures columns are set in parallel, with thread-safe operations using `ConcurrentDictionary`.
-   - ✅ **Avoids Extra Loops** – The original method had a separate loop for setting the matrix; now it's handled within the parallel block.
+- **Mean**: The average time across all runs, representing the overall performance.
+- **Max**: The highest observed time, indicating the peak performance.
+- **Min**: The lowest observed time, indicating the least efficient performance.
+
+### 4.2 Variance and Standard Deviation for Initialization and Compute Time
+
+To better understand the spread and consistency of both initialization and compute times, we calculated the **Variance** and **Standard Deviation** for each method:
+
+- **Variance**: Measures the degree of variation in times across different runs.
+- **Standard Deviation (Std Dev)**: Provides a more intuitive measure of spread, showing the average distance of times from the mean.
+
+### 4.3 Worst-Case Performance Comparison (Max vs Min Time for Initialization and Compute)
+
+In this step, we calculated the ratio of the **maximum execution time** to the **minimum execution time** for both initialization and compute phases to understand the worst-case performance of each method:
+
+- **Max Time**: The longest time taken in each phase (initialization and compute).
+- **Min Time**: The shortest time taken in each phase.
+- **Ratio (Max/Min)**: This ratio indicates how much the execution time can vary in each phase. A lower ratio suggests better performance consistency.
+
+---
+
+### Conclusion: Why `InitParallelWithConcurrentDictionary()` is the Best Choice
+
+After thoroughly analyzing the execution times across all four methods, `InitParallelWithConcurrentDictionary()` has emerged as the best choice for the following compelling reasons:
+
+1. **Lowest Mean Execution Time** ⏱  
+   `InitParallelWithConcurrentDictionary()` demonstrates the fastest average execution time, outperforming all other methods. This is the most significant factor in determining the overall efficiency and speed of the method.
+
+2. **Low Standard Deviation and Variance** 📊  
+   With a low standard deviation and low variance, `InitParallelWithConcurrentDictionary()` offers consistent performance across different runs. A smaller standard deviation means the execution time doesn't vary widely, ensuring reliable results every time.
+
+3. **Low Max/Min Ratio** ⚖️  
+   `InitParallelWithConcurrentDictionary()` also boasts the lowest max/min ratio, signifying that even in the worst-case scenario, its performance is comparable to its best performance, ensuring stability and predictability.
 
 
 
-### `InitParallelWithConcurrentDictionary()
+In summary, `InitParallelWithConcurrentDictionary()` strikes the perfect balance between speed, consistency, and stability, making it the optimal method for our use case. Given its superior performance in terms of:
 
-### 1. Parallelized Column Initialization**
-   - **In the InitParallelRegularDictionary Approach:** Used `Parallel.For` for parallel column initialization.
-   - **In the InitParallelWithConcurrentDictionary Approach:** Still using `Parallel.For`, but with the addition of `ConcurrentDictionary` to handle parallel writes to the `matrix`. This ensures thread-safe column assignment.
+- **Mean Execution Time**
+- **Consistent Performance** (Low variance)
+- **Predictable Stability** (Low Max/Min ratio)
 
-### 2. Thread-Safe Column Assignment**
-   - **In the InitParallelRegularDictionary Approach:** The matrix was updated directly within the `Parallel.For` loop without a mechanism for ensuring thread safety.
-   - **In the InitParallelWithConcurrentDictionary Approach:** Introduces `ConcurrentDictionary`, which is specifically designed for thread-safe operations. This prevents data races when updating columns concurrently, improving reliability in multithreaded environments.
+`InitParallelWithConcurrentDictionary()` is the clear best choice for this analysis, offering both efficiency and reliability.
 
-### 3. Optimized Copying of Cells**
-   - **In the InitParallelRegularDictionary Approach:** Cells were copied after the parallel column creation in a separate loop, causing redundant operations.
-   - **In the InitParallelWithConcurrentDictionary Approach:** Cells are now copied within the parallel loop itself, eliminating the need for a separate loop and making the operation more efficient.
+---
 
+## 5. Visualizing Performance Data for InitParallelWithConcurrentDictionary()
+
+To further understand the performance of **InitParallelWithConcurrentDictionary()**, we are visualizing key metrics through various graphs. These graphs will provide insights into the method's execution times, variance, and consistency. By analyzing these visuals, we can gain a deeper understanding of its efficiency and stability in comparison to other methods.
+
+
+### 5.1 Bar Chart for Initialization and Computation Time Comparison
+
+This code generates **grouped bar charts** comparing both **Initialization Times** and **Computation Times** across different test cases for the `InitParallelWithConcurrentDictionary()` method.
+
+- **X-axis:** Represents the test cases (with the first 3 letters of each test case name displayed).
+- **Y-axis:** Represents the time in seconds.
+- **Color Coding:**
+  - Blue for **Initialization Time**
+  - Green for **Computation Time**
+
+The first chart compares the initialization performance between standard and parallel methods for each test case, while the second chart focuses on computation times. These visuals help us assess both the **initialization** and **computation** performance of the **InitParallelWithConcurrentDictionary()** method in relation to traditional methods.
+
+
+---
+
+### 5.2 Scatter Plot for Initialization and Computation Time Comparison
+
+This **scatter plot** visualizes the relationship between the initialization time (`InitParallel_Time`) and computation time for the `InitParallelWithConcurrentDictionary()` method.
+
+- **X-axis:** Represents the test cases.
+- **Y-axis:** Represents the execution times in seconds (both initialization and computation times).
+- **Color Coding:**
+  - **Blue Circles**: Represent **`Init_Time`** (Standard Initialization Time).
+  - **Red Crosses**: Represent **`InitParallel_Time`** (Parallel Initialization Time).
   
-### InitParallelPartitionedForEach()
-### 1. Used `Parallel.ForEach` with Partitioner for Efficient Work Distribution**
-- ✅ **Optimized for Large Data Sets** – Partitions the work into smaller chunks, allowing efficient execution across multiple threads.
-- ✅ **Improved Thread Management** – Divides the task into ranges and processes each range in parallel, optimizing CPU usage.
+The first scatter plot compares the initialization performance between standard and parallel methods for each test case. The second plot compares the computation times.
 
-### 2. Column Initialization and Cell Assignment Inside Parallel Block**
-- ✅ **Consolidates Operations** – Combines column retrieval, assignment, and cell copying within a single parallelized block.
-- ✅ **Avoids Extra Loops** – No need for a separate loop for column assignment or cell copying, minimizing overhead.
-
-### 3. Partitioning Ensures Better Performance in Highly Parallelized Workloads**
-- ✅ **Improved Thread Safety** – Using partitioned ranges reduces potential race conditions and ensures better synchronization between threads.
-- ✅ **More Efficient on Large Datasets** – Perfect for handling large numbers of columns (`numColumns ≥ 1000`) while distributing the workload evenly across threads.
+These scatter plots allow for a visual comparison of the two methods (standard vs parallel) in terms of both initialization and computation times, helping us assess how closely the performance of these methods relates across different test cases.
 
 
-
-### Comparison of `InitParallelPartitionedForEach()` vs `Parallel.For` vs `Single-Threaded Optimized
-
-| **Aspect**                          | **`InitParallelPartitionedForEach()`**                                         | **`Parallel.For`**                                               | **`Single-Threaded Optimized`**                                  |
-|-------------------------------------|----------------------------------------------------------------------------|------------------------------------------------------------------|------------------------------------------------------------------|
-| **Work Distribution**               | ✅ Uses `Partitioner` to efficiently divide work into smaller chunks.      | ✅ Works on the entire dataset, may be less efficient for large sets. | ❌ Sequential execution, less efficient for large datasets.      |
-| **Thread Management**               | ✅ Efficient thread management via partitioning.                           | ✅ Parallel execution but lacks fine thread control.             | ❌ Single-threaded execution.                                   |
-| **Column Initialization and Cell Assignment** | ✅ Combines both in the parallel block, reducing overhead.               | ✅ Parallelizes column init, but requires separate loops for setting and copying. | ❌ Sequential, with separate loops for each task.                |
-| **Performance on Large Datasets**   | ✅ Optimized for large datasets (`numColumns ≥ 1000`).                    | ✅ Works well for large datasets but lacks partitioning.         | ❌ Performance drops with larger datasets.                       |
+---
 
 
-
-### Conclusion:
-- **`InitParallelPartitionedForEach()`** is the most optimized solution for large datasets (`numColumns ≥ 1000`), ensuring better performance and thread management through partitioning.
-- **`Parallel.For`** is better than single-threaded but lacks partitioning and fine-grained control over threads.
-- **`Single-Threaded Optimized`** is the simplest and most efficient for small datasets but doesn't scale well for large numbers of columns.
 
 
 
@@ -230,14 +376,7 @@ This comparison helps determine whether the newly introduced asynchronous method
 - ✅ **Reduced Memory Allocations** – Directly iterated over existing structures instead of creating unnecessary intermediate lists.
 
 
-### Parallel.Invoke() is used to run active synapse processing and potential synapse processing in parallel, ensuring both tasks execute simultaneously without blocking each other.
 
-## References
-
-https://www.researchgate.net/publication/384490210_Parallel_Processing_of_Temporal_Anti-Joins_in_Memory
-
-Introduction to Parallel Computing
-https://hpc.llnl.gov/documentation/tutorials/introduction-parallel-computing-tutorial
 
 
 
