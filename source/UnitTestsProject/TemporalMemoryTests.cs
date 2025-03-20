@@ -4932,6 +4932,8 @@ namespace UnitTestsProject
             Assert.IsFalse(cc.ActiveCells.SequenceEqual(burstingCells));
         }
 
+
+        // This test case verifies the learning and recall of a sequence using both single-threaded and parallel
         [TestMethod]
         public void TestBasicSequenceLearningAndRecallParallel()
         {
@@ -4972,9 +4974,6 @@ namespace UnitTestsProject
             // Assert
             Assert.IsTrue(recallCycle.ActiveCells.Count > 0, "No active cells were recalled.");
         }
-
-        
-
 
 
     }
