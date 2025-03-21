@@ -570,6 +570,7 @@ Calculated the following key metrics for both **Initialization Time** and **Comp
 - **Max**: The highest observed time, indicating the peak performance.
 - **Min**: The lowest observed time, indicating the least efficient performance.
 
+![Alt text](https://github.com/adityakumar-ai/Alabaster_neo/blob/UAT_Test/source/MySEProject/All_Images/Initialising-Min-max_01.jpg)
 
 
 ## **4.2 Variance and Standard Deviation for Initialization and Compute Time**
