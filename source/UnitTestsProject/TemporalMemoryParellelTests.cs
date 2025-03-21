@@ -17,13 +17,17 @@ namespace UnitTestsProject
         // -------------------------------------------------------------------------------------------------------------------
         // Test Overview for InitParallelWithConcurrentDictionary Method
         // -------------------------------------------------------------------------------------------------------------------
+        //
         // The following test cases cover various scenarios for the `InitParallelWithConcurrentDictionary` method 
         // in the TemporalMemoryParallelProcessing class. These tests ensure the method handles multiple edge cases 
         // and works as expected under different conditions.
         //
+        // 0. Test Initialization of Temporal Memory with Invalid Configuration Values
+        //    - Test Initialization of Temporal Memory with Invalid Configuration Values (SynPermConnected, NumInputs, ColumnDimensions, CellsPerColumn).
+        //
         // 1. Test when Memory is null and columns need to be created: 
         //    - Verifies that the method correctly initializes a new SparseObjectMatrix and creates columns when Memory is null.
-        
+        //
         // 2. Test with a large number of columns to check for scalability: 
         //    - Tests the method's scalability by simulating a large number of columns (e.g., thousands) and verifying correct operation.
         //
@@ -45,6 +49,48 @@ namespace UnitTestsProject
             public double SynPermConnected { get; set; }
             public int NumInputs { get; set; }
         }
+
+
+        // Test Case 0: Test Initialization of Temporal Memory with Invalid Configuration Values
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))] // Expecting an exception for invalid configurations
+        [DataRow(-1, 5, 0.1, 5)]  // Invalid ColumnDimensions (negative), valid SynPermConnected, valid NumInputs
+        [DataRow(0, 0, 0.1, 5)]   // Invalid ColumnDimensions (zero), invalid CellsPerColumn (zero)
+        [DataRow(5, -1, 0.1, 5)]  // Invalid CellsPerColumn (negative), valid SynPermConnected, valid NumInputs
+        [DataRow(-5, -5, 0.1, 5)] // Invalid ColumnDimensions and CellsPerColumn (both negative)
+        [DataRow(5, 0, 0.1, 5)]   // Invalid CellsPerColumn (zero), valid SynPermConnected, valid NumInputs
+        [DataRow(0, 10, 0.1, 5)]  // Invalid ColumnDimensions (zero), valid SynPermConnected, valid NumInputs
+        [DataRow(10, 100000, 0.1, 5)] // Unreasonably large CellsPerColumn, valid SynPermConnected, valid NumInputs
+        public void Test_InvalidConfiguration(int columnDimensions, int cellsPerColumn, double synPermConnected, int numInputs)
+        {
+            // Arrange
+            TemporalMemoryParallelProcessing tmParallel = new TemporalMemoryParallelProcessing();
+
+            var cn = new Connections { Memory = null };
+
+            var config = new HtmConfig_
+            {
+                ColumnDimensions = columnDimensions,  
+                CellsPerColumn = cellsPerColumn,      
+                SynPermConnected = synPermConnected,  
+                NumInputs = numInputs                 
+            };
+
+            // Set the config property using reflection (as it's private)
+            var htmConfigProperty = typeof(Connections).GetProperty("HtmConfig", BindingFlags.NonPublic | BindingFlags.Instance);
+            htmConfigProperty.SetValue(cn, config);
+
+            // Assert: Check that the SynPermConnected and NumInputs are set correctly
+            Assert.AreEqual(synPermConnected, config.SynPermConnected, "SynPermConnected value is not set correctly.");
+            Assert.AreEqual(numInputs, config.NumInputs, "NumInputs value is not set correctly.");
+
+            // Act: Try to initialize the matrix with invalid configuration
+            tmParallel.InitParallelWithConcurrentDictionary(cn);
+        }
+
+
+
 
         // Test Case 1:  when Memory is null and columns need to be created: 
 
@@ -125,6 +171,8 @@ namespace UnitTestsProject
         }
 
 
+
+
         // Test Case 3: Test with a small number of columns (edge case)
 
         [TestMethod]
@@ -155,6 +203,8 @@ namespace UnitTestsProject
             Assert.AreEqual(columnDimensions, cn.Memory.GetMaxIndex() + 1, "Matrix should contain the expected number of columns.");
             Assert.AreEqual(columnDimensions * cellsPerColumn, cn.Cells.Length, "Cells array should contain the correct number of cells.");
         }
+
+
 
 
         // Test Case 4: Test with an unusually high synPermConnected value
