@@ -4,6 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NeoCortexApi;
 using NeoCortexApi.Entities;
 using NeoCortexApi.Types;
+using Org.BouncyCastle.Crypto;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,6 +14,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using System.Threading;
 using System.Threading.Tasks;
 namespace UnitTestsProject
 {
@@ -5191,7 +5193,7 @@ namespace UnitTestsProject
             Assert.IsFalse(cc.ActiveCells.SequenceEqual(burstingCells));
         }
 
-
+        //New test cases below (ayush)
         // This test case verifies the learning and recall of a sequence using both single-threaded and parallel
         [TestMethod]
         public void TestBasicSequenceLearningAndRecallParallel()
@@ -5235,6 +5237,8 @@ namespace UnitTestsProject
             Assert.IsTrue(recallCycle.ActiveCells.Count > 0, "No active cells were recalled.");
         }
 
+
+        // This test case verifies the growth of new segments when multiple columns are active
         [TestMethod]
         public void TestSequenceLearningWithHighSparsity()
         {
@@ -5293,6 +5297,123 @@ namespace UnitTestsProject
 
             // Verify that all active cells in the recalled second sequence are also present in the recalled first sequence
             Assert.IsTrue(recall2.ActiveCells.Select(c => c.Index).All(rc => recall1.ActiveCells.Select(c => c.Index).Contains(rc)));
+        }
+
+
+        // This test case verifies the learning and recall of a high-sparsity sequence using both single-threaded and parallel versions of the Temporal Memory algorithm.
+        [TestMethod]
+        public void TestSegmentGrowthWithMultipleActiveColumns()
+        {
+            // Initialize Temporal Memory, Parallel Processing, Connections, and Stopwatch
+            TemporalMemory tm = new TemporalMemory();
+            TemporalMemoryParallelProcessing tmParallel = new TemporalMemoryParallelProcessing();
+            Connections cn = new Connections();
+            Stopwatch stopwatch = new Stopwatch();
+
+            // Set default parameters
+            Parameters p = GetDefaultParameters();
+            p.apply(cn);
+
+            // Measure and store execution time for single-threaded (tm.Init) method
+            stopwatch.Start();
+            tm.Init(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_2 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed_2.TotalMilliseconds} milliseconds");
+            double initTime = elapsed_2.TotalMilliseconds;
+
+            // Measure and store execution time for multi-threaded (tmParallel.InitParallelWithConcurrentDictionary) method
+            stopwatch.Start();
+            tmParallel.InitParallelWithConcurrentDictionary(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_1 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for InitParallelWithConcurrentDictionary : {elapsed_1.TotalMilliseconds} milliseconds");
+            double initParallelTime = elapsed_1.TotalMilliseconds;
+
+            // Define active columns and corresponding active cells
+            int[] activeColumns = { 0, 1, 2, 3, 4 };
+            Cell[] activeCells = { cn.GetCell(0), cn.GetCell(1), cn.GetCell(2), cn.GetCell(3), cn.GetCell(4) };
+
+            // Measure and store execution time for single-threaded computation (tm.Compute)
+            stopwatch.Start();
+            tm.Compute(activeColumns, true);
+            stopwatch.Stop();
+            TimeSpan elapsed_4 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed_4.TotalMilliseconds} milliseconds for compute");
+            double initTimeCompute = elapsed_4.TotalMilliseconds;
+
+            // Measure and store execution time for multi-threaded computation (tmParallel.Compute)
+            stopwatch.Start();
+            tmParallel.Compute(activeColumns, true);
+            stopwatch.Stop();
+            TimeSpan elapsed_3 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelWithConcurrentDictionary): {elapsed_3.TotalMilliseconds} milliseconds");
+            double initParallelTimeCompute = elapsed_3.TotalMilliseconds;
+
+            // Log performance metrics and store them as a CSV entry
+            LogPerformance(nameof(TestSegmentGrowthWithMultipleActiveColumns), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
+
+            // Verify that new segments have been grown
+            Assert.AreEqual(5, activeCells[0].DistalDendrites.Count);
+        }
+
+        //This test case verifies the prediction of active cells in a sequence
+        [TestMethod]
+        public void TestActiveCellPrediction()
+        {
+            // Initialize Temporal Memory, Parallel Processing, Connections, and Stopwatch
+            TemporalMemory tm = new TemporalMemory();
+            TemporalMemoryParallelProcessing tmParallel = new TemporalMemoryParallelProcessing();
+            Connections cn = new Connections();
+            Stopwatch stopwatch = new Stopwatch();
+
+            // Set default parameters
+            Parameters p = GetDefaultParameters();
+            p.apply(cn);
+
+            // Measure and store execution time for single-threaded (tm.Init) method
+            stopwatch.Start();
+            tm.Init(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_2 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed_2.TotalMilliseconds} milliseconds");
+            double initTime = elapsed_2.TotalMilliseconds;
+
+            // Measure and store execution time for multi-threaded (tmParallel.InitParallelWithConcurrentDictionary) method
+            stopwatch.Start();
+            tmParallel.InitParallelWithConcurrentDictionary(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_1 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for InitParallelWithConcurrentDictionary : {elapsed_1.TotalMilliseconds} milliseconds");
+            double initParallelTime = elapsed_1.TotalMilliseconds;
+
+            // Define active columns and corresponding active cells
+            int[] previousActiveColumns = { 0, 1, 2 };
+            int[] activeColumns = { 3, 4, 5 };
+            Cell[] previousActiveCells = { cn.GetCell(0), cn.GetCell(1), cn.GetCell(2) };
+            Cell[] activeCells = { cn.GetCell(3), cn.GetCell(4), cn.GetCell(5) };
+
+            // Measure and store execution time for single-threaded computation (tm.Compute)
+            stopwatch.Start();
+            tm.Compute(activeColumns, true);
+            stopwatch.Stop();
+            TimeSpan elapsed_4 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed_4.TotalMilliseconds} milliseconds for compute");
+            double initTimeCompute = elapsed_4.TotalMilliseconds;
+
+            // Measure and store execution time for multi-threaded computation (tmParallel.Compute)
+            stopwatch.Start();
+            tmParallel.Compute(activeColumns, true);
+            stopwatch.Stop();
+            TimeSpan elapsed_3 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for compute tmParallel(InitParallelWithConcurrentDictionary): {elapsed_3.TotalMilliseconds} milliseconds");
+            double initParallelTimeCompute = elapsed_3.TotalMilliseconds;
+
+            // Log performance metrics and store them as a CSV entry
+            LogPerformance(nameof(TestActiveCellPrediction), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
+
+            // Verify that the predicted active cells match the expected active cells
+            Assert.IsTrue(activeCells.All(ac => tm.Compute(previousActiveColumns, false).ActiveCells.Contains(ac)));
         }
 
 
