@@ -572,6 +572,7 @@ Calculated the following key metrics for both **Initialization Time** and **Comp
 
 ![Alt text](https://github.com/adityakumar-ai/Alabaster_neo/blob/UAT_Test/source/MySEProject/All_Images/Initialising-Min-max_01.jpg)
 
+![Alt text](https://github.com/adityakumar-ai/Alabaster_neo/blob/UAT_Test/source/MySEProject/All_Images/ExecutionTime-Min-max_02.jpg)
 
 ## **4.2 Variance and Standard Deviation for Initialization and Compute Time**
 
@@ -580,6 +581,9 @@ To better understand the spread and consistency of both initialization and compu
 - **Variance**: Measures the degree of variation in times across different runs.
 - **Standard Deviation (Std Dev)**: Provides a more intuitive measure of spread, showing the average distance of times from the mean.
 
+![Alt text](https://github.com/adityakumar-ai/Alabaster_neo/blob/UAT_Test/source/MySEProject/All_Images/Variance_SD_Initialising_03.jpg)
+
+![Alt text](https://github.com/adityakumar-ai/Alabaster_neo/blob/UAT_Test/source/MySEProject/All_Images/Variance_SD_Execution_04.jpg)
 
 
 ## **4.3 Worst-Case Performance Comparison (Max vs Min Time for Initialization and Compute)**
@@ -590,6 +594,9 @@ In this step, we calculated the ratio of the **maximum execution time** to the *
 - **Min Time**: The shortest time taken in each phase.
 - **Ratio (Max/Min)**: This ratio indicates how much the execution time can vary in each phase. A lower ratio suggests better performance consistency.
 
+![Alt text](https://github.com/adityakumar-ai/Alabaster_neo/blob/UAT_Test/source/MySEProject/All_Images/Min-Max_Initialising_05.jpg)
+
+![Alt text](https://github.com/adityakumar-ai/Alabaster_neo/blob/UAT_Test/source/MySEProject/All_Images/Min-Max_Execution_06.jpg)
 
 
 ## <u>**Conclusion**</u>: 
@@ -636,6 +643,10 @@ This code generates **grouped bar charts** comparing both **Initialization Times
 
 The first chart compares the initialization performance between standard and parallel methods for each test case, while the second chart focuses on computation times. These visuals help us assess both the **initialization** and **computation** performance of the **InitParallelWithConcurrentDictionary()** method in relation to traditional methods.
 
+![Alt text](https://github.com/adityakumar-ai/Alabaster_neo/blob/UAT_Test/source/MySEProject/All_Images/Bar_Graph_07.jpg)
+
+![Alt text](https://github.com/adityakumar-ai/Alabaster_neo/blob/UAT_Test/source/MySEProject/All_Images/Bar_Graph_08.jpg)
+
 
 ---
 
@@ -653,6 +664,9 @@ The first scatter plot compares the initialization performance between standard 
 
 These scatter plots allow for a visual comparison of the two methods (standard vs parallel) in terms of both initialization and computation times, helping us assess how closely the performance of these methods relates across different test cases.
 
+![Alt text](https://github.com/adityakumar-ai/Alabaster_neo/blob/UAT_Test/source/MySEProject/All_Images/Scatter_plot_09.jpg)
+
+![Alt text](https://github.com/adityakumar-ai/Alabaster_neo/blob/UAT_Test/source/MySEProject/All_Images/Scatter_plot_10.jpg)
 
 ---
 
