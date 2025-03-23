@@ -17,6 +17,7 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
 //using static System.Net.Mime.MediaTypeNames;
 //using static System.Runtime.InteropServices.JavaScript.JSType;
 namespace UnitTestsProject
@@ -5203,15 +5204,67 @@ namespace UnitTestsProject
 
 
 
+        /*
+         
+          Unit Testing  
+          -------------------------------------------------------------------------------------------------------------------
+          Test Overview for InitParallelWithConcurrentDictionary() Method
+          -------------------------------------------------------------------------------------------------------------------
+          
+          The following test cases cover various scenarios for the `InitParallelWithConcurrentDictionary` method 
+          in the TemporalMemoryParallelProcessing class. These tests ensure the method handles multiple edge cases 
+          and works as expected under different conditions.
+
+          Test Case 1: TestBasicSequenceLearningAndRecallParallel
+          Purpose: This test case verifies the learning and recall of a sequence using both single-threaded and parallel processing.
+        
+          Test Case 2: TestActiveCellPrediction
+          Purpose: This test case verifies the prediction of active cells in a sequence by comparing single-threaded and parallel execution times.
+       
+          Test Case 3: TestParallelInitializationWithMultipleActiveColumns
+          Purpose: This test case verifies the parallel initialization of the Temporal Memory system with multiple active columns.
+       
+          Test Case 4: TestTemporalMemoryInitializationWithDefaultParameters
+          Purpose: This test case verifies that Temporal Memory initializes correctly using default parameters and parallel initialization with a concurrent dictionary.
+
+          Test Case 5: Verify Parallel Initialization with Fewer Columns
+          Purpose: To test the initialization of the Temporal Memory system with a smaller number of columns in parallel.
+          
+          Test Case 6: Stress Test with Varying Thread Counts
+          Purpose: To evaluate the performance of Temporal Memory with different thread counts and analyze optimal thread usage.
+          
+          Test Case 7: Scalability Test with Increasing Data Size
+          Purpose: To measure the scalability of Temporal Memory by testing performance across increasing problem sizes.
+         
+          Test Case 8: Testing Performance with Different Active Columns and Excluded Cells
+          Purpose: This test case evaluates the performance of Temporal Memory (TM) in both single-threaded and multi-threaded modes, with a focus on handling active columns and excluded cells.
+          
+          Test Case 9: Verifying Computation with Different Burst Thresholds
+          Purpose: This test case verifies that computation using Temporal Memory produces the expected bursting cells based on given thresholds.
+          
+          Test Case 10: Testing No Change When No Active Cells Selected for Segments in Burst
+          Purpose: This test case checks that when no active cells are selected during the burst, there should be no change in the permanence values of the synapses.
+
+          Test Case 11: TestSequenceLearningWithHighSparsity
+          Purpose: This test case verifies the growth of new segments when multiple columns are active in a high-sparsity sequence. It compares the performance of single-threaded and multi-threaded Temporal Memory computation.
+          
+          Test Case 12: TestSegmentGrowthWithMultipleActiveColumns
+          Purpose: This test case verifies the learning and recall of a high-sparsity sequence using both single-threaded and parallel versions of the Temporal Memory algorithm. It checks if new segments grow as expected in the presence of multiple active columns.
+          
+          Test Case 13: TestParallelInitializationWithCustomSynapseConnections
+          Purpose: This test case verifies that synapses are correctly created and initialized for active cells during parallel initialization using a custom configuration. It tests the creation of synapse connections during the parallel initialization phase.
+        
+
+         */
 
 
 
 
+        //Test Case 1: TestBasicSequenceLearningAndRecallParallel
+        //Purpose: This test case verifies the learning and recall of a sequence using both single-threaded and parallel processing.
 
-        //New test cases below (ayush)
-        // This test case verifies the learning and recall of a sequence using both single-threaded and parallel
         [TestMethod]
-        public void TestBasicSequenceLearningAndRecallParallel() //pass
+        public void TestBasicSequenceLearningAndRecallParallel() 
         {
             // Initialize Temporal Memory, Parallel Processing, Connections, and Stopwatch
             TemporalMemory tm = new TemporalMemory();
@@ -5245,6 +5298,7 @@ namespace UnitTestsProject
             TimeSpan parallelComputeTime = stopwatch.Elapsed;
             Console.WriteLine($"Time taken for parallel Compute: {parallelComputeTime.TotalMilliseconds} milliseconds");
 
+
             // Recall the sequence in parallel mode
             ComputeCycle recallCycle = tmParallel.Compute(sequenceActiveColumns, false) as ComputeCycle;
 
@@ -5253,9 +5307,11 @@ namespace UnitTestsProject
         }
 
 
-        //This test case verifies the prediction of active cells in a sequence
+        //Test Case 2: TestActiveCellPrediction
+        //Purpose: This test case verifies the prediction of active cells in a sequence by comparing single-threaded and parallel execution times.
+        
         [TestMethod]
-        public void TestActiveCellPrediction() //pass
+        public void TestActiveCellPrediction() 
         {
             // Initialize Temporal Memory, Parallel Processing, Connections, and Stopwatch
             TemporalMemory tm = new TemporalMemory();
@@ -5306,18 +5362,18 @@ namespace UnitTestsProject
             double initParallelTimeCompute = elapsed_3.TotalMilliseconds;
 
             // Log performance metrics and store them as a CSV entry
-            // LogPerformance(nameof(TestActiveCellPrediction), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
+            LogPerformance(nameof(TestActiveCellPrediction), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
 
             // Verify that the predicted active cells match the expected active cells
             Assert.IsTrue(activeCells.All(ac => tm.Compute(previousActiveColumns, false).ActiveCells.Contains(ac)));
         }
 
 
-        //4. Test Case: Verify Parallel Initialization with Multiple Active Columns
-        // Purpose: To test the parallel initialization of the Temporal Memory system with multiple active columns.
+        //Test Case 3: TestParallelInitializationWithMultipleActiveColumns
+        //Purpose: This test case verifies the parallel initialization of the Temporal Memory system with multiple active columns.
 
         [TestMethod]
-        public void TestParallelInitializationWithMultipleActiveColumns() //pass
+        public void TestParallelInitializationWithMultipleActiveColumns() 
         {
             // Initialize Temporal Memory Parallel Processing and Connections
             TemporalMemoryParallelProcessing tmParallel = new TemporalMemoryParallelProcessing();
@@ -5340,11 +5396,11 @@ namespace UnitTestsProject
             Assert.IsTrue(cn.GetColumns().Count > 0);
         }
 
-        // Test Case: Verify Parallel Initialization with Concurrent Dictionary
-        // Purpose: To verify that Temporal Memory is initialized correctly using the parallel initialization method and a concurrent dictionary.
+        //Test Case 4: TestTemporalMemoryInitializationWithDefaultParameters
+        //Purpose: This test case verifies that Temporal Memory initializes correctly using default parameters and parallel initialization with a concurrent dictionary.
 
         [TestMethod]
-        public void TestTemporalMemoryInitializationWithDefaultParameters() //pass
+        public void TestTemporalMemoryInitializationWithDefaultParameters() 
         {
             // Initialize Temporal Memory and Connections
             TemporalMemory tm = new TemporalMemory();
@@ -5355,6 +5411,7 @@ namespace UnitTestsProject
             Parameters p = Parameters.getAllDefaultParameters();
             p.apply(cn);
 
+            // Measure and store execution time for single-threaded initialization
             stopwatch.Start();
             tm.Init(cn);
             stopwatch.Stop();
@@ -5369,11 +5426,11 @@ namespace UnitTestsProject
         }
 
 
-        //Test Case: Verify Parallel Initialization with Fewer Columns
+        //Test Case 5: Verify Parallel Initialization with Fewer Columns
         //Purpose: To test the initialization of the Temporal Memory system with a smaller number of columns in parallel.
-
+        
         [TestMethod]
-        public void TestParallelInitializationWithFewerColumns() //pass
+        public void TestParallelInitializationWithFewerColumns() 
         {
             // Initialize Temporal Memory Parallel Processing and Connections
             TemporalMemoryParallelProcessing tmParallel = new TemporalMemoryParallelProcessing();
@@ -5397,9 +5454,11 @@ namespace UnitTestsProject
         }
 
 
-        // Test Case 3: Stress Test with Varying Thread Counts
+        //Test Case 6: Stress Test with Varying Thread Counts
+        //Purpose: To evaluate the performance of Temporal Memory with different thread counts and analyze optimal thread usage.
+
         [TestMethod]
-        public void TestParallelPerformanceWithVaryingThreadCounts() //pass
+        public void TestParallelPerformanceWithVaryingThreadCounts() 
         {
             // Initialize components
             TemporalMemory tm = new TemporalMemory();
@@ -5468,10 +5527,11 @@ namespace UnitTestsProject
         }
 
 
+        //Test Case 7: Scalability Test with Increasing Data Size
+        //Purpose: To measure the scalability of Temporal Memory by testing performance across increasing problem sizes.
 
-        // Test Case 5: Scalability Test with Increasing Data Size
         [TestMethod]
-        public void TestParallelScalabilityWithIncreasingSize() //pass
+        public void TestParallelScalabilityWithIncreasingSize() 
         {
             // Initialize components
             TemporalMemory tm = new TemporalMemory();
@@ -5585,14 +5645,12 @@ namespace UnitTestsProject
         }
 
 
+        //Test Case 8: Testing Performance with Different Active Columns and Excluded Cells
+        //Purpose: This test case evaluates the performance of Temporal Memory (TM) in both single-threaded and multi-threaded modes, with a focus on handling active columns and excluded cells.
 
-
-
-
-        //Test Case 2: Testing Performance with Different Active Columns and Excluded Cells
-        /// <summary>
-        /// Test performance with different sets of active columns and excluded cells
-        /// </summary>
+        // <summary>
+        // Test performance with different sets of active columns and excluded cells
+        // </summary>
         [TestMethod]
         [DataRow(new int[] { 1, 2, 3 }, new int[] { 0, 1, 2, 3 })]
         [DataRow(new int[] { 0, 2, 4 }, new int[] { 1, 2, 3 })]
@@ -5650,10 +5708,9 @@ namespace UnitTestsProject
         }
 
 
-        // Test Case 3: Verifying Computation with Different Burst Thresholds
-        /// <summary>
-        /// Test computation with different burst thresholds for cell activations
-        /// </summary>
+        //Test Case 9: Verifying Computation with Different Burst Thresholds
+        //Purpose: This test case verifies that computation using Temporal Memory produces the expected bursting cells based on given thresholds.
+
         [TestMethod]
         [DataRow(new int[] { 0, 1, 2 }, new int[] { 1, 2, 3 })]
         [DataRow(new int[] { 1, 3, 4 }, new int[] { 2, 3, 4 })]
@@ -5693,11 +5750,9 @@ namespace UnitTestsProject
 
 
 
+        //Test Case 10: Testing No Change When No Active Cells Selected for Segments in Burst
+        //Purpose: This test case checks that when no active cells are selected during the burst, there should be no change in the permanence values of the synapses.
 
-        //Test Case 4: Testing No Change When No Active Cells Selected for Segments in Burst
-        /// <summary>
-        /// Test when no active cells are selected for segments in the burst (expected no change in permanence)
-        /// </summary>
         [TestMethod]
         [DataRow(new int[] { 0 }, new int[] { 1 }, 0.3, 0.3)]
         [DataRow(new int[] { 1 }, new int[] { 2 }, 0.3, 0.3)]
@@ -5740,8 +5795,9 @@ namespace UnitTestsProject
         }
 
 
+        //Test Case 11: TestSequenceLearningWithHighSparsity
+        //Purpose: This test case verifies the growth of new segments when multiple columns are active in a high-sparsity sequence. It compares the performance of single-threaded and multi-threaded Temporal Memory computation.
 
-        // This test case verifies the growth of new segments when multiple columns are active
         [TestMethod]
         public void TestSequenceLearningWithHighSparsity()
         {
@@ -5791,7 +5847,7 @@ namespace UnitTestsProject
             Console.WriteLine($"Time taken for compute tmParallel(InitParallelWithConcurrentDictionary): {elapsed_3.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_3.TotalMilliseconds;
 
-            // Log performance metrics and store them as a CSV entry
+            //Log performance metrics and store them as a CSV entry
             //LogPerformance(nameof(TestSequenceLearningWithHighSparsity), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
 
             // Recall the first sequence
@@ -5803,7 +5859,9 @@ namespace UnitTestsProject
         }
 
 
-        // This test case verifies the learning and recall of a high-sparsity sequence using both single-threaded and parallel versions of the Temporal Memory algorithm.
+        //Test Case 12: TestSegmentGrowthWithMultipleActiveColumns
+        //Purpose: This test case verifies the learning and recall of a high-sparsity sequence using both single-threaded and parallel versions of the Temporal Memory algorithm. It checks if new segments grow as expected in the presence of multiple active columns.
+
         [TestMethod]
         public void TestSegmentGrowthWithMultipleActiveColumns()
         {
@@ -5861,8 +5919,8 @@ namespace UnitTestsProject
         }
 
 
-        //Test Case: Verify Parallel Initialization with Custom Synapse Connections
-        // Purpose: To verify that synapses are correctly created and initialized for active cells during parallel initialization using a custom configuration.
+        //Test Case 13: TestParallelInitializationWithCustomSynapseConnections
+        //Purpose: This test case verifies that synapses are correctly created and initialized for active cells during parallel initialization using a custom configuration. It tests the creation of synapse connections during the parallel initialization phase.
 
         [TestMethod]
         public void TestParallelInitializationWithCustomSynapseConnections()
