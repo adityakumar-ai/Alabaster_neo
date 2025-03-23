@@ -351,14 +351,6 @@ namespace UnitTestsProject
             p.Set(KEY.CELLS_PER_COLUMN, 8); // Set custom number of cells per column
             p.apply(cn);
 
-            // Measure and store execution time for single-threaded (tm.Init) method
-            stopwatch.Start();
-            tm.Init(cn);
-            stopwatch.Stop();
-            TimeSpan elapsed_2 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken: {elapsed_2.TotalMilliseconds} milliseconds");
-            double initTime = elapsed_2.TotalMilliseconds;
-
             // Measure and store execution time for multi-threaded (tmParallel.InitParallelWithConcurrentDictionary) method 
             stopwatch.Start();
             tmParallel.InitParallelWithConcurrentDictionary(cn);
@@ -367,6 +359,14 @@ namespace UnitTestsProject
             Console.WriteLine($"Time taken for InitParallelWithConcurrentDictionary : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
 
+            // Measure and store execution time for single-threaded (tm.Init) method
+            stopwatch.Start();
+            tm.Init(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_2 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed_2.TotalMilliseconds} milliseconds");
+            double initTime = elapsed_2.TotalMilliseconds;
+           
             // Calculate the expected total number of cells based on custom dimensions
             int expectedTotalCells = 16 * 32 * 8;
 
@@ -396,6 +396,14 @@ namespace UnitTestsProject
             p.Set(KEY.CELLS_PER_COLUMN, 32);
             p.apply(cn);
 
+            // Measure and store execution time for multi-threaded (tmParallel.InitParallelWithConcurrentDictionary) method 
+            stopwatch.Start();
+            tmParallel.InitParallelWithConcurrentDictionary(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_1 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken for InitParallelWithConcurrentDictionary : {elapsed_1.TotalMilliseconds} milliseconds");
+            double initParallelTime = elapsed_1.TotalMilliseconds;
+
             // Measure and store execution time for single-threaded (tm.Init) method
             stopwatch.Start();
             tm.Init(cn);
@@ -403,15 +411,7 @@ namespace UnitTestsProject
             TimeSpan elapsed_2 = stopwatch.Elapsed;
             Console.WriteLine($"Time taken: {elapsed_2.TotalMilliseconds} milliseconds");
             double initTime = elapsed_2.TotalMilliseconds;
-
-            // Measure and store execution time for multi-threaded (tmParallel.InitParallelWithConcurrentDictionary) method 
-            stopwatch.Start();
-            tmParallel.InitParallelWithConcurrentDictionary(cn);
-            stopwatch.Stop();
-            TimeSpan elapsed_1 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken for InitParallelWithConcurrentDictionary : {elapsed_1.TotalMilliseconds} milliseconds");
-            double initParallelTime = elapsed_1.TotalMilliseconds;    
-
+            
             // Count the total number of cells in all columns and verify it against the expected count.
             int totalCellCount = 0;
             foreach (var column in cn.GetColumns())
@@ -658,19 +658,20 @@ namespace UnitTestsProject
 
             // Measure and store execution time for single-threaded (tm.Init) method
             stopwatch.Start();
-            tm.Init(cn);
-            stopwatch.Stop();
-            TimeSpan elapsed_2 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken: {elapsed_2.TotalMilliseconds} milliseconds");
-            double initTime = elapsed_2.TotalMilliseconds;
-
-            // Measure and store execution time for single-threaded (tm.Init) method
-            stopwatch.Start();
             tmParallel.InitParallelWithConcurrentDictionary(cn);
             stopwatch.Stop();
             TimeSpan elapsed_1 = stopwatch.Elapsed;
             Console.WriteLine($"Time taken for InitParallelWithConcurrentDictionary : {elapsed_1.TotalMilliseconds} milliseconds");
             double initParallelTime = elapsed_1.TotalMilliseconds;
+
+
+            // Measure and store execution time for single-threaded (tm.Init) method
+            stopwatch.Start();
+            tm.Init(cn);
+            stopwatch.Stop();
+            TimeSpan elapsed_2 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed_2.TotalMilliseconds} milliseconds");
+            double initTime = elapsed_2.TotalMilliseconds;
 
             // Set up previous and current active columns and cells
             int[] previousActiveColumns = { 0 };
@@ -687,14 +688,6 @@ namespace UnitTestsProject
             // Creating a weak synapse with a specified permanence value
             cn.CreateSynapse(activeSegment, previousActiveCells[3], weakSynapsePermanence);
 
-            // Perform computation cycles to enable learning of the sequences, Measure and store execution time for single-threaded computation (tm.Compute)
-            stopwatch.Start();
-            tm.Compute(activeColumns, true);
-            stopwatch.Stop();
-            TimeSpan elapsed_4 = stopwatch.Elapsed;
-            Console.WriteLine($"Time taken: {elapsed_4.TotalMilliseconds} milliseconds for compute");
-            double initTimeCompute = elapsed_4.TotalMilliseconds;
-
             // Perform computation cycles to enable learning of the sequences, Measure and store execution time for single-threaded computation (tmParallel.Compute)
             stopwatch.Start();
             tmParallel.Compute(activeColumns, true);
@@ -703,6 +696,14 @@ namespace UnitTestsProject
             Console.WriteLine($"Time taken for compute tmParallel(InitParallelWithConcurrentDictionary): {elapsed_3.TotalMilliseconds} milliseconds");
             double initParallelTimeCompute = elapsed_3.TotalMilliseconds;
 
+            // Perform computation cycles to enable learning of the sequences, Measure and store execution time for single-threaded computation (tm.Compute)
+            stopwatch.Start();
+            tm.Compute(activeColumns, true);
+            stopwatch.Stop();
+            TimeSpan elapsed_4 = stopwatch.Elapsed;
+            Console.WriteLine($"Time taken: {elapsed_4.TotalMilliseconds} milliseconds for compute");
+            double initTimeCompute = elapsed_4.TotalMilliseconds;
+            
             // Log performance metrics and store them as a CSV entry 
             LogPerformance(nameof(TestDestroyWeakSynapseOnWrongPrediction), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
 
