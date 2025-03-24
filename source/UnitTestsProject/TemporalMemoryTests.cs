@@ -37,6 +37,83 @@ namespace UnitTestsProject
             get { return TestContextInstance; }
             set { TestContextInstance = value; }
         }
+
+        // Summary:
+        // This test method measures the performance of different initialization methods in the TemporalMemoryParallelProcessing class.
+        // It compares the execution time of a single-threaded optimized initialization method against three parallel initialization methods:
+        // 1. InitParallelRegularDictionary
+        // 2. InitParallelWithConcurrentDictionary
+        // 3. InitParallelPartitioned
+        // The results are logged using TestContext.WriteLine, and an assertion checks if the parallel execution is faster than the single-threaded execution.
+        // This helps in evaluating the efficiency and scalability of parallel processing techniques in the context of HTM (Hierarchical Temporal Memory) configurations.
+
+        [TestMethod]
+        public void TestPerformance()
+        {
+            MeasurePerformance();
+        }
+
+        public void MeasurePerformance()
+        {
+            // Initialize the Connections object with necessary configurations
+            HtmConfig htmConfig = new HtmConfig
+            {
+                ColumnDimensions = new int[] { 100 }, // Example dimensions
+                CellsPerColumn = 32,
+                SynPermConnected = 0.1,
+                NumInputs = 100
+            };
+
+            Connections conn = new Connections(htmConfig); // Use the appropriate constructor or method
+
+            // Create an instance of TemporalMemoryParallelProcessing
+            TemporalMemoryParallelProcessing tmPara = new TemporalMemoryParallelProcessing();
+
+            Stopwatch sw = new Stopwatch();
+
+            // Measure Single_Threaded_Optimized_Init performance
+            sw.Start();
+            tmPara.Single_Threaded_Optimized_Init(conn); // Call the method on the instance
+            sw.Stop();
+            long singleThreadedTime = sw.ElapsedMilliseconds; // Fix: Use 'long' and correct variable name
+            TestContext.WriteLine($"Method 1 Single-Threaded Execution Time: {singleThreadedTime} ms");
+
+            // Reset the stopwatch
+            sw.Reset();
+
+            // Measure InitParallelRegularDictionary
+            sw.Start();
+            tmPara.InitParallelRegularDictionary(conn); // Call the method on the instance
+            sw.Stop();
+            long parallel1Time = sw.ElapsedMilliseconds; // Fix: Use 'long'
+            TestContext.WriteLine($"Method 2 InitParallelRegularDictionary Time: {parallel1Time} ms");
+
+            // Reset the stopwatch
+            sw.Reset();
+
+            // Measure InitParallelWithConcurrentDictionary
+            sw.Start();
+            tmPara.InitParallelWithConcurrentDictionary(conn); // Call the method on the instance
+            sw.Stop();
+            long parallel2Time = sw.ElapsedMilliseconds; // Fix: Use 'long'
+            TestContext.WriteLine($"Method 3 InitParallelWithConcurrentDictionary Time: {parallel2Time} ms");
+
+            // Reset the stopwatch
+            sw.Reset();
+
+            // Measure InitParallelPartitioned
+            sw.Start();
+            tmPara.InitParallelPartitioned(conn); // Call the method on the instance
+            sw.Stop();
+            long parallel3Time = sw.ElapsedMilliseconds; // Fix: Use 'long'
+            TestContext.WriteLine($"Method 4 InitParallelPartitioned Time: {parallel3Time} ms");
+
+
+            // Optionally, assert that the parallel version is faster
+            Assert.IsTrue(parallel2Time < singleThreadedTime, "Parallel execution should be faster than single-threaded execution.");
+        }
+
+
         /// <summary>
         /// Checks whether two collections are disjoint.
         /// </summary>
