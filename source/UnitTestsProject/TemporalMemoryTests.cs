@@ -5361,6 +5361,14 @@ namespace UnitTestsProject
 
         //Test Case 1: TestBasicSequenceLearningAndRecallParallel
         //Purpose: This test case verifies the learning and recall of a sequence using both single-threaded and parallel processing.
+        /// <summary>
+        /// Tests sequence learning and recall using both single-threaded and parallel Temporal Memory (TM) implementations.  
+        /// Validates that active cells are correctly recalled and compares execution times between parallel (<see cref="TemporalMemoryParallelProcessing.InitParallelWithConcurrentDictionary"/>)  
+        /// and single-threaded initialization. Ensures thread safety during column/cell creation.  
+        /// </summary>
+        /// <remarks>
+        /// Measures performance via <see cref="Stopwatch"/> and asserts recall accuracy for the sequence [0, 1, 2, 3, 4, 5, 6].
+        /// </remarks>
 
         [TestMethod]
         public void TestBasicSequenceLearningAndRecallParallel() 
@@ -5407,7 +5415,15 @@ namespace UnitTestsProject
 
         //Test Case 2: TestActiveCellPrediction
         //Purpose: This test case verifies the prediction of active cells in a sequence by comparing single-threaded and parallel execution times.
-        
+        /// <summary>
+        /// Verifies TM's ability to predict active cells after exposure to a sequence (e.g., [3, 4, 5] following [0, 1, 2]).  
+        /// Compares initialization and computation times between single-threaded and parallel modes using <see cref="TemporalMemoryParallelProcessing"/>.  
+        /// </summary>
+        /// <remarks>
+        /// Logs performance metrics (CSV) and asserts that predicted cells match expected active cells.  
+        /// Uses <see cref="Connections.GetCell"/> for cell indexing.
+        /// </remarks>
+
         [TestMethod]
         public void TestActiveCellPrediction() 
         {
@@ -5469,6 +5485,13 @@ namespace UnitTestsProject
 
         //Test Case 3: TestParallelInitializationWithMultipleActiveColumns
         //Purpose: This test case verifies the parallel initialization of the Temporal Memory system with multiple active columns.
+        /// <summary>
+        /// Validates parallel initialization of TM with a 16x16 column grid.  
+        /// Ensures thread-safe column creation via <see cref="ConcurrentDictionary"/> and checks the total column count.  
+        /// </summary>
+        /// <remarks>
+        /// Asserts that 256 columns are created without exceptions. Tests scalability for larger column dimensions.
+        /// </remarks>
 
         [TestMethod]
         public void TestParallelInitializationWithMultipleActiveColumns() 
@@ -5496,6 +5519,14 @@ namespace UnitTestsProject
 
         //Test Case 4: TestTemporalMemoryInitializationWithDefaultParameters
         //Purpose: This test case verifies that Temporal Memory initializes correctly using default parameters and parallel initialization with a concurrent dictionary.
+        /// <summary>
+        /// Tests TM initialization with default parameters in both single-threaded and parallel modes.  
+        /// Measures execution times and validates successful column creation.  
+        /// </summary>
+        /// <remarks>
+        /// Uses <see cref="Parameters.getAllDefaultParameters"/> for configuration.  
+        /// Asserts <see cref="Connections.GetColumns"/>.Count > 0.
+        /// </remarks>
 
         [TestMethod]
         public void TestTemporalMemoryInitializationWithDefaultParameters() 
@@ -5526,7 +5557,15 @@ namespace UnitTestsProject
 
         //Test Case 5: Verify Parallel Initialization with Fewer Columns
         //Purpose: To test the initialization of the Temporal Memory system with a smaller number of columns in parallel.
-        
+        /// <summary>
+        /// Validates parallel initialization with a small column grid (4x4).  
+        /// Focuses on correctness for minimal-scale inputs and thread safety.  
+        /// </summary>
+        /// <remarks>
+        /// Asserts 16 columns are created and checks for initialization exceptions.  
+        /// Uses <see cref="KEY.COLUMN_DIMENSIONS"/> to configure grid size.
+        /// </remarks>
+
         [TestMethod]
         public void TestParallelInitializationWithFewerColumns() 
         {
@@ -5554,6 +5593,14 @@ namespace UnitTestsProject
 
         //Test Case 6: Stress Test with Varying Thread Counts
         //Purpose: To evaluate the performance of Temporal Memory with different thread counts and analyze optimal thread usage.
+        /// <summary>
+        /// Evaluates TM performance across thread counts (1 to 2x logical cores) to determine optimal parallelism.  
+        /// Configures <see cref="ParallelOptions.MaxDegreeOfParallelism"/> and measures speedup.  
+        /// </summary>
+        /// <remarks>
+        /// Logs execution times per thread count and asserts optimal threads ≤ 2x <see cref="Environment.ProcessorCount"/>.  
+        /// Uses <see cref="ThreadPool.SetMinThreads"/> to control concurrency.
+        /// </remarks>
 
         [TestMethod]
         public void TestParallelPerformanceWithVaryingThreadCounts() 
@@ -5627,6 +5674,14 @@ namespace UnitTestsProject
 
         //Test Case 7: Scalability Test with Increasing Data Size
         //Purpose: To measure the scalability of Temporal Memory by testing performance across increasing problem sizes.
+        /// <summary>
+        /// Measures TM scalability by testing column counts from 100 to 5000.  
+        /// Compares single-threaded vs. parallel initialization and computation times.  
+        /// </summary>
+        /// <remarks>
+        /// Calculates speedup and scalability efficiency. Asserts that larger problems yield better parallel performance.  
+        /// Uses <see cref="KEY.CELLS_PER_COLUMN"/> and <see cref="KEY.COLUMN_DIMENSIONS"/> for configuration.
+        /// </remarks>
 
         [TestMethod]
         public void TestParallelScalabilityWithIncreasingSize() 
@@ -5745,10 +5800,15 @@ namespace UnitTestsProject
 
         //Test Case 8: Testing Performance with Different Active Columns and Excluded Cells
         //Purpose: This test case evaluates the performance of Temporal Memory (TM) in both single-threaded and multi-threaded modes, with a focus on handling active columns and excluded cells.
-
-        // <summary>
-        // Test performance with different sets of active columns and excluded cells
-        // </summary>
+        /// <summary>
+        /// Tests TM with parameterized active columns and excluded cells (e.g., [1, 2, 3] vs. [0, 1, 2, 3]).  
+        /// Validates that excluded cells are not activated during computation.  
+        /// </summary>
+        /// <remarks>
+        /// Uses <see cref="DataRowAttribute"/> for test inputs. Asserts via <see cref="CollectionAssert.DoesNotContain"/>.  
+        /// Logs single-threaded vs. parallel compute times.
+        /// </remarks>
+       
         [TestMethod]
         [DataRow(new int[] { 1, 2, 3 }, new int[] { 0, 1, 2, 3 })]
         [DataRow(new int[] { 0, 2, 4 }, new int[] { 1, 2, 3 })]
@@ -5808,6 +5868,14 @@ namespace UnitTestsProject
 
         //Test Case 9: Verifying Computation with Different Burst Thresholds
         //Purpose: This test case verifies that computation using Temporal Memory produces the expected bursting cells based on given thresholds.
+        /// <summary>
+        /// Verifies bursting cell behavior matches expectations for given active columns (e.g., [0, 1, 2]).  
+        /// Compares actual vs. expected bursting cells using <see cref="Connections.GetCells"/>.  
+        /// </summary>
+        /// <remarks>
+        /// Uses order-independent comparison via <see cref="Enumerable.SequenceEqual"/>.  
+        /// Logs cell indices for debugging.
+        /// </remarks>
 
         [TestMethod]
         [DataRow(new int[] { 0, 1, 2 }, new int[] { 1, 2, 3 })]
@@ -5850,6 +5918,14 @@ namespace UnitTestsProject
 
         //Test Case 10: Testing No Change When No Active Cells Selected for Segments in Burst
         //Purpose: This test case checks that when no active cells are selected during the burst, there should be no change in the permanence values of the synapses.
+        /// <summary>
+        /// Ensures synapse permanence remains stable (e.g., 0.3) when no active cells are selected during bursting.  
+        /// Tests TM's adaptation logic with predefined segments.  
+        /// </summary>
+        /// <remarks>
+        /// Uses <see cref="DataRowAttribute"/> for parameterized inputs.  
+        /// Planned assertion: <see cref="Assert.AreEqual"/> for permanence values.
+        /// </remarks>
 
         [TestMethod]
         [DataRow(new int[] { 0 }, new int[] { 1 }, 0.3, 0.3)]
@@ -5895,6 +5971,14 @@ namespace UnitTestsProject
 
         //Test Case 11: TestSequenceLearningWithHighSparsity
         //Purpose: This test case verifies the growth of new segments when multiple columns are active in a high-sparsity sequence. It compares the performance of single-threaded and multi-threaded Temporal Memory computation.
+        /// <summary>
+        /// Validates TM's handling of high-sparsity sequences (e.g., [0, 10, 20, ...]).  
+        /// Measures segment growth and recall accuracy in parallel mode.  
+        /// </summary>
+        /// <remarks>
+        /// Asserts that recalled sequences contain expected active cells.  
+        /// Logs performance metrics for initialization and computation.
+        /// </remarks>
 
         [TestMethod]
         public void TestSequenceLearningWithHighSparsity()
@@ -5959,6 +6043,14 @@ namespace UnitTestsProject
 
         //Test Case 12: TestSegmentGrowthWithMultipleActiveColumns
         //Purpose: This test case verifies the learning and recall of a high-sparsity sequence using both single-threaded and parallel versions of the Temporal Memory algorithm. It checks if new segments grow as expected in the presence of multiple active columns.
+        /// <summary>
+        /// Tests segment growth when multiple columns (e.g., [0, 1, 2, 3, 4]) are active.  
+        /// Validates distal dendrite creation via <see cref="Cell.DistalDendrites"/>.Count.  
+        /// </summary>
+        /// <remarks>
+        /// Asserts that active cells gain segments after exposure to the sequence.  
+        /// Compares single-threaded vs. parallel performance.
+        /// </remarks>
 
         [TestMethod]
         public void TestSegmentGrowthWithMultipleActiveColumns()
@@ -6019,6 +6111,14 @@ namespace UnitTestsProject
 
         //Test Case 13: TestParallelInitializationWithCustomSynapseConnections
         //Purpose: This test case verifies that synapses are correctly created and initialized for active cells during parallel initialization using a custom configuration. It tests the creation of synapse connections during the parallel initialization phase.
+        /// <summary>
+        /// Validates synapse creation during parallel initialization with custom configurations (e.g., 10 cells/column).  
+        /// Tests <see cref="Connections.CreateDistalSegment"/> and <see cref="Connections.CreateSynapse"/> in a concurrent context.  
+        /// </summary>
+        /// <remarks>
+        /// Asserts synapse count (=1) on the distal segment.  
+        /// Measures initialization time via <see cref="Stopwatch"/>.
+        /// </remarks>
 
         [TestMethod]
         public void TestParallelInitializationWithCustomSynapseConnections()
