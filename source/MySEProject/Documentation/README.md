@@ -710,18 +710,23 @@ In this section, we compare the performance of the new multi-threaded method (`I
 ### Graph between InitParallel_Time vs iComputeParallel_Time for All CPU Cores on Different PCs
 This graph visualizes the performance comparison between initialization time (`InitParallel_Time`) and computation time (`iComputeParallel_Time`) for different CPU core configurations across multiple PCs. The graph provides insight into how both tasks scale with the number of CPU cores.
 
-![Graph 1](path-to-your-graph)
+![Graph 1](https://github.com/adityakumar-ai/Alabaster_neo/blob/UAT_Test/source/MySEProject/All_Images/Graph_01.jpg)
+![Graph 1](https://github.com/adityakumar-ai/Alabaster_neo/blob/UAT_Test/source/MySEProject/All_Images/Graph_02.jpg)
+![Graph 1](https://github.com/adityakumar-ai/Alabaster_neo/blob/UAT_Test/source/MySEProject/All_Images/Graph_03.jpg)
 
 ### Graph for Evaluation Across Different PCs Using Various CPU Cores
 This graph compares the performance of both the new multi-threaded method (`InitParallel`) and the old single-threaded method (`Init`) across various CPU configurations (4, 6, 8, 10, and All cores) on different PCs. The goal is to evaluate how the number of cores affects the execution time of both methods.
 
-![Graph 2](path-to-your-graph)
+![Graph 1](https://github.com/adityakumar-ai/Alabaster_neo/blob/UAT_Test/source/MySEProject/All_Images/Graph_04.jpg)
+![Graph 1](https://github.com/adityakumar-ai/Alabaster_neo/blob/UAT_Test/source/MySEProject/All_Images/Graph_05.jpg)
+![Graph 1](https://github.com/adityakumar-ai/Alabaster_neo/blob/UAT_Test/source/MySEProject/All_Images/Graph_06.jpg)
+
 
 
 
 ### View Detailed Analysis and Visualizations
 
-For a comprehensive look at the analysis and visualizations, including interactive graphs and data analysis, please click on this [notebook](#) to explore the full dataset and visual comparisons. The notebook provides an in-depth exploration of the performance metrics and the effects of various configurations across different CPUs.
+For a comprehensive look at the analysis and visualizations, including interactive graphs and data analysis, please click on this [notebook](#https://github.com/adityakumar-ai/Alabaster_neo/blob/UAT_Test/source/MySEProject/Documentation/NoteBook.ipynb) to explore the full dataset and visual comparisons. The notebook provides an in-depth exploration of the performance metrics and the effects of various configurations across different CPUs.
 
 
 ## **Conclusion :**
