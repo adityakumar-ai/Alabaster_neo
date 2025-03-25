@@ -727,14 +727,14 @@ This graph compares the performance of both the new multi-threaded method (`Init
 
 ### View Detailed Analysis and Visualizations
 
-For a comprehensive look at the analysis and visualizations, including interactive graphs and data analysis, please click on this [notebook](https://github.com/adityakumar-ai/Alabaster_neo/blob/UAT_Test/source/MySEProject/Documentation/NoteBook.ipynb) to explore the full dataset and visual comparisons. The notebook provides an in-depth exploration of the performance metrics and the effects of various configurations across different CPUs.
+For a comprehensive look at the analysis and visualizations, including interactive graphs and data analysis, please click on this [notebook](https://github.com/adityakumar-ai/Alabaster_neo/blob/UAT_Test/source/MySEProject/Documentation/NoteBook.pdf) to explore the full dataset and visual comparisons. The notebook provides an in-depth exploration of the performance metrics and the effects of various configurations across different CPUs.
 
 
 ## **Conclusion :**
 
 In conclusion, this project successfully optimized the Temporal Memory algorithm by refactoring it to leverage multi-threading techniques, significantly improving both execution speed and resource efficiency. Through various methods, the InitParallelWithConcurrentDictionary() emerged as the most effective approach, outperforming other strategies in terms of execution time, consistency, and stability. The use of Parallel.For for parallel execution and ConcurrentDictionary for thread-safe concurrent updates proved to be highly beneficial, ensuring minimal contention and better scalability with increasing CPU cores. This multi-threaded approach not only enhanced the algorithm's performance for large datasets but also made it more suitable for real-time applications. As the number of CPU cores increased, the performance improvements were evident, highlighting the scalability of the solution. The project demonstrated that by optimizing critical sections of the algorithm, significant performance gains can be achieved, making the Temporal Memory algorithm more efficient and robust.  Overall, the optimized algorithm offers a reliable and high-performing solution for large-scale and real-time data processing tasks.
 
-[Go to Top](#ml-24-25-06-implement-temporal-memory-parallel-version)
+[Go to Top](#overview)
 
 
 
