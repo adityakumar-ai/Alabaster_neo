@@ -1,37 +1,33 @@
 # **ML 24/25-06 Implement Temporal Memory Parallel Version**
 
+**The Temporal Memory algorithm is currently implemented as a single-threaded process. This project focuses on refactoring key parts of the algorithm to leverage **multithreading** and improve performance. By identifying **parallelizable execution paths** and using efficient concurrency patterns, we aim to enable **parallel execution** while ensuring correctness and maintaining test coverage.**
 
-## Table of Contents
-- [Introduction](#introduction)
-- [Overview ](#overview)
-- [Methodology](#methodology)
-- [Implementation](#implementation)
-     -  [Single-threaded Init() Method](#1-single-threaded-init-method)
-
-     -  [Implementing Multithreading (Key Changes)](#2-implementing-multithreading-key-changes)
-
-     - [Why Parallel.For is Better Than Async for Matrix Initialization](#why-parallelfor-is-better-than-async-for-matrix-initialization)
-
-     - [Implementing Four Optimization Methods](#3-implementing-four-optimization-methods)
-       - [Single-threaded Init()](#1-single-threaded-init-method)
-       - [InitParallelRegularDictionary()](#32-initparallelregulardictionary)
-       - [InitParallelWithConcurrentDictionary()](#33-initparallelwithconcurrentdictionary)
-       - [InitParallelPartitioned()](#34-initparallelpartitioned)
-
-
-- [Performance Analysis](#4-performance-analysis-and-best-method-selection)
+# **Overview**
+- **<u>[Problem Statement](#problem-statement)</u>** 
+- **<u>[Introduction](#introduction)</u>**  
+- **<u>[Optimization Strategy](#optimization-strategy)</u>**  
+- **<u>[Implementation](#implementation)</u>**  
+  - **<u>[Single-threaded Init() Method](#1-single-threaded-init-method)</u>**  
+  - **<u>[Implementing Multithreading (Key Changes)](#2-implementing-multithreading-key-changes)</u>**  
+  - **<u>[Why Parallel.For is Better Than Async for Matrix Initialization](#why-parallelfor-is-better-than-async-for-matrix-initialization)</u>**  
+  - **<u>[Implementing Four Optimization Methods](#3-implementing-four-optimization-methods)</u>**  
+    - **<u>[Single-threaded Init()](#1-single-threaded-init-method)</u>**  
+    - **<u>[InitParallelRegularDictionary()](#32-initparallelregulardictionary)</u>**  
+    - **<u>[InitParallelWithConcurrentDictionary()](#33-initparallelwithconcurrentdictionary)</u>**  
+    - **<u>[InitParallelPartitioned()](#34-initparallelpartitioned)</u>**  
+- **<u>[Performance Analysis](#4-performance-analysis-and-best-method-selection)</u>**  
+- **<u>[Conclusion](#conclusion)</u>**  
+- **<u>[Result and Visualization](#5-result-and-visualization)</u>** 
+- **<u>[Conclusion](#conclusion)</u>**  
 
 
-- [Conclusion](#conclusion)
-
-- [Result and Visualization](#5-result-and-visualization)
+# **Problem Statement**
+The Temporal Memory (TM) algorithm is currently implemented as a single-threaded process, which limits its performance and scalability. This project aims to optimize the algorithm by refactoring it to utilize multithreading, thereby improving execution speed and resource efficiency. The task involves identifying areas of the code that can be parallelized, such as iterative loops and independent operations, and applying appropriate multithreading techniques to enhance performance. The success of the refactoring will be evaluated through performance benchmarking, comparing execution times before and after parallelization. Additionally, all existing unit tests will be validated, and new tests will be introduced to ensure the correctness and stability of the parallelized algorithm under various conditions.
 
 
 
 
-
-
-# <u>Introduction</u>
+# **Introduction**
 
 The Temporal Memory (TM) algorithm is a key component in hierarchical temporal memory (HTM), which is inspired by the human neocortex. This algorithm is responsible for learning and predicting patterns in sequential data, such as time-series or sensor data. While the algorithm performs well in a single-threaded implementation, there is a significant opportunity to improve its performance by leveraging multithreading.
 
@@ -40,13 +36,9 @@ Currently, the Temporal Memory algorithm is implemented as a single-threaded pro
 This project focuses on identifying the parts of the Temporal Memory algorithm that can be parallelized, refactoring them to work asynchronously, and measuring the performance improvements. Additionally, we will compare the performance of the original single-threaded implementation with the optimized multithreaded version, using a variety of metrics including execution time and memory usage.
 
 
-# <u>Overview</u> 
-
-The **Temporal Memory (TM) Algorithm** is currently implemented as a single-threaded process, meaning that it processes tasks one by one, which can be slow for larger datasets or real-time applications. The task is to re-implement specific algorithmic components to leverage the power of **multithreading**, thereby enhancing performance and efficiency. By enabling parallel execution, we aim to reduce processing time and allow the algorithm to scale effectively with larger datasets, making it more suitable for real-time or big data applications. The goal is to optimize the underlying processes that can be executed concurrently, ensuring faster and more efficient performance without compromising the integrity of the algorithm.
 
 
-
-# <u>Methodology</u>
+# **Optimization Strategy**
 
 
 To implement the parallelization improvement, the following steps were taken:
@@ -77,9 +69,9 @@ To implement the parallelization improvement, the following steps were taken:
    - The graphs helped in visually comparing the two implementations and provided insights into the performance difference between the original and parallelized Temporal Memory algorithm.
 
 
-# <u>**Implementation**</u>
+# **Implementation**
 
-# 1. **Single-threaded `Init()` Method**
+## 1. **Single-threaded `Init()` Method**
 
 - The original `Init()` method is implemented in a **single-threaded** fashion.
 - It uses a **single `for` loop** to iterate through all columns and initialize them one at a time.
@@ -112,7 +104,7 @@ public void Init(Connections conn)
     ---
 }
 ```
-# **2. Implementing Multithreading (Key Changes)**  
+## **2. Implementing Multithreading (Key Changes)**  
  The key changes in the multithreaded implementation include:  
 
 - **Replacing traditional `for` loops with `Parallel.For`** to distribute work across multiple threads.  
@@ -142,17 +134,40 @@ foreach (var kvp in columnDict)
     matrix.set(kvp.Key, kvp.Value);
 }
 ```
-# **Why Parallel.For is Better Than Async for Matrix Initialization**
+## **Why Parallel.For is Better Than Async for Matrix Initialization**
 
 ## **1. Understanding the Task**
 
 The task involves initializing a **large matrix** and creating objects in **parallel**. This is a **CPU-bound** operation, meaning it requires maximum CPU efficiency rather than waiting for I/O.
 
+When initializing a large matrix, each element in the matrix can be initialized independently of the others. The task at hand doesn't involve waiting for external resources but instead requires CPU power to process each element in parallel.
+
+**Parallel.For** can split the work across multiple threads, fully utilizing the available CPU cores. By doing so, it can reduce the time it takes to initialize the entire matrix, as multiple threads can work concurrently, each processing different portions of the matrix.
+
+The Parallel.For loop runs synchronously, dividing the matrix initialization work into chunks that are handled by different threads, making full use of the processor's multi-core architecture.
+
 ## **2. Why Parallel.For is the Better Choice**
 ###  **Parallel.For is optimized for CPU-bound tasks**
-- It **efficiently utilizes all CPU cores**.
-- Uses the **.NET ThreadPool**, avoiding unnecessary thread overhead.
-- Provides **fast execution** since it runs in multiple threads without context switching.
+- **Automatic Load Balancing:**
+Parallel.For automatically divides tasks into chunks and balances them across available threads, optimizing execution.
+
+- **Scalability:**
+As the dataset grows, Parallel.For scales efficiently, leveraging multiple CPU cores for faster processing.
+
+- **Optimized for Short-Lived Tasks:**
+It is ideal for tasks like matrix initialization, where each operation is computationally expensive but short-lived.
+
+- **Reduced Synchronization Overhead:**
+Since iterations are independent, there's no need for complex synchronization mechanisms, reducing potential bottlenecks.
+
+- **No Explicit Thread Management:**
+Parallel.For abstracts thread management, letting the .NET ThreadPool handle it, simplifying implementation.
+
+- **Dynamic Thread Adjustment:**
+The ThreadPool adjusts the number of threads based on system resources, ensuring efficient execution on both multi-core and single-core systems.
+
+- **Non-Blocking Execution:**
+Parallel.For runs multiple threads concurrently, maximizing throughput without waiting for each thread to finish before starting the next.
 
 
 ###  **Async is meant for I/O-bound tasks, not CPU-heavy operations**
@@ -259,14 +274,14 @@ protected void ActivateDendrites2_(Connections conn, ComputeCycle cycle, bool le
 }
 ```
 
-# **3. Implementing Four Optimization Methods**  
+## **3. Implementing Four Optimization Methods**  
 
 To optimize the initialization process further, we developed four different methods, each implementing a unique approach to parallelization. These methods aim to improve execution time and efficiency while maintaining correctness.  
 
 We will describe each method in detail:  
 
 
-## **3.1 Single_Threaded_Optimized_Init()**  
+### **3.1 Single_Threaded_Optimized_Init()**  
 
 This method refines the single-threaded initialization process by improving efficiency and reducing unnecessary operations.  
 
@@ -312,7 +327,7 @@ for (int i = 0; i < numColumns; i++)
 
 ---
 
-## **3.2 InitParallelRegularDictionary()**  
+### **3.2 InitParallelRegularDictionary()**  
 
 This method enhances the initialization process by leveraging multithreading for improved performance and efficiency.  
 
@@ -396,11 +411,11 @@ lock (matrix)
 
 ---
 
-## **3.3 InitParallelWithConcurrentDictionary()**
+### **3.3 InitParallelWithConcurrentDictionary()**
 
 This method improves the initialization of columns using **`Parallel.For`** and **`ConcurrentDictionary`**, ensuring better synchronization and faster execution.
 
-## Key Optimizations & Enhancements:
+### Key Optimizations & Enhancements:
 
 ###  **1. Used `Parallel.For` for Parallel Column Initialization**
 -  **Faster Execution** – Distributes column creation and cell assignment across multiple threads.
@@ -456,14 +471,29 @@ foreach (var kvp in columnDict)
 ```
 ---
 
-### Why `ConcurrentDictionary`?
- **ConcurrentDictionary** allows safe parallel insertions without blocking other threads. This ensures that multiple threads can update the column dictionary concurrently before committing changes to the matrix and reducing contention and improving execution time.
+### **Why ConcurrentDictionary?**
+
+**ConcurrentDictionary** is a thread-safe collection designed for scenarios where multiple threads need to access and modify data concurrently. Unlike a regular `Dictionary`, it allows safe parallel insertions without causing data corruption or requiring manual synchronization.
+
+- **Thread Safety:**  
+  It ensures that multiple threads can safely add or update elements without risk of data inconsistency or race conditions.
+
+- **Lock-Free Operations:**  
+  Internal fine-grained locking minimizes blocking, allowing multiple threads to perform operations on different parts of the data without waiting for others.
+
+- **Atomic Operations:**  
+  Operations like `Add Or Update` are atomic, ensuring that each operation completes without interference from other threads.
+
+- **Improved Performance:**  
+  By reducing the need for blocking and synchronization, **ConcurrentDictionary** optimizes performance in high-concurrency scenarios, making it ideal for parallel matrix initialization.
+
+In summary, **ConcurrentDictionary** enhances execution time by enabling safe, efficient, and concurrent updates to shared data in a multithreaded environment.
 
 
 ---
 
 
-## **3.4 InitParallelPartitioned()**
+### **3.4 InitParallelPartitioned()**
 
 ### **Key Optimizations & Enhancements:**
 
@@ -558,7 +588,7 @@ SparseObjectMatrix<Column> matrix = this.connections.Memory == null
 
 
 
-# <u>**4. Performance Analysis and Best Method Selection**</u>
+## **4. Performance Analysis and Best Method Selection**
 
 In this section, we analyze the performance of each method by calculating key metrics such as Mean, Max, Min, Standard Deviation, Variance, and worst-case performance comparisons for both **Initialization Time** and **Compute Time**. These calculations will help us determine the best performing method by comparing the efficiency and consistency across different methods.
 
@@ -599,7 +629,7 @@ In this step, we calculated the ratio of the **maximum execution time** to the *
 ![Alt text](https://github.com/adityakumar-ai/Alabaster_neo/blob/UAT_Test/source/MySEProject/All_Images/Min-Max_Execution_06.jpg)
 
 
-## <u>**Conclusion**</u>: 
+## **Optimal Method Selection:** 
 
 **Why `InitParallelWithConcurrentDictionary()` is the Best Choice ??**
 
@@ -623,7 +653,7 @@ In summary, `InitParallelWithConcurrentDictionary()` strikes the perfect balance
 
 ---
 
-# <u>**5. Result and Visualization**</u>
+# **5. Result and Visualization**
  
 
 **Visualizing Performance Data for InitParallelWithConcurrentDictionary()**
@@ -668,7 +698,43 @@ These scatter plots allow for a visual comparison of the two methods (standard v
 
 ![Alt text](https://github.com/adityakumar-ai/Alabaster_neo/blob/UAT_Test/source/MySEProject/All_Images/Scatter_plot_10.jpg)
 
----
+
+
+### **5.3 Comparison of New Method (InitParallel - Multi-thread) vs. Old Method (Init - Single-thread) Across Various CPU Cores**
+
+In this section, we compare the performance of the new multi-threaded method (`InitParallel`) with the old single-threaded method (`Init`) across different CPU core configurations (4, 6, 8, 10, and All cores) on differnt PC'S. The results are visualized through box-and-whisker plots, highlighting the differences in initialization and computation times.
+
+- **New Method (InitParallel)**: Utilizes a multi-threading approach for faster initialization.
+- **Old Method (Init)**: Relies on a single-thread approach for initialization.
+
+
+### Graph between InitParallel_Time vs iComputeParallel_Time for All CPU Cores on Different PCs
+This graph visualizes the performance comparison between initialization time (`InitParallel_Time`) and computation time (`iComputeParallel_Time`) for different CPU core configurations across multiple PCs. The graph provides insight into how both tasks scale with the number of CPU cores.
+
+![Graph 1](https://github.com/adityakumar-ai/Alabaster_neo/blob/UAT_Test/source/MySEProject/All_Images/Graph_01.jpg)
+![Graph 1](https://github.com/adityakumar-ai/Alabaster_neo/blob/UAT_Test/source/MySEProject/All_Images/Graph_02.jpg)
+![Graph 1](https://github.com/adityakumar-ai/Alabaster_neo/blob/UAT_Test/source/MySEProject/All_Images/Graph_03.jpg)
+
+### Graph for Evaluation Across Different PCs Using Various CPU Cores
+This graph compares the performance of both the new multi-threaded method (`InitParallel`) and the old single-threaded method (`Init`) across various CPU configurations (4, 6, 8, 10, and All cores) on different PCs. The goal is to evaluate how the number of cores affects the execution time of both methods.
+
+![Graph 1](https://github.com/adityakumar-ai/Alabaster_neo/blob/UAT_Test/source/MySEProject/All_Images/Graph_04.jpg)
+![Graph 1](https://github.com/adityakumar-ai/Alabaster_neo/blob/UAT_Test/source/MySEProject/All_Images/Graph_05.jpg)
+![Graph 1](https://github.com/adityakumar-ai/Alabaster_neo/blob/UAT_Test/source/MySEProject/All_Images/Graph_06.jpg)
+
+
+
+
+### View Detailed Analysis and Visualizations
+
+For a comprehensive look at the analysis and visualizations, including interactive graphs and data analysis, please click on this [notebook](https://github.com/adityakumar-ai/Alabaster_neo/blob/UAT_Test/source/MySEProject/Documentation/NoteBook.pdf) to explore the full dataset and visual comparisons. The notebook provides an in-depth exploration of the performance metrics and the effects of various configurations across different CPUs.
+
+
+## **Conclusion :**
+
+In conclusion, this project successfully optimized the Temporal Memory algorithm by refactoring it to leverage multi-threading techniques, significantly improving both execution speed and resource efficiency. Through various methods, the InitParallelWithConcurrentDictionary() emerged as the most effective approach, outperforming other strategies in terms of execution time, consistency, and stability. The use of Parallel.For for parallel execution and ConcurrentDictionary for thread-safe concurrent updates proved to be highly beneficial, ensuring minimal contention and better scalability with increasing CPU cores. This multi-threaded approach not only enhanced the algorithm's performance for large datasets but also made it more suitable for real-time applications. As the number of CPU cores increased, the performance improvements were evident, highlighting the scalability of the solution. The project demonstrated that by optimizing critical sections of the algorithm, significant performance gains can be achieved, making the Temporal Memory algorithm more efficient and robust.  Overall, the optimized algorithm offers a reliable and high-performing solution for large-scale and real-time data processing tasks.
+
+[Go to Top](#overview)
 
 
 
