@@ -16,7 +16,6 @@
     - **<u>[InitParallelWithConcurrentDictionary()](#33-initparallelwithconcurrentdictionary)</u>**  
     - **<u>[InitParallelPartitioned()](#34-initparallelpartitioned)</u>**  
 - **<u>[Performance Analysis](#4-performance-analysis-and-best-method-selection)</u>**  
-- **<u>[Conclusion](#conclusion)</u>**  
 - **<u>[Result and Visualization](#5-result-and-visualization)</u>** 
 - **<u>[Conclusion](#conclusion)</u>**  
 
@@ -751,7 +750,7 @@ For a comprehensive look at the analysis and visualizations, including interacti
  to explore the full dataset and visual comparisons. The notebook provides an in-depth exploration of the performance metrics and the effects of various configurations across different CPUs.
 
 
-## **Conclusion :**
+## **Conclusion**
 
 In conclusion, this project successfully optimized the Temporal Memory algorithm by refactoring it to leverage multi-threading techniques, significantly improving both execution speed and resource efficiency. Through various methods, the InitParallelWithConcurrentDictionary() emerged as the most effective approach, outperforming other strategies in terms of execution time, consistency, and stability. The use of Parallel.For for parallel execution and ConcurrentDictionary for thread-safe concurrent updates proved to be highly beneficial, ensuring minimal contention and better scalability with increasing CPU cores. This multi-threaded approach not only enhanced the algorithm's performance for large datasets but also made it more suitable for real-time applications. As the number of CPU cores increased, the performance improvements were evident, highlighting the scalability of the solution. The project demonstrated that by optimizing critical sections of the algorithm, significant performance gains can be achieved, making the Temporal Memory algorithm more efficient and robust.  Overall, the optimized algorithm offers a reliable and high-performing solution for large-scale and real-time data processing tasks.
 
