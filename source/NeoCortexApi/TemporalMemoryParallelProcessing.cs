@@ -32,12 +32,6 @@ namespace NeoCortexApi
 
 
 
-
-
-
-        #region Alabaster's Section
-
-
         // Initializes columns and cells for the given connection, either creating new columns or using existing ones in the matrix.
 
         /// <summary>
@@ -341,10 +335,6 @@ namespace NeoCortexApi
 
 
 
-        #endregion
-
-
-
 
         // Used fro performance testing.
         //StreamWriter tmperf1 = new StreamWriter("tm-perf-300000-25cells.p.csv");
@@ -559,7 +549,6 @@ namespace NeoCortexApi
             }
 
 
-        #region Alabaster's Section
 
         /// <summary>
         /// Calculate dendrite segment activity, using the current active cells.
@@ -643,14 +632,7 @@ namespace NeoCortexApi
             Debug.WriteLine($"\nActive segments: {sortedActiveSegments.Count}, Matching segments: {sortedMatchingSegments.Count}");
         }
 
-        #endregion
-
-
-
-
-
-
-        
+      
 
         /// <summary>
         /// Indicates the start of a new sequence. 

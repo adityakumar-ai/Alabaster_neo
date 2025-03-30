@@ -1207,31 +1207,7 @@ namespace UnitTestsProject
         }
 
 
-        // Log performance metrics to a CSV file, including method name, initialization times, and computation times
-        public static void LogPerformance(string methodName, double initTime, double initParallelTime, double initTimeCompute, double initParallelTimeCompute)
-        {
-            string csvFilePath = "MethodPerformance_InitParallelWithConcurrentDictiona_3.csv";
-
-            // Check if the file already contains the test case name
-            var existingEntries = File.Exists(csvFilePath) ? File.ReadAllLines(csvFilePath).ToList() : new List<string>();
-
-            // If the method name is not already in the file, log the performance metrics
-            if (!existingEntries.Any(line => line.StartsWith(methodName)))
-            {
-                using (StreamWriter writer = new StreamWriter(csvFilePath, append: true))
-                {
-                    // Write the header if the file is empty
-                    if (existingEntries.Count == 0)
-                    {
-                        writer.WriteLine("Test_Case,Init_Time,InitParallel_Time,Compute_Time,ComputeParallel_Time");
-                    }
-                    // Log the performance data for the method
-                    writer.WriteLine($"{methodName},{initTime},{initParallelTime},{initTimeCompute},{initParallelTimeCompute}");
-                }
-            }
-        }
-
-
+       
         /// <summary>
         /// This unit test assesses the ability of the Temporal Memory to learn and recall patterns
         /// of sequences characterized by a high sparsity rate.
@@ -5300,9 +5276,6 @@ namespace UnitTestsProject
 
 
 
-
-
-
         /*
          
           Unit Testing  
@@ -5357,9 +5330,6 @@ namespace UnitTestsProject
          */
 
 
-
-
-        //Test Case 1: TestBasicSequenceLearningAndRecallParallel
         //Purpose: This test case verifies the learning and recall of a sequence using both single-threaded and parallel processing.
         /// <summary>
         /// Tests sequence learning and recall using both single-threaded and parallel Temporal Memory (TM) implementations.  
@@ -5413,7 +5383,6 @@ namespace UnitTestsProject
         }
 
 
-        //Test Case 2: TestActiveCellPrediction
         //Purpose: This test case verifies the prediction of active cells in a sequence by comparing single-threaded and parallel execution times.
         /// <summary>
         /// Verifies TM's ability to predict active cells after exposure to a sequence (e.g., [3, 4, 5] following [0, 1, 2]).  
@@ -5483,7 +5452,6 @@ namespace UnitTestsProject
         }
 
 
-        //Test Case 3: TestParallelInitializationWithMultipleActiveColumns
         //Purpose: This test case verifies the parallel initialization of the Temporal Memory system with multiple active columns.
         /// <summary>
         /// Validates parallel initialization of TM with a 16x16 column grid.  
@@ -5517,7 +5485,7 @@ namespace UnitTestsProject
             Assert.IsTrue(cn.GetColumns().Count > 0);
         }
 
-        //Test Case 4: TestTemporalMemoryInitializationWithDefaultParameters
+    
         //Purpose: This test case verifies that Temporal Memory initializes correctly using default parameters and parallel initialization with a concurrent dictionary.
         /// <summary>
         /// Tests TM initialization with default parameters in both single-threaded and parallel modes.  
@@ -5554,8 +5522,6 @@ namespace UnitTestsProject
             Assert.IsTrue(cn.GetColumns().Count > 0);
         }
 
-
-        //Test Case 5: Verify Parallel Initialization with Fewer Columns
         //Purpose: To test the initialization of the Temporal Memory system with a smaller number of columns in parallel.
         /// <summary>
         /// Validates parallel initialization with a small column grid (4x4).  
@@ -5591,7 +5557,6 @@ namespace UnitTestsProject
         }
 
 
-        //Test Case 6: Stress Test with Varying Thread Counts
         //Purpose: To evaluate the performance of Temporal Memory with different thread counts and analyze optimal thread usage.
         /// <summary>
         /// Evaluates TM performance across thread counts (1 to 2x logical cores) to determine optimal parallelism.  
@@ -5672,7 +5637,6 @@ namespace UnitTestsProject
         }
 
 
-        //Test Case 7: Scalability Test with Increasing Data Size
         //Purpose: To measure the scalability of Temporal Memory by testing performance across increasing problem sizes.
         /// <summary>
         /// Measures TM scalability by testing column counts from 100 to 5000.  
@@ -5798,7 +5762,7 @@ namespace UnitTestsProject
         }
 
 
-        //Test Case 8: Testing Performance with Different Active Columns and Excluded Cells
+     
         //Purpose: This test case evaluates the performance of Temporal Memory (TM) in both single-threaded and multi-threaded modes, with a focus on handling active columns and excluded cells.
         /// <summary>
         /// Tests TM with parameterized active columns and excluded cells (e.g., [1, 2, 3] vs. [0, 1, 2, 3]).  
@@ -5866,7 +5830,6 @@ namespace UnitTestsProject
         }
 
 
-        //Test Case 9: Verifying Computation with Different Burst Thresholds
         //Purpose: This test case verifies that computation using Temporal Memory produces the expected bursting cells based on given thresholds.
         /// <summary>
         /// Verifies bursting cell behavior matches expectations for given active columns (e.g., [0, 1, 2]).  
@@ -5916,7 +5879,6 @@ namespace UnitTestsProject
 
 
 
-        //Test Case 10: Testing No Change When No Active Cells Selected for Segments in Burst
         //Purpose: This test case checks that when no active cells are selected during the burst, there should be no change in the permanence values of the synapses.
         /// <summary>
         /// Ensures synapse permanence remains stable (e.g., 0.3) when no active cells are selected during bursting.  
@@ -5969,7 +5931,6 @@ namespace UnitTestsProject
         }
 
 
-        //Test Case 11: TestSequenceLearningWithHighSparsity
         //Purpose: This test case verifies the growth of new segments when multiple columns are active in a high-sparsity sequence. It compares the performance of single-threaded and multi-threaded Temporal Memory computation.
         /// <summary>
         /// Validates TM's handling of high-sparsity sequences (e.g., [0, 10, 20, ...]).  
@@ -6041,7 +6002,6 @@ namespace UnitTestsProject
         }
 
 
-        //Test Case 12: TestSegmentGrowthWithMultipleActiveColumns
         //Purpose: This test case verifies the learning and recall of a high-sparsity sequence using both single-threaded and parallel versions of the Temporal Memory algorithm. It checks if new segments grow as expected in the presence of multiple active columns.
         /// <summary>
         /// Tests segment growth when multiple columns (e.g., [0, 1, 2, 3, 4]) are active.  
@@ -6109,7 +6069,6 @@ namespace UnitTestsProject
         }
 
 
-        //Test Case 13: TestParallelInitializationWithCustomSynapseConnections
         //Purpose: This test case verifies that synapses are correctly created and initialized for active cells during parallel initialization using a custom configuration. It tests the creation of synapse connections during the parallel initialization phase.
         /// <summary>
         /// Validates synapse creation during parallel initialization with custom configurations (e.g., 10 cells/column).  
@@ -6147,6 +6106,28 @@ namespace UnitTestsProject
 
 
 
+        // Log performance metrics to a CSV file, including method name, initialization times, and computation times
+        public static void LogPerformance(string methodName, double initTime, double initParallelTime, double initTimeCompute, double initParallelTimeCompute)
+        {
+            string csvFilePath = "MethodPerformance_InitParallelWithConcurrentDictiona_3.csv";
 
+            // Check if the file already contains the test case name
+            var existingEntries = File.Exists(csvFilePath) ? File.ReadAllLines(csvFilePath).ToList() : new List<string>();
+
+            // If the method name is not already in the file, log the performance metrics
+            if (!existingEntries.Any(line => line.StartsWith(methodName)))
+            {
+                using (StreamWriter writer = new StreamWriter(csvFilePath, append: true))
+                {
+                    // Write the header if the file is empty
+                    if (existingEntries.Count == 0)
+                    {
+                        writer.WriteLine("Test_Case,Init_Time,InitParallel_Time,Compute_Time,ComputeParallel_Time");
+                    }
+                    // Log the performance data for the method
+                    writer.WriteLine($"{methodName},{initTime},{initParallelTime},{initTimeCompute},{initParallelTimeCompute}");
+                }
+            }
+        }
     }
 }
