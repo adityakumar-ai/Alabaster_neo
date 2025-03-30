@@ -747,7 +747,8 @@ This graph compares the performance of both the new multi-threaded method (`Init
 
 ### View Detailed Analysis and Visualizations
 
-For a comprehensive look at the analysis and visualizations, including interactive graphs and data analysis, please click on this [notebook](https://github.com/adityakumar-ai/Alabaster_neo/blob/UAT_Test/source/MySEProject/Documentation/Jupyter_NotebooK(Performance Analysis and Visualization).pdf) to explore the full dataset and visual comparisons. The notebook provides an in-depth exploration of the performance metrics and the effects of various configurations across different CPUs.
+For a comprehensive look at the analysis and visualizations, including interactive graphs and data analysis, please click on this [notebook](https://github.com/adityakumar-ai/Alabaster_neo/blob/UAT_Test/source/MySEProject/Documentation/Jupyter_NotebooK(Performance%20Analysis%20and%20Visualization).pdf)
+ to explore the full dataset and visual comparisons. The notebook provides an in-depth exploration of the performance metrics and the effects of various configurations across different CPUs.
 
 
 ## **Conclusion :**
