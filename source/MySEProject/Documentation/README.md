@@ -177,33 +177,43 @@ Parallel.For runs multiple threads concurrently, maximizing throughput without w
 ```csharp
 public async Task InitParallelWithConcurrentDictionaryAsync(Connections conn)
 {
-    ---
-    ---
+    // Check necessary conditions before initializing columns
+    // (Omitted logic represented by ---)
 
-    if (createNewColumns)
+    if (createNewColumns) // If new columns need to be created
     {
+        // Create a concurrent dictionary to store column objects
         var columnDict = new ConcurrentDictionary<int, Column>();
 
+        // Run parallel initialization inside a Task to avoid blocking the main thread
         await Task.Run(() =>
         {
+            // Use Parallel.For to initialize columns concurrently
             Parallel.For(0, numColumns, i =>
             {
+                // Create a new Column object with necessary configurations
                 var column = new Column(cellsPerColumn, i, 
                     this.connections.HtmConfig.SynPermConnected, 
                     this.connections.HtmConfig.NumInputs);
                 
+                // Store the created column in the concurrent dictionary
                 columnDict[i] = column;
+
+                // Assign each cell to the respective position in the cells array
                 for (int j = 0; j < cellsPerColumn; j++)
                     cells[i * cellsPerColumn + j] = column.Cells[j];
             });
         });
 
+        // Update the matrix with the initialized columns
         foreach (var kvp in columnDict)
             matrix.set(kvp.Key, kvp.Value);
     }
 
+    // Assign the initialized cells array to the connections object
     this.connections.Cells = cells;
 }
+
 ```
 
 
@@ -247,7 +257,7 @@ protected void ActivateDendrites2_(Connections conn, ComputeCycle cycle, bool le
     ---
     ---
 
-    // Step 3: Use AsParallel() to improve parallel performance dynamically
+    // Use AsParallel() to improve parallel performance dynamically
     activity.ActiveSynapses.AsParallel().ForAll(item =>
     {
         if (item.Value >= conn.HtmConfig.ActivationThreshold)
@@ -629,6 +639,15 @@ In this step, we calculated the ratio of the **maximum execution time** to the *
 ![Alt text](https://github.com/adityakumar-ai/Alabaster_neo/blob/UAT_Test/source/MySEProject/All_Images/Min-Max_Execution_06.jpg)
 
 
+To further validate our parallelization approaches, we conducted detailed performance measurements comparing four initialization methods.The test was conducted with the following HTM configuration:
+
+![Alt text](https://github.com/adityakumar-ai/Alabaster_neo/blob/UAT_Test/source/MySEProject/All_Images/Performance_Test.jpg)
+
+The results showed clear performance differences between the methods:
+
+![Alt text](https://github.com/adityakumar-ai/Alabaster_neo/blob/UAT_Test/source/MySEProject/All_Images/Performance_Result.jpg)
+
+
 ## **Optimal Method Selection:** 
 
 **Why `InitParallelWithConcurrentDictionary()` is the Best Choice ??**
@@ -727,7 +746,7 @@ This graph compares the performance of both the new multi-threaded method (`Init
 
 ### View Detailed Analysis and Visualizations
 
-For a comprehensive look at the analysis and visualizations, including interactive graphs and data analysis, please click on this [notebook](https://github.com/adityakumar-ai/Alabaster_neo/blob/UAT_Test/source/MySEProject/Documentation/NoteBook.pdf) to explore the full dataset and visual comparisons. The notebook provides an in-depth exploration of the performance metrics and the effects of various configurations across different CPUs.
+For a comprehensive look at the analysis and visualizations, including interactive graphs and data analysis, please click on this [notebook](https://github.com/adityakumar-ai/Alabaster_neo/blob/UAT_Test/source/MySEProject/Documentation/Jupyter_NotebooK(Performance Analysis and Visualization).pdf) to explore the full dataset and visual comparisons. The notebook provides an in-depth exploration of the performance metrics and the effects of various configurations across different CPUs.
 
 
 ## **Conclusion :**
