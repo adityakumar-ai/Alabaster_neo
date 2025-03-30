@@ -641,12 +641,11 @@ In this step, we calculated the ratio of the **maximum execution time** to the *
 
 To further validate our parallelization approaches, we conducted detailed performance measurements comparing four initialization methods.The test was conducted with the following HTM configuration:
 
-![Alt text](https://github.com/adityakumar-ai/Alabaster_neo/blob/UAT_Test/source/MySEProject/All_Images/Performance_Test.jpg)
-![Alt text](https://github.com/adityakumar-ai/Alabaster_neo/blob/UAT_Test/source/MySEProject/All_Images/Performance_Test.jpg)
+![Alt text](https://github.com/adityakumar-ai/Alabaster_neo/blob/UAT_Test/source/MySEProject/All_Images/Performance_Test.png)
 
 The results showed clear performance differences between the methods:
 
-![Alt text](https://github.com/adityakumar-ai/Alabaster_neo/blob/UAT_Test/source/MySEProject/All_Images/Performance_Result.jpg)
+![Alt text](https://github.com/adityakumar-ai/Alabaster_neo/blob/UAT_Test/source/MySEProject/All_Images/Performance_Result.png)
 
 
 
