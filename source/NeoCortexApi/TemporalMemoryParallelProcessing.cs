@@ -1088,6 +1088,12 @@ namespace NeoCortexApi
 
                 public List<Column> ActiveColumns() { return (List<Column>)m_Pair.Value[0].Cast<Column>(); }
 
+                /// <summary>
+                /// Gets the list of active DistalDendrite segments from the second group in m_Pair.
+                /// Returns an empty list if no active segments are found.
+                /// m_pair -> Holds a key-value pair where the value is a list of segment groups.
+                /// </summary>
+                /// <returns>A list of DistalDendrite objects.</returns>
                 public List<DistalDendrite> ActiveSegments
                 {
                     get
@@ -1100,6 +1106,12 @@ namespace NeoCortexApi
                     }
                 }
 
+                /// <summary>
+                /// Gets a list of DistalDendrite objects representing the matching segments.
+                /// Returns an empty list if the internal structure has no matching data,otherwise casts and returns the list from the third element of m_Pair.Value.
+                /// m_pair -> Holds a key-value pair where the value is a list of segment groups.
+                /// </summary>
+                /// <returns>A list of DistalDendrite objects.</returns>
                 public List<DistalDendrite> MatchingSegments
                 {
                     get
@@ -1127,11 +1139,24 @@ namespace NeoCortexApi
                 }
             }
 
+
+            /// <summary>
+            /// Returns a new instance of DentriteComparer initialized with the specified segment ordinal.
+            /// This comparer is used to compare dendrites based on the provided segment index.
+            /// </summary>
+            /// <param name="nextSegmentOrdinal">The ordinal value used to initialize the DentriteComparer.</param>
+            /// <returns>A new instance of DentriteComparer.</returns>
             public DentriteComparer GetComparer(int nextSegmentOrdinal)
             {
                 return new DentriteComparer(nextSegmentOrdinal);
             }
 
+
+            /// <summary>
+            /// Determines whether the specified TemporalMemoryParallelProcessing object 
+            /// is equal to the current object. 
+            /// Compares references, null checks, and deep equality of 'connections', 'indxOfLastHighestSegment', and 'LastActivity'.
+            /// </summary>
             public bool Equals(TemporalMemoryParallelProcessing obj)
             {
                 if (this == obj)
@@ -1157,6 +1182,10 @@ namespace NeoCortexApi
                 return true;
             }
 
+            /// <summary>
+            /// Determines whether the specified IHtmModule object is equal to the current TemporalMemoryParallelProcessing object.
+            /// Performs a type check and delegates the comparison to the overloaded Equals method.
+            /// </summary>
             public bool Equals(IHtmModule other)
             {
                 if (!(other is TemporalMemoryParallelProcessing tm))
