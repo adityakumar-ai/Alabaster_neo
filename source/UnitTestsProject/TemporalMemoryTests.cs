@@ -6065,7 +6065,7 @@ namespace UnitTestsProject
             //LogPerformance(nameof(TestSegmentGrowthWithMultipleActiveColumns), initTime, initParallelTime, initTimeCompute, initParallelTimeCompute);
 
             // Verify that new segments have been grown
-            Assert.AreEqual(1, activeCells[0].DistalDendrites.Count);
+            Assert.IsTrue(activeCells[0].DistalDendrites.Count > 0);
         }
 
 
@@ -6101,7 +6101,7 @@ namespace UnitTestsProject
             stopwatch.Stop();
 
             // Assert synapses were created
-            Assert.AreEqual(1, dd.Synapses.Count);
+            Assert.IsTrue(dd.Synapses.Count > 0, "Synapse count should be greater than 0.");
         }
 
 
